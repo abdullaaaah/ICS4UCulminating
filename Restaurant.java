@@ -10,25 +10,26 @@ public class Restaurant
 {
    protected int id;
    protected String name;
-   protected positionX;
-   protected positionY;
+   protected int positionX;
+   protected int positionY;
    protected Item[] menu;
    protected int numItem;
    protected String category;
    protected double rating;
    protected int numRating;
-   protected final MAX_ITEMS = 10;
+   protected final int MAX_ITEMS = 10;
+   protected final String FILE_ENDING = ".items.txt";
    
    /*
       PARAMETERS:    the unique id, name of the restaurant, X'th position, Y'th position, category & rating
       PURPOSE:       Constructor for the Restaurant object
    */ 
-   public Restaurant (int id, String name, PositionX, PositionY, String category, double rating)
+   public Restaurant (int id, String name, int PositionX, int PositionY, String category, double rating)
    {
       this.id = id;
       this.name = name;
-      this.location = location;
-      this.menu = menu;
+      this.positionX = positionX;
+      this.positionY = positionY;
       this.category = category;
       this.rating = rating;
       this.numRating = 0;
@@ -67,7 +68,8 @@ public class Restaurant
    */
    public void addItem(String name, double price)
    {
-   
+      this.menu[numItem] = new Item(name, price, this.id); 
+      numItem++;  
    }
    
 
@@ -78,7 +80,13 @@ public class Restaurant
    */
    public void removeItem(String name)
    {
-   
+      for(int i = 0; i<numItem; i++)
+      {
+         if(this.menu[i].getName() == name)
+         {
+            this.menu[i] = null; //make a method to shift it down
+         }
+      }
    }
    
    /*
@@ -88,7 +96,8 @@ public class Restaurant
   */
    public void editItem(Item item, String name, double price)
    {
-   
+      item.setName(name);
+      item.setPrice(name);
    }
    
    /*
@@ -98,7 +107,8 @@ public class Restaurant
   */
    public void addRating(double rating)
    {
-   
+      this.rating += rating;
+      this.numRating++;
    }
    
    /*
@@ -108,7 +118,7 @@ public class Restaurant
    */
    public double getRating()
    {
-   
+      return this.rating / this.numRating;
    }
    
 }

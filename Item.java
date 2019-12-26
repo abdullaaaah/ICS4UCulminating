@@ -1,16 +1,51 @@
+/*
+   CLASS NAME: Restaurant
+   AUTHOR:     Abdullah Shahid, Oliver Huang, Uthman Mohamed
+   DATE:       12/26/2019
+   SCHOOL:     AY Jackson Secondary School
+   PURPOSE:    A class that stores the information of the item sold by a restaurant
+*/
+
 public class Item
 {
-   protected int id;
    protected String name;
    protected double price;
-   protected String restaurant;
+   protected int restaurantID;
    
-   // Constructor //////////////////////////////////////
-   public Item (int id, String name, double price, String restaurant)
+   public Item (String name, double price, int restaurantID)
    {
-      this.id = id;
       this.name = name;
       this.price = price;
-      this.restaurant = restaurant;
+      this.restaurantID = restaurantID;
+   }
+   
+   public String getName()
+   {
+      return this.name;
+   }
+   
+   public double getPrice()
+   {
+      return this.price;
+   }
+   
+   public void setName(String name)
+   {
+      this.name = name;
+   }
+   
+   public void setPrice(double price)
+   {
+      this.price = price;
+   }
+   
+   public int getRestaurantID()
+   {
+      return this.restaurantID;
+   }
+   
+   public String toString()
+   {
+      return "Name: " + this.name + " Price: $" + price;
    }
 }
