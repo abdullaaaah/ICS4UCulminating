@@ -74,6 +74,9 @@ public class Map
       }
    }
    
-   
+   public double getDistance(int x, int y, int x2, int y2)
+   {
+      return 5;
+   }
    
 }

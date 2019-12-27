@@ -1,14 +1,16 @@
 public class Driver extends Person
 {
+   protected int id;
    protected String phoneNumber;
    protected String description;
    protected int positionX;
    protected int positionY;
 
    
-   public Driver (String name, String phoneNumber, String description, int positionX, int positionY)
+   public Driver (int id, String name, String phoneNumber, String description, int positionX, int positionY)
    {
          super(name);
+         this.id = id;
          this.phoneNumber = phoneNumber;
          this.description = description;
          this.positionX = positionX; 
@@ -41,9 +43,9 @@ public class Driver extends Person
       this.positionY = y;
    }
    
-   public double getDistance(Map map, int x, int y)
+   public double getDistance(Map map, int destinationX, int destinationY)
    {
-      return 0;
+      return map.getDistance(this.positionX, this.positionY, destinationX, destinationY);
    }
    
    public String toString()
