@@ -14,11 +14,18 @@ public class AbdullahTesting
       
       Map m = cityDelivery.getMap();
       
-      m.printMap();
+      Position[] p = m.getPositions();
+      
+      Restaurant[] r = cityDelivery.getRestaurants();
       
       
-      System.out.println(cityDelivery.getNumRestaurants());
-      m.addAllPositions(cityDelivery.getRestaurants(), cityDelivery.getNumRestaurants(), cityDelivery.getDrivers(), cityDelivery.getNumDrivers());
+     m.printMap();
+      
+      
+     // System.out.println(cityDelivery.getNumRestaurants());
+     m.addAllPositions(cityDelivery.getRestaurants(), cityDelivery.getNumRestaurants(), cityDelivery.getDrivers(), cityDelivery.getNumDrivers());
+      
+
       
       m.printMap();
    

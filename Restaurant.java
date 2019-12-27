@@ -13,8 +13,8 @@ public class Restaurant
 {
    protected int id;
    protected String name;
-   protected int positionX;
-   protected int positionY;
+   private int positionX;
+   private int positionY;
    protected Item[] menu;
    protected int numItem;
    protected String category;
@@ -27,7 +27,7 @@ public class Restaurant
       PARAMETERS:    the unique id, name of the restaurant, X'th position, Y'th position, category & rating
       PURPOSE:       Constructor for the Restaurant object
    */ 
-   public Restaurant (int id, String name, int PositionX, int PositionY, String category, double rating, int numRating)
+   public Restaurant (int id, String name, int positionX, int positionY, String category, double rating, int numRating)
    {
       this.id = id;
       this.name = name;
@@ -36,6 +36,8 @@ public class Restaurant
       this.category = category;
       this.rating = rating;
       this.numRating = numRating;
+      
+      //System.out.println("Creating a new restaurant object. the X is " + this.positionX + " and the Y is " + this.positionY);
       
       menu = new Item[MAX_ITEMS];
       this.numItem = 0;

@@ -36,6 +36,12 @@ public class Map
    {
       return positions;
    }
+   
+   public int getNumPositions()
+   {
+      return this.numPositions;
+   }
+   
  
    public void addPosition(int x, int y)
    {
@@ -84,7 +90,7 @@ public class Map
    
       for(int i = 0; i<numRestaurants; i++)
       {  
-         System.out.println(restaurants[i].getPositionX() + restaurants[i].getPositionY() + "\n" + numRestaurants);
+         //System.out.println(restaurants[i].getPositionX() + " " + restaurants[i].getPositionY());
          addPosition(restaurants[i].getPositionX(), restaurants[i].getPositionY());
       }
    
