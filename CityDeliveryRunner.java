@@ -6,31 +6,7 @@ public class CityDeliveryRunner
 
    public static void main(String[] args)
    {
-      CityDeliveryDatabase cityDelivery = new CityDeliveryDatabase();
-      
-      cityDelivery.loadRestaurants();
-            
-      Restaurant r = cityDelivery.getRestaurants()[0];
-      
-      r.addItem("Fries", 5.99);
-      r.addItem("Iced coffee", 1.99);
-      r.addItem("Mcdouble", 3.99);
-      
-      r.removeItem("Mcdouble");
-      
-      
-      for(int i = 0; i<2; i++)
-      {
-         System.out.println(r.getMenu()[i].getName());
-      }
-      
-      r.saveMenu();
-      
-      
-      cityDelivery.loadDrivers();
-      
-      Driver d = cityDelivery.getDrivers()[0];
-      System.out.println(d.getDescription());
+
    
    }
 

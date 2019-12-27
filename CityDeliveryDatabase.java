@@ -8,6 +8,7 @@ public class CityDeliveryDatabase
    private Coupon[] coupons;
    private Order[] orders;
    private Driver[] drivers; 
+   private Map map;
    private final double DELIVERY_FEE = 1;
    private final double TAX_RATE = 0.13;
    private final String USERS_FILE = "users.txt";
@@ -24,10 +25,22 @@ public class CityDeliveryDatabase
    
    public CityDeliveryDatabase()
    {
+      /* Map */
+      
+      map = new Map(5,5);
+      
+      /* End Map */
+   
       this.restaurants = new Restaurant[MAX_RESTAURANTS];
       this.numRestaurants = 0;
       this.drivers = new Driver[MAX_DRIVERS];
       this.numDrivers = 0;
+      
+   }
+   
+   public Map getMap()
+   {
+      return map;
    }
    
    public int getNumRestaurants()
@@ -51,6 +64,7 @@ public class CityDeliveryDatabase
          String input;
          
          int numToLoad = Integer.parseInt(in.readLine());
+         System.out.print("Loading " + numToLoad);
          
          for(int i = 0; i<numToLoad; i++)
          {
@@ -64,6 +78,7 @@ public class CityDeliveryDatabase
             
             restaurants[this.numRestaurants] = new Restaurant(id, name, x, y, category, rating, numRatings);   
             this.numRestaurants++;
+            System.out.println("ADded: " + numRestaurants);
          }
       
       } catch(IOException e)
@@ -103,7 +118,7 @@ public class CityDeliveryDatabase
             y = Integer.parseInt(in.readLine());
             
             drivers[this.numDrivers] = new Driver(id, name, phoneNumber, description, x, y);   
-            this.numRestaurants++;
+            this.numDrivers++;
          }
       
       } catch(IOException e)

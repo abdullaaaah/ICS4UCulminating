@@ -32,6 +32,11 @@ public class Map
       map = new char[numRows][numCols];            //Initializes our map
    }
  
+   public Position[] getPositions()
+   {
+      return positions;
+   }
+ 
    public void addPosition(int x, int y)
    {
       positions[numPositions] = new Position(x,y); 
@@ -58,7 +63,7 @@ public class Map
       for(int i = 0; i<numRows; i++)
       {
       
-         System.out.print(('A'+i)); // This doesnt work
+         System.out.print((char) ('A'+i));
       
          for(int x = 0; x<numCols; x++)
          {
@@ -72,6 +77,22 @@ public class Map
       
          System.out.println();
       }
+   }
+   
+   public void addAllPositions(Restaurant[] restaurants, int numRestaurants, Driver[] drivers, int numDrivers)
+   {
+   
+      for(int i = 0; i<numRestaurants; i++)
+      {  
+         System.out.println(restaurants[i].getPositionX() + restaurants[i].getPositionY() + "\n" + numRestaurants);
+         addPosition(restaurants[i].getPositionX(), restaurants[i].getPositionY());
+      }
+   
+      for(int i = 0; i<numDrivers; i++)
+      {
+         addPosition(drivers[i].getPositionX(), drivers[i].getPositionY());
+      }
+   
    }
    
    public double getDistance(int x, int y, int x2, int y2)
