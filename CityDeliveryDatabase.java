@@ -1,3 +1,5 @@
+import java.io.*;
+
 public class CityDeliveryDatabase
 {
    private User userLoggedIn;
@@ -7,13 +9,64 @@ public class CityDeliveryDatabase
    private Order[] orders;
    private final double DELIVERY_FEE = 1;
    private final double TAX_RATE = 0.13;
-   private final String USERS_FILE = "users.txt":
+   private final String USERS_FILE = "users.txt";
    private final String RESTAURANTS_FILE = "restaurants.txt";
    private final String COUPONS_FILE = "coupons.txt";
    private final String WALLETS_FILE = "wallets.txt";
    private final String CARDS_FILE = "cards.txt";
+   private final int MAX_RESTAURANTS = 6;
+   private int numRestaurants;
    
    
+   public CityDeliveryDatabase()
+   {
+      this.restaurants = new Restaurant[MAX_RESTAURANTS];
+      this.numRestaurants = 0;
+   }
+   
+   public int getNumRestaurants()
+   {
+      return this.numRestaurants;
+   }
+   
+   public Restaurant[] getRestaurants()
+   {
+      return this.restaurants;
+   }
+   
+   public void loadRestaurants()
+   {
+      int id, numRatings, x, y;
+      String name, category;
+      double rating;
+   
+      try {
+         BufferedReader in = new BufferedReader(new FileReader(RESTAURANTS_FILE));
+         String input;
+         
+         int numToLoad = Integer.parseInt(in.readLine());
+         
+         for(int i = 0; i<numToLoad; i++)
+         {
+            id = Integer.parseInt(in.readLine());
+            name = in.readLine();
+            category = in.readLine();
+            rating = Double.parseDouble(in.readLine());
+            numRatings = Integer.parseInt(in.readLine());
+            x = Integer.parseInt(in.readLine());
+            y = Integer.parseInt(in.readLine());
+            
+            restaurants[this.numRestaurants] = new Restaurant(id, name, x, y, category, rating, numRatings);   
+            this.numRestaurants++;
+         }
+      
+      } catch(IOException e)
+      {
+         System.out.println("Error loading restaurants");
+      }
+   }
+   
+
    
    
 }

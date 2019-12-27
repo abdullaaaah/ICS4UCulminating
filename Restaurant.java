@@ -28,7 +28,7 @@ public class Restaurant
       PARAMETERS:    the unique id, name of the restaurant, X'th position, Y'th position, category & rating
       PURPOSE:       Constructor for the Restaurant object
    */ 
-   public Restaurant (int id, String name, int PositionX, int PositionY, String category, double rating)
+   public Restaurant (int id, String name, int PositionX, int PositionY, String category, double rating, int numRating)
    {
       this.id = id;
       this.name = name;
@@ -36,7 +36,7 @@ public class Restaurant
       this.positionY = positionY;
       this.category = category;
       this.rating = rating;
-      this.numRating = 0;
+      this.numRating = numRating;
       
       menu = new Item[MAX_ITEMS];
       this.numItem = 0;
@@ -53,6 +53,11 @@ public class Restaurant
             System.out.println("Error creating item database");
          }
       }
+   }
+   
+   public String getName()
+   {
+      return this.name;
    }
    
    
@@ -118,7 +123,7 @@ public class Restaurant
    public void editItem(Item item, String name, double price)
    {
       item.setName(name);
-      item.setPrice(name);
+      item.setPrice(price);
    }
    
    /*
