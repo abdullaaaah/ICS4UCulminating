@@ -10,10 +10,20 @@ public class CityDeliveryRunner
       
       cityDelivery.loadRestaurants();
             
-      for(int i = 0; i<cityDelivery.getNumRestaurants(); i++)
+      Restaurant r = cityDelivery.getRestaurants()[0];
+      
+      r.addItem("Fries", 5.99);
+      r.addItem("Iced coffee", 1.99);
+      r.addItem("Mcdouble", 3.99);
+      
+      
+      for(int i = 0; i<2; i++)
       {
-         System.out.println(cityDelivery.getRestaurants()[i].getName());
+         System.out.println(r.getMenu()[i].getName());
       }
+      
+      r.saveMenu();
+      
    
    }
 

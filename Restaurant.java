@@ -7,8 +7,7 @@
    PURPOSE:    A class that stores each individual restaurant’s information which can then be used by the customer to order from.
 */
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
 public class Restaurant
 {
@@ -124,6 +123,39 @@ public class Restaurant
    {
       item.setName(name);
       item.setPrice(price);
+   }
+   
+  /*
+      PARAMETERS:    -
+      RETURN VALUE:  void
+      PURPOSE:       -
+  */ 
+   public void saveMenu()
+   {
+      try
+      {
+         BufferedWriter out = new BufferedWriter(new FileWriter(this.id+FILE_ENDING, true));
+         out.write(Integer.toString(this.numItem));
+         out.newLine();
+         
+         for(int i = 0; i<this.numItem; i++)
+         {
+            out.write(menu[i].getName());
+            out.newLine();
+            out.write( Double.toString(menu[i].getPrice()) );
+            out.newLine();
+            out.write( Integer.toString(menu[i].getRestaurantID()) );
+            out.newLine();
+
+         }
+         
+         out.close();
+         
+      }
+      catch(IOException e)
+      {
+         System.out.println("Error writing to item database");
+      }
    }
    
    /*
