@@ -70,6 +70,16 @@ public class Restaurant
       return menu;
    }
    
+   public int getPositionX()
+   {
+      return positionX;
+   }
+   
+   public int getPositionY()
+   {
+      return positionY;
+   }
+   
       
     /*
       PARAMETERS:    No params
@@ -82,7 +92,29 @@ public class Restaurant
       double price;
       int restaurantID;
       
-      //BufferedReader in = new BufferedReader
+      try
+      {
+         BufferedReader in = new BufferedReader(new FileReader(this.id+FILE_ENDING));
+         String input;
+         
+         int numToLoad = Integer.parseInt(in.readLine());
+         
+         for(int i = 0; i<numToLoad; i++)
+         {
+            name = in.readLine();
+            price = Double.parseDouble(in.readLine());
+            restaurantID = Integer.parseInt(in.readLine());
+            
+            menu[numItem] = new Item(name, price, restaurantID);
+            numItem++;
+         }
+
+      
+      } catch(IOException e)
+      {
+         System.out.println("Error loading items from file");
+      }
+      
    }
    
       
@@ -97,6 +129,22 @@ public class Restaurant
       numItem++;  
    }
    
+   
+   private int findItemByName(String name)
+   {
+         
+      for(int i = 0; i<numItem; i++)
+      {
+         if(this.menu[i].getName() == name)
+         {
+            return i;
+         }
+      }
+      
+      return -1;
+   }
+   
+
 
    /*
       PARAMETERS:    Name of the item
@@ -105,11 +153,16 @@ public class Restaurant
    */
    public void removeItem(String name)
    {
-      for(int i = 0; i<numItem; i++)
+      int temp = findItemByName(name);
+      
+      if(numItem>0 && temp != -1)
       {
-         if(this.menu[i].getName() == name)
+         menu[temp] = null;
+         
+         for(int i = temp; temp<numItem-1; i++)
          {
-            this.menu[i] = null; //make a method to shift it down
+            menu[i] = menu[i+1];
+            menu[i+1] = null;
          }
       }
    }
