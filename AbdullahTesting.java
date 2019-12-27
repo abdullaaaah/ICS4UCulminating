@@ -12,8 +12,7 @@ public class AbdullahTesting
     
       cityDelivery.loadDrivers();
  
-      cityDelivery.getRestaurants()[0].addItem("Poutinez",2.99);
-      cityDelivery.getRestaurants()[0].saveMenu();
+      cityDelivery.getRestaurants()[0].removeItem("Poutine");
       
       /*Map m = cityDelivery.getMap();
       

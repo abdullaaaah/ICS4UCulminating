@@ -160,7 +160,9 @@ public class Restaurant
       {
          this.menu[numItem] = new Item(name, price, this.id); 
          numItem++; 
+         saveMenu();
       }
+      
    }
    
    
@@ -177,12 +179,22 @@ public class Restaurant
       {
          menu[temp] = null;
          
-         for(int i = temp; temp<numItem-1; i++) //This loop begings from where the item has been removed and shifts each down so there is no empty(null) gap between objects.
+         for(int i = temp; i<numItem-1; i++) //This loop begings from where the item has been removed and shifts each down so there is no empty(null) gap between objects.
          {
             menu[i] = menu[i+1];
             menu[i+1] = null;
          }
+         
+         numItem--;
+         saveMenu();
+         
+         System.out.println("Success: Item removed");
       }
+      else
+      {
+         System.out.println("Error: Item does not exist");
+      }
+
    }
    
    /*
