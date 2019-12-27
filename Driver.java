@@ -1,4 +1,4 @@
-public class Driver
+public class Driver extends Person
 {
    protected String phoneNumber;
    protected Car car;
@@ -10,6 +10,6 @@ public class Driver
    {
          this.phoneNumber = phoneNumber;
          this.car = car;
-         this.location = location;
+         this.location = location; //test
    }
 }
