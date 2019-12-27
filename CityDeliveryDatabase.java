@@ -64,7 +64,6 @@ public class CityDeliveryDatabase
          String input;
          
          int numToLoad = Integer.parseInt(in.readLine());
-         System.out.print("Loading " + numToLoad);
          
          for(int i = 0; i<numToLoad; i++)
          {
@@ -76,9 +75,10 @@ public class CityDeliveryDatabase
             x = Integer.parseInt(in.readLine());
             y = Integer.parseInt(in.readLine());
             
+            //System.out.println(x+".."+y);
+            
             restaurants[this.numRestaurants] = new Restaurant(id, name, x, y, category, rating, numRatings);   
             this.numRestaurants++;
-            System.out.println("ADded: " + numRestaurants);
          }
       
       } catch(IOException e)
