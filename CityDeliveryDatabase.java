@@ -55,6 +55,7 @@ public class CityDeliveryDatabase
    
    public void loadRestaurants()
    {
+      
       int id, numRatings, x, y;
       String name, category;
       double rating;
@@ -62,7 +63,7 @@ public class CityDeliveryDatabase
       try {
          BufferedReader in = new BufferedReader(new FileReader(RESTAURANTS_FILE));
          String input;
-         
+                  
          int numToLoad = Integer.parseInt(in.readLine());
          
          for(int i = 0; i<numToLoad; i++)

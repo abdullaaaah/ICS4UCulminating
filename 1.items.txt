@@ -1,13 +1,4 @@
-3Fries
-5.99
-1
-Iced coffee
-1.99
-1
-Mcdouble
-3.99
-1
-3
+10
 Fries
 5.99
 1
@@ -17,23 +8,24 @@ Iced coffee
 Mcdouble
 3.99
 1
-3
-Fries
-5.99
+Poutine
+2.99
 1
-Iced coffee
-1.99
+Poutine
+2.99
 1
-Mcdouble
-3.99
+Poutine
+2.99
 1
-3
-Fries
-5.99
+Poutine
+2.99
 1
-Iced coffee
-1.99
+Poutine
+2.99
 1
-Mcdouble
-3.99
+Poutine
+2.99
+1
+Poutine
+2.99
 1

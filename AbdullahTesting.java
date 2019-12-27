@@ -11,8 +11,11 @@ public class AbdullahTesting
       cityDelivery.loadRestaurants();
     
       cityDelivery.loadDrivers();
+ 
+      cityDelivery.getRestaurants()[0].addItem("Poutinez",2.99);
+      cityDelivery.getRestaurants()[0].saveMenu();
       
-      Map m = cityDelivery.getMap();
+      /*Map m = cityDelivery.getMap();
       
       Position[] p = m.getPositions();
       
@@ -33,7 +36,7 @@ public class AbdullahTesting
             System.out.print(m2[i][x]);
          }
          System.out.println();
-      }
+      }*/
       
    
    }
