@@ -16,6 +16,8 @@ public class CityDeliveryRunner
       r.addItem("Iced coffee", 1.99);
       r.addItem("Mcdouble", 3.99);
       
+      r.removeItem("Mcdouble");
+      
       
       for(int i = 0; i<2; i++)
       {
@@ -24,6 +26,11 @@ public class CityDeliveryRunner
       
       r.saveMenu();
       
+      
+      cityDelivery.loadDrivers();
+      
+      Driver d = cityDelivery.getDrivers()[0];
+      System.out.println(d.getDescription());
    
    }
 

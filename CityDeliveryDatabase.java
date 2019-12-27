@@ -18,6 +18,7 @@ public class CityDeliveryDatabase
    private final String DRIVERS_FILE = "drivers.txt";
    private final int MAX_RESTAURANTS = 6;
    private int numRestaurants;
+   private final int MAX_DRIVERS = 5;
    private int numDrivers;
    
    
@@ -25,6 +26,8 @@ public class CityDeliveryDatabase
    {
       this.restaurants = new Restaurant[MAX_RESTAURANTS];
       this.numRestaurants = 0;
+      this.drivers = new Driver[MAX_DRIVERS];
+      this.numDrivers = 0;
    }
    
    public int getNumRestaurants()
