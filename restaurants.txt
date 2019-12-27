@@ -1,0 +1,15 @@
+2
+1
+Mcdonalds
+Fast Food
+23
+5
+0
+0
+2
+Starbucks
+Coffee
+24
+5
+0
+1

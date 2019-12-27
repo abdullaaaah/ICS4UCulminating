@@ -1,3 +1,4 @@
+
 /*
    CLASS NAME: Restaurant
    AUTHOR:     Abdullah Shahid
@@ -5,6 +6,9 @@
    SCHOOL:     AY Jackson Secondary School
    PURPOSE:    A class that stores each individual restaurant’s information which can then be used by the customer to order from.
 */
+
+import java.io.File;
+import java.io.IOException;
 
 public class Restaurant
 {
@@ -36,6 +40,19 @@ public class Restaurant
       
       menu = new Item[MAX_ITEMS];
       this.numItem = 0;
+      
+      //Creating a items database if doesnt exists
+      File itemDatabase = new File(this.id+FILE_ENDING);
+      if(!itemDatabase.exists())
+      {
+         try
+         {
+         itemDatabase.createNewFile();
+         } catch(IOException e)
+         {
+            System.out.println("Error creating item database");
+         }
+      }
    }
    
    
@@ -57,7 +74,11 @@ public class Restaurant
    */
    public void getMenuFromFile()
    {
-   
+      String name;
+      double price;
+      int restaurantID;
+      
+      //BufferedReader in = new BufferedReader
    }
    
       

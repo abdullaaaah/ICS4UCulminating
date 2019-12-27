@@ -1,5 +1,5 @@
 /*
-   CLASS NAME: Restaurant
+   CLASS NAME: Item
    AUTHOR:     Abdullah Shahid, Oliver Huang, Uthman Mohamed
    DATE:       12/26/2019
    SCHOOL:     AY Jackson Secondary School
