@@ -1,12 +1,22 @@
-public class Person
+public abstract class Person
 {
-   protected int id;
    protected String name;
    
-   // Constructor //////////////////////////////////
-   public Person (int id, String name)
+   public Person (String name)
    {
-      this.id = id;
       this.name = name;
    }
+   
+   public void setName(String name)
+   {
+      this.name = name;
+   }
+   
+   public String getName()
+   {
+      return this.name;
+   }
+   
+   public abstract String toString();
+
 }
