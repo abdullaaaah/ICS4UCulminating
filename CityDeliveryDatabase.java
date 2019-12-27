@@ -127,6 +127,16 @@ public class CityDeliveryDatabase
          System.out.println("Error loading drivers");
       }
    }
+   public void addRestaurant (Restaurant res)
+   {
+   }
+   public void addDriver (Driver dri)
+   {
+   }
+   public void addCoupon (Coupon cou)
+   {
+   }
+   
 }
 
 

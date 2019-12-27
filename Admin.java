@@ -19,7 +19,7 @@ public class Admin extends User
    */
    public void addRestaurant (Restaurant[] restaurants, int id, String name, String category, double rating, int numRating, int positionX, int positionY)
    {
-      restaurants.add(new Restaurant(id, name, positionX, positionY, category, rating, numRating));
+      cdd.addRestaurant(new Restaurant(id, name, positionX, positionY, category, rating, numRating));
    }
    /////////////////////////////////////////////
    /*
@@ -96,5 +96,58 @@ public class Admin extends User
    public void addCoupon (Coupon[] coupons, String code, double discount)
    {
       coupons.add(new Coupon(code, discount));
+   }
+   ////////////////////////////////////////////////////////////////////////////////
+   /*
+      PARAMETERS:    Coupon list, actual coupon
+      RETURN VALUE:  N/A
+      PURPOSE:       Delete selected coupon from existing list
+   */
+   public void deleteCoupon (Coupon[] coupons, Coupon cou)
+   {
+      for (int i = 0; i < coupons.length; i++)
+      {
+         if (coupons[i].getCode() == cou.getCode())
+         {
+            coupons[i] = null;
+         }
+      }
+      boolean found = false;
+      for (int i = 1; i < coupons.length; i++)
+      {
+         if (coupons[i] == null)
+         {
+            found = true;
+         }
+         else if (found)
+         {
+            coupons[i - 1] = coupons[i];
+         }
+      }
+   }
+   //////////////////////////////////////////////////////////
+   /*
+      PARAMETERS:    Order list
+      RETURN VALUE:  total revenue
+      PURPOSE:       calculate total revenue earned
+   */
+   public double getTotalRevenue (Order[] orders)
+   {
+      double revenue;
+      for (int i = 0; i < orders.length; i++)
+      {
+         revenue = revenue + orders[i].getAmountPaid() + orders[i].getTipPaid();
+      }
+      return revenue;
+   }
+   /////////////////////////////////////////////////////////////
+   /*
+      PARAMETERS:    Coupon list, actual coupon
+      RETURN VALUE:  N/A
+      PURPOSE:       Delete selected coupon from existing list
+   */
+   public int getTotalOrders (Order[] orders)
+   {
+   
    }
 }
