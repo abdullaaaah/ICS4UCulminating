@@ -15,7 +15,7 @@ public class AbdullahTesting
       
       Admin me = new Admin("Abdullah Shahid", "nx", "123456");
       
-      me.addRestaurant(cityDelivery, "Wendys", "Fast-Food", 50, 10, 0, 4);
+      me.addRestaurant(cityDelivery, "Wendys", "Fast-Food", 50, 10, 2,0);
       
       me.removeRestaurant(cityDelivery, "Wendys");
       

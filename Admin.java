@@ -26,8 +26,11 @@ public class Admin extends User
       }
       else if( db.getNumRestaurants() == db.getMAX_RESTAURANTS() )
       {
-         System.out.println("Debug: " + db.getNumRestaurants() + " == " + db.getMAX_RESTAURANTS() );
          System.out.println("Error: This restaurant can not store any more items");
+      }
+      else if( !db.getMap().doesPositionExist(positionX, positionY) || db.getMap().isOccupied(positionX, positionY) )
+      {
+         System.out.println("Error: Position taken by another object or invalid position provided");
       }
       else
       {
@@ -39,9 +42,9 @@ public class Admin extends User
    
    
    /*
-      PARAMETERS:    Name of the item
+      PARAMETERS:    -
       RETURN VALUE:  void
-      PURPOSE:       Removes an item using it's name from the menu
+      PURPOSE:       -
    */
    public void removeRestaurant(CityDeliveryDatabase db, String name)
    {

@@ -29,8 +29,6 @@ public class CityDeliveryDatabase
    
    public CityDeliveryDatabase()
    {
-      //Map
-      map = new Map(5,5); 
       
       //Restaurants  
       this.restaurants = new Restaurant[MAX_RESTAURANTS];
@@ -44,6 +42,10 @@ public class CityDeliveryDatabase
       //Users
       this.users = new User[MAX_USERS];
       this.numUsers = 0;
+      
+      //Map
+      map = new Map(5,5); 
+      map.addAllPositions(restaurants, numRestaurants, drivers, numDrivers);
       
    }
    
