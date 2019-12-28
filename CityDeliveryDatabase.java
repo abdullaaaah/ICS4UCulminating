@@ -42,6 +42,7 @@ public class CityDeliveryDatabase
       //Users
       this.users = new User[MAX_USERS];
       this.numUsers = 0;
+      loadUsers();
       
       //Map
       map = new Map(5,5); 
@@ -363,7 +364,7 @@ public class CityDeliveryDatabase
       RETURN VALUE:  N/A
       PURPOSE:       Add new restaurant to existing restaurant list
    */
-   public void addUser(String name, String username, String password)
+   public void addUser(String name, String username, String password) // can also rename it to register.
    {
    
       if(doesUserExist(username))
@@ -379,6 +380,28 @@ public class CityDeliveryDatabase
          users[numUsers] = new User(name, username, password);
          numUsers++;
          saveUsers();
+      }
+   }
+   
+   
+   public void login(String username, String password)
+   {
+      int index = findUserIndexByUserName(username);
+      
+      if(index == -1)
+      {
+         System.out.println("Error: Incorrect username");
+      }
+      else
+      {
+         if(users[index].getPassword().equals(password))
+         {
+            System.out.println("Success: Logged in");
+         }
+         else
+         {
+            System.out.println("Error: Incorrect passsword");
+         }
       }
    }
    
@@ -426,15 +449,13 @@ public class CityDeliveryDatabase
       RETURN VALUE:  -
       PURPOSE:       Loads all the restaurants from the database
    */
-   /*public void loadRestaurants()
+   public void loadUsers()
    {
       
-      int numRatings, x, y;
-      String name, category;
-      double rating;
+      String name, username, password;
    
       try {
-         BufferedReader in = new BufferedReader(new FileReader(RESTAURANTS_FILE));
+         BufferedReader in = new BufferedReader(new FileReader(USERS_FILE));
                   
          int numToLoad = Integer.parseInt(in.readLine());
          
@@ -442,21 +463,18 @@ public class CityDeliveryDatabase
          {
                      
             name = in.readLine();
-            category = in.readLine();
-            rating = Double.parseDouble(in.readLine());
-            numRatings = Integer.parseInt(in.readLine());
-            x = Integer.parseInt(in.readLine());
-            y = Integer.parseInt(in.readLine());
+            username = in.readLine();
+            password = in.readLine();
                         
-            restaurants[this.numRestaurants] = new Restaurant(name, x, y, category, rating, numRatings);   
-            this.numRestaurants++;
+            users[this.numUsers] = new User(name, username, password);   
+            this.numUsers++;
          }
       
       } catch(IOException e)
       {
-         System.out.println("Error loading restaurants");
+         System.out.println("Error loading users");
       }
-   }*/
+   }
    
   /*
       PARAMETERS:    None

@@ -27,7 +27,7 @@ public class Order
       return orderNumber;
    }
    ///////////////////////////////////
-   public Driver getDriverID ()
+   public int getDriverID ()
    {
       return driverID;
    }
