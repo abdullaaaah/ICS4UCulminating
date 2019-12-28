@@ -25,6 +25,31 @@ public class Card
    {
       return approved;
    }
+   /////////////////////////////////////////////
+   public String getUsername ()
+   {
+      return username;
+   }
+   ////////////////////////////
+   public String getCardNumber ()
+   {
+      return cardNumber;
+   }
+   ////////////////////////////////
+   public String getExpiryMonth ()
+   {
+      return expiryMonth;
+   }   
+   ///////////////////////////////////
+   public String getExpiryYear ()
+   {
+      return expiryYear;
+   }
+   /////////////////////////////////////
+   public String getCVV ()
+   {
+      return CVV;
+   }  
    
    // Constructor /////////////////////////////////////////////////////////
    /*
