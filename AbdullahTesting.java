@@ -17,6 +17,8 @@ public class AbdullahTesting
       
       me.addRestaurant(cityDelivery, "Wendys", "Fast-Food", 50, 10, 0, 4);
       
+      me.removeRestaurant(cityDelivery, "Wendys");
+      
       /*Map m = cityDelivery.getMap();
       
       Position[] p = m.getPositions();

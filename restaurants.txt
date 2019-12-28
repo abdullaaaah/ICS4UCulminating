@@ -1,4 +1,4 @@
-4
+3
 Mcdonalds
 Fast Food
 23.0
@@ -17,9 +17,3 @@ Coffee
 5
 2
 0
-Wendys
-Fast-Food
-50.0
-10
-0
-4

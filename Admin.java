@@ -38,34 +38,35 @@ public class Admin extends User
    }
    
    
-   
-   /////////////////////////////////////////////
    /*
-      PARAMETERS:    Restaurant list, actual restaurant
-      RETURN VALUE:  N/A
-      PURPOSE:       Delete selected restaurant from existing list
+      PARAMETERS:    Name of the item
+      RETURN VALUE:  void
+      PURPOSE:       Removes an item using it's name from the menu
    */
-   public void deleteRestaurant (Restaurant[] restaurants, Restaurant res)
+   public void removeRestaurant(CityDeliveryDatabase db, String name)
    {
-      for (int i = 0; i < restaurants.length; i++)
+      int temp = db.findRestaurantIndexByName(name);
+      
+      if(db.getNumRestaurants() >0 && temp != -1)
       {
-         if (restaurants[i].getName() == res.getName())
+         db.getRestaurants()[temp] = null;
+         
+         for(int i = temp; i<db.getNumRestaurants()-1; i++)
          {
-            restaurants[i] = null;
+            db.getRestaurants()[i] = db.getRestaurants()[i+1];
+            db.getRestaurants()[i+1] = null;
          }
+         
+         db.decrementNumRestaurants();
+         db.saveRestaurants();
+         
+         System.out.println("Success: Restaurant removed");
       }
-      boolean found = false;
-      for (int i = 1; i < restaurants.length; i++)
+      else
       {
-         if (restaurants[i] == null)
-         {
-            found = true;
-         }
-         else if (found)
-         {
-            restaurants[i - 1] = restaurants[i];
-         }
+         System.out.println("Error: Restaurant does not exist");
       }
+
    }
    
    

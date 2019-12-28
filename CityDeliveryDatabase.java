@@ -89,6 +89,12 @@ public class CityDeliveryDatabase
       this.numRestaurants++;
    }
    
+   public void decrementNumRestaurants()
+   {
+      this.numRestaurants--;
+   }
+   
+   
    /*
       PARAMETERS:    The name of the restaurant to be found
       RETURN VALUE:  true or false depending on the result
@@ -106,6 +112,25 @@ public class CityDeliveryDatabase
       }
       
       return false;
+   }
+   
+   /*
+      PARAMETERS:    The name of the restaurant to be found
+      RETURN VALUE:  the index of the restaurant or -1 if not found
+      PURPOSE:       Returns the index of the restaurant to be found by name
+  */
+   public int findRestaurantIndexByName(String name)
+   {
+         
+      for(int i = 0; i<numRestaurants; i++)
+      {
+         if(this.restaurants[i].getName().equalsIgnoreCase(name))
+         {
+            return i;
+         }
+      }
+      
+      return -1;  //-1 is returned if item does not exist.
    }
    
    /*
