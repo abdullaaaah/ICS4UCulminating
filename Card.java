@@ -13,6 +13,18 @@ public class Card
    protected String expiryMonth;
    protected String expiryYear;
    protected String CVV;
+   protected boolean approved;
+   
+   // Accessor //////////////////////////////////////////////////////
+   /*
+      PARAMETERS:    N/A
+      RETURN VALUE:  boolean
+      PURPOSE:       check if card in wallet in approved
+   */
+   public boolean getApproved ()
+   {
+      return approved;
+   }
    
    // Constructor /////////////////////////////////////////////////////////
    /*
@@ -34,10 +46,22 @@ public class Card
       RETURN VALUE:  boolean
       PURPOSE:       update card information in wallet
    */
-//    public void updateCard (String number, String month, String year, String CVV)
-//    {
-//       
-//    }
+   public void updateCard (String number, String month, String year, String CVV)
+   {
+      if (validateNum(number) && validateExpMonth(month) && validateExpYear(year) && validateCvv(CVV))
+      {
+         this.cardNumber = cardNumber;
+         this.expiryMonth = expiryMonth;
+         this.expiryYear = expiryYear;
+         this.CVV = CVV;
+         approved = true;
+      }
+      else
+      {
+         approved = false;
+         System.out.println ("Error");
+      }
+   }
    ////////////////////////////////////////////////////////////////////////
    /*
       PARAMETERS:    cardNumber
