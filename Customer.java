@@ -1,3 +1,11 @@
+/*
+   CLASS NAME: Customer
+   AUTHOR:     Oliver Huang
+   DATE:       12/26/2019
+   SCHOOL:     AY Jackson Secondary School
+   PURPOSE:    A class that stores information of a customer
+*/
+
 public class Customer extends User
 {
    protected Order[] orderHistory;
@@ -8,7 +16,7 @@ public class Customer extends User
    
    // Constructor ////////////////////////////////
    /*
-      PARAMETERS:    N/A
+      PARAMETERS:    Actual name, username, password
       RETURN VALUE:  N/A
       PURPOSE:       Creat Customer object
    */
