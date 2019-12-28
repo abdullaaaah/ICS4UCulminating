@@ -19,6 +19,10 @@ public class AbdullahTesting
       
       me.removeRestaurant(cityDelivery, "Wendys");
       
+      //cityDelivery.addUser("jojojo", "jojo", "1231235");
+      
+      cityDelivery.login("jojo", "1231235");
+      
       /*Map m = cityDelivery.getMap();
       
       Position[] p = m.getPositions();
