@@ -125,6 +125,14 @@ public class Map
    
    }
    
+   public boolean doesPositionExist(int x, int y)
+   {
+      if(x < 0 || y < 0 || x>numRows || y>numCols)
+      return false;
+      
+      return true;
+   }
+   
    public void addAllPositions(Restaurant[] restaurants, int numRestaurants, Driver[] drivers, int numDrivers)
    {
    
