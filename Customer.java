@@ -34,6 +34,7 @@ public class Customer extends User
    {
       return positionY;
    }
+   
    // Constructor ////////////////////////////////
    /*
       PARAMETERS:    Actual name, username, password

@@ -28,12 +28,12 @@ public class User extends Person
       this.password = temp;
    }
    
-   
+   // Accessor & Mutator /////////////////////////////
    public String getUsername()
    {
       return this.username;
    }
-   
+   /////////////////////////////////////
    public String getPassword()
    {
       return this.password;
