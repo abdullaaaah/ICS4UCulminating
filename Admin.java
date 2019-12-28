@@ -22,10 +22,11 @@ public class Admin extends User
    
       if(db.doesRestaurantExist(name))
       {
-         System.out.println("Error: Restaurant with the name " + name + "already exists.");
+         System.out.println("Error: Restaurant with the name " + name + " already exists.");
       }
       else if( db.getNumRestaurants() == db.getMAX_RESTAURANTS() )
       {
+         System.out.println("Debug: " + db.getNumRestaurants() + " == " + db.getMAX_RESTAURANTS() );
          System.out.println("Error: This restaurant can not store any more items");
       }
       else
