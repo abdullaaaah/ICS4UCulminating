@@ -16,7 +16,7 @@ public class Wallet
    /*
       PARAMETERS:    Actual name, username, password
       RETURN VALUE:  N/A
-      PURPOSE:       Creat Customer object
+      PURPOSE:       Creat wallet object
    */
    public Wallet (String username, Card creditCard, double balance)
    {
