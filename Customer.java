@@ -14,6 +14,26 @@ public class Customer extends User
    protected int positionX;
    protected int positionY;
    
+   // Accessor /////////////////////////////////////
+   public Order[] getOrderHistory ()
+   {
+      return orderHistory;
+   }
+   ///////////////////////////////////
+   public Wallet getWallet ()
+   {
+      return wallet; 
+   }
+   ///////////////////////////////////
+   public int getPositionX  ()
+   {
+      return positionX;
+   }
+   ///////////////////////////////////
+   public int getPositionY ()
+   {
+      return positionY;
+   }
    // Constructor ////////////////////////////////
    /*
       PARAMETERS:    Actual name, username, password
@@ -92,7 +112,7 @@ public class Customer extends User
       int count = 0;
       for (int i = 0; i < orderHistory.length; i++)
       {
-         if(orderHistory[i].isComplete)
+         if(orderHistory[i].isCompelete)
          {
             activeOrders[count] = orderHistory[i];
             count++;
