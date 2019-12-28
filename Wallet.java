@@ -12,6 +12,27 @@ public class Wallet
    protected Card creditCard;
    protected double balance;
    
+   // Accessor & Mutator ///////////////////////////////////////////////
+   public String getUsername ()
+   {
+      return username;
+   }
+   ////////////////////////////
+   public Card getCreditCard ()
+   {
+      return creditCard;
+   }
+   ////////////////////////////////
+   public double getBalance ()
+   {
+      return balance;
+   }
+   ///////////////////////
+   public void setUsername (String s)
+   {
+      username = s;
+   }
+
    // Constructor ///////////////////////////////////
    /*
       PARAMETERS:    Actual name, username, password

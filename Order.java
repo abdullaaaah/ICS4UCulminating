@@ -10,10 +10,42 @@ public class Order
 {
    protected String username;
    protected String orderNumber;
-   protected Driver driver;
+   protected int driverID;
    protected double amountPaid;
+   protected double tipPaid;
    protected int numOrders;
-   protected boolean isComplete = false;
+   protected boolean isCompelete = false;
+   
+   // Accessor /////////////////////////////////////////////////////
+   public String getUsername ()
+   {
+      return username;
+   }
+   ////////////////////////////////////
+   public String getOrderNumber ()
+   {
+      return orderNumber;
+   }
+   ///////////////////////////////////
+   public Driver getDriverID ()
+   {
+      return driverID;
+   }
+   ///////////////////////////////////
+   public double getAmountPaid ()
+   {
+      return amountPaid;
+   }
+   //////////////////////////////////////
+   public double getTipPaid ()
+   {
+      return tipPaid;
+   }
+   /////////////////////////////////////
+   public int getNumOrders ()
+   {
+      return numOrders;
+   }
    
    // Constructor /////////////////////////////////////////////////////////
    /*
@@ -21,7 +53,7 @@ public class Order
       RETURN VALUE:  N/A
       PURPOSE:       Creat order object
    */
-   public Order (String username, Driver driver, double amountPaid, int numOrders)
+   public Order (String username, double amountPaid, int numOrders)
    {
       this.username = username;
       this.amountPaid = amountPaid;
@@ -37,21 +69,16 @@ public class Order
    */
    public void compeleteOrder ()
    {
-      isComplete = true;
+      isCompelete = true;
    }
-   //////////////////////////////////////////////////////////////
-   /*
-      PARAMETERS:    N/A
-      RETURN VALUE:  Driver
-      PURPOSE:       find driver who delivered this order
-   */
-   public Driver getDriver ()
+   //////////////////////////////////////////////////////////
+   public void addTip (double amount)
    {
-      return driver;
+      tipPaid = amount;
    }
    //////////////////////////////////////////////////////////
    public String toString ()
    {
-      return orderNumber + "/n" + username + "/n" + amountPaid + "/n" + isComplete;
+      return orderNumber + "/n" + username + "/n" + amountPaid + "/n" + isCompelete;
    }
 }

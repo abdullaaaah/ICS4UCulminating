@@ -20,7 +20,12 @@ public class User extends Person
    {
       super (name);
       this.username = username;
-      this.password = password;
+      String temp = "";
+      for (int i = 0; i < password.length(); i++)
+      {
+         temp = temp + (char)(password.charAt(i) - 5);
+      }
+      this.password = temp;
    }
    
    
@@ -67,7 +72,7 @@ public class User extends Person
          String temp = "";
          for (int i = 0; i < password.length(); i++)
          {
-            temp = temp + (password.charAt(i) + 5);
+            temp = temp + (char)(password.charAt(i) + 5);
          }
          return temp == this.password;
       }
