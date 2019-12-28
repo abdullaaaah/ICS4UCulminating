@@ -81,6 +81,6 @@ public class Wallet
    /////////////////////////////////////////////////////////
    public String toString ()
    {
-      return balance + "/n" + hasCard();
+      return balance + "\n" + hasCard();
    }
 }

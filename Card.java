@@ -32,13 +32,17 @@ public class Card
       RETURN VALUE:  N/A
       PURPOSE:       Creat card object
    */
-   public Card (String username, String cardNumber, String expiryMonth, String expiryYear, String CVV)
+   public Card (String username, String number, String month, String year, String CVV)
    {
       this.username = username;
-      this.cardNumber = cardNumber;
-      this.expiryMonth = expiryMonth;
-      this.expiryYear = expiryYear;
-      this.CVV = CVV;
+      if (validateNum(number) && validateExpMonth(month) && validateExpYear(year) && validateCvv(CVV))
+      {
+         this.cardNumber = number;
+         this.expiryMonth = month;
+         this.expiryYear = year;
+         this.CVV = CVV;
+         approved = true;
+      }
    }
    /////////////////////////////////////////////////////////////////////
    /*
@@ -50,9 +54,9 @@ public class Card
    {
       if (validateNum(number) && validateExpMonth(month) && validateExpYear(year) && validateCvv(CVV))
       {
-         this.cardNumber = cardNumber;
-         this.expiryMonth = expiryMonth;
-         this.expiryYear = expiryYear;
+         this.cardNumber = number;
+         this.expiryMonth = month;
+         this.expiryYear = year;
          this.CVV = CVV;
          approved = true;
       }
@@ -70,7 +74,7 @@ public class Card
    */
    public boolean validateNum (String num)
    {
-      if (num.length() == 19)
+      if (num.length() == 16)
       {
          for (int i = 0; i < num.length(); i++)
          {
@@ -133,5 +137,10 @@ public class Card
          return true;
       }
       return false;
+   }
+   /////////////////////////////////////////////////
+   public String toString ()
+   {
+      return username + "\n" + cardNumber + "\n" + expiryMonth + "\n" + expiryYear + "\n" +  CVV;
    }
 }
