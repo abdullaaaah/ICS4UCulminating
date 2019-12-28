@@ -13,7 +13,7 @@ public class Order
    protected Driver driver;
    protected double amountPaid;
    protected int numOrders;
-   protected boolean isCompelete = false;
+   protected boolean isComplete = false;
    
    // Constructor /////////////////////////////////////////////////////////
    /*
@@ -37,7 +37,7 @@ public class Order
    */
    public void compeleteOrder ()
    {
-      isCompelete = true;
+      isComplete = true;
    }
    //////////////////////////////////////////////////////////////
    /*
@@ -52,6 +52,6 @@ public class Order
    //////////////////////////////////////////////////////////
    public String toString ()
    {
-      return orderNumber + "/n" + username + "/n" + amountPaid + "/n" + isCompelete;
+      return orderNumber + "/n" + username + "/n" + amountPaid + "/n" + isComplete;
    }
 }

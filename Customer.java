@@ -10,7 +10,7 @@ public class Customer extends User
 {
    protected Order[] orderHistory;
    protected Wallet wallet;
-   protected Cart cart;
+   //protected Cart cart;
    protected int positionX;
    protected int positionY;
    
@@ -38,7 +38,7 @@ public class Customer extends User
       
       for (int i = 0; i < orders.length; i++)
       {
-         if (orders.getCustomer() == this.username)
+         if (orders[i].username == this.username)
          {
             orderHistory[count] = orders[i];
             count++;
@@ -92,7 +92,7 @@ public class Customer extends User
       int count = 0;
       for (int i = 0; i < orderHistory.length; i++)
       {
-         if(!orderHistory[i].isComplete())
+         if(orderHistory[i].isComplete)
          {
             activeOrders[count] = orderHistory[i];
             count++;
@@ -108,7 +108,15 @@ public class Customer extends User
    */
    public void addOrder (Order order)
    {
-      orderHistory.add(order);
+      boolean finish = false;
+      for (int i = 0; i < orderHistory.length && finish; i++)
+      {
+         if (orderHistory[i] == null)
+         {
+            orderHistory[i] = order;
+            finish = true;
+         }
+      }
    }
    //////////////////////////////////////////////////////
    /*
