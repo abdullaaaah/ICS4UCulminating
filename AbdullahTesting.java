@@ -14,6 +14,11 @@ public class AbdullahTesting
  
       cityDelivery.getRestaurants()[0].removeItem("Poutine");
       
+      
+      Admin me = new Admin("Abdullah Shahid", "nx", "123456");
+      
+      me.addRestaurant(cityDelivery, "Mcdonalds", "Fast-Food", 50, 10, 0, 4);
+      
       /*Map m = cityDelivery.getMap();
       
       Position[] p = m.getPositions();

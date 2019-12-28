@@ -10,7 +10,6 @@ public class Item
 {
    protected String name;
    protected double price;
-   protected int restaurantID;
    
    
    /////////////////////////////////   CONSTRUCTOR(s)   /////////////////////////////////
@@ -20,11 +19,10 @@ public class Item
       PARAMETERS:    the name of the item, the price of the item and the id of the restaurant it belongs to.
       PURPOSE:       Constructor for the Item object
    */ 
-   public Item (String name, double price, int restaurantID)
+   public Item (String name, double price)
    {
       this.name = name;
       this.price = price;
-      this.restaurantID = restaurantID;
    }
   
   
@@ -52,15 +50,6 @@ public class Item
       return this.price;
    }
    
-   /*
-      PARAMETERS:    No params
-      RETURN VALUE:  Returns the restaurant's id
-      PURPOSE:       Acessor of the restaurantID field
-   */
-   public int getRestaurantID()
-   {
-      return this.restaurantID;
-   }
    
    /////////////////////////////////   MUTATORS  /////////////////////////////////
 

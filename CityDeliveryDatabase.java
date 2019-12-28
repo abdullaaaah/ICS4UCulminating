@@ -21,38 +21,98 @@ public class CityDeliveryDatabase
    private int numRestaurants;
    private final int MAX_DRIVERS = 5;
    private int numDrivers;
+   private final int MAX_USERS = 50;
+   private int numUsers;
    
+   /////////////////////////////////   CONSTRUCTOR(s) /////////////////////////////////
+
    
    public CityDeliveryDatabase()
    {
-      /* Map */
+      //Map
+      map = new Map(5,5); 
       
-      map = new Map(5,5);
-      
-      /* End Map */
-   
+      //Restaurants  
       this.restaurants = new Restaurant[MAX_RESTAURANTS];
       this.numRestaurants = 0;
+      loadRestaurants();
+      
+      //Drivers
       this.drivers = new Driver[MAX_DRIVERS];
       this.numDrivers = 0;
       
+      //Users
+      this.users = new User[MAX_USERS];
+      this.numUsers = 0;
+      
    }
    
+   /////////////////////////////////   MAP RELATED   /////////////////////////////////
+
    public Map getMap()
    {
       return map;
    }
    
+   
+   /////////////////////////////////   RESTAURANT RELATED   /////////////////////////////////
+
+   
+
+   /*
+      PARAMETERS:    No params
+      RETURN VALUE:  Returns the number of restaurants in database
+      PURPOSE:       Acessor of the numRestaurant field
+   */
    public int getNumRestaurants()
    {
       return this.numRestaurants;
    }
    
+   /*
+      PARAMETERS:    No params
+      RETURN VALUE:  Returns all of the restaurants in the database
+      PURPOSE:       Acessor of the restaurants field
+   */
    public Restaurant[] getRestaurants()
    {
       return this.restaurants;
    }
    
+   public int getMAX_RESTAURANTS()
+   {
+      return this.MAX_RESTAURANTS;
+   }
+   
+   public void incrementNumRestaurants()
+   {
+      this.numRestaurants++;
+   }
+   
+   /*
+      PARAMETERS:    The name of the restaurant to be found
+      RETURN VALUE:  true or false depending on the result
+      PURPOSE:       Indicates if a restaurant exists in the database given the name
+  */
+   public boolean doesRestaurantExist(String name)
+   {
+         
+      for(int i = 0; i<numRestaurants; i++)
+      {
+         if(this.restaurants[i].getName().equalsIgnoreCase(name))
+         {
+            return true;
+         }
+      }
+      
+      return false;
+   }
+   
+   /*
+      PARAMETERS:    No params
+      RETURN VALUE:  -
+      PURPOSE:       Loads all the restaurants from the database
+   */
    public void loadRestaurants()
    {
       
@@ -75,10 +135,8 @@ public class CityDeliveryDatabase
             numRatings = Integer.parseInt(in.readLine());
             x = Integer.parseInt(in.readLine());
             y = Integer.parseInt(in.readLine());
-            
-            //System.out.println(x+".."+y);
-            
-            restaurants[this.numRestaurants] = new Restaurant(id, name, x, y, category, rating, numRatings);   
+                        
+            restaurants[this.numRestaurants] = new Restaurant(name, x, y, category, rating, numRatings);   
             this.numRestaurants++;
          }
       
@@ -87,6 +145,48 @@ public class CityDeliveryDatabase
          System.out.println("Error loading restaurants");
       }
    }
+   
+  /*
+      PARAMETERS:    None
+      RETURN VALUE:  None
+      PURPOSE:       Save all of the restaurants in the database to the file.
+  */ 
+   public void saveRestaurants()
+   {
+      try
+      {
+         BufferedWriter out = new BufferedWriter(new FileWriter(RESTAURANTS_FILE, false));
+         out.write(Integer.toString(this.numRestaurants));
+         out.newLine();
+         
+         for(int i = 0; i<this.numRestaurants; i++)
+         {
+            out.write(restaurants[i].getName());
+            out.newLine();
+            out.write( restaurants[i].getCategory() );
+            out.newLine();
+            out.write( Double.toString( restaurants[i].getRating() ) );
+            out.newLine();
+            out.write( Integer.toString( restaurants[i].getNumRating()) );
+            out.newLine();
+            out.write( Integer.toString( restaurants[i].getPositionX()) );
+            out.newLine();
+            out.write( Integer.toString( restaurants[i].getPositionY()) );
+            out.newLine();
+         }
+         
+         out.close();
+         
+      }
+      catch(IOException e)
+      {
+         System.out.println("Error writing to item database");
+      }
+   }
+   
+   /////////////////////////////////   DRIVER RELATED   /////////////////////////////////
+
+   
    
    public int getNumDrivers()
    {
@@ -127,9 +227,7 @@ public class CityDeliveryDatabase
          System.out.println("Error loading drivers");
       }
    }
-   public void addRestaurant (Restaurant res)
-   {
-   }
+
    public void addDriver (Driver dri)
    {
    }

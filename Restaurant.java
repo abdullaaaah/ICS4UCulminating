@@ -10,7 +10,6 @@ import java.io.*;
 
 public class Restaurant
 {
-   protected int id;
    protected String name;
    private int positionX;
    private int positionY;
@@ -28,9 +27,8 @@ public class Restaurant
       PARAMETERS:    the unique id, name of the restaurant, X'th position, Y'th position, category & rating
       PURPOSE:       Constructor for the Restaurant object
    */ 
-   public Restaurant (int id, String name, int positionX, int positionY, String category, double rating, int numRating)
+   public Restaurant (String name, int positionX, int positionY, String category, double rating, int numRating)
    {
-      this.id = id;
       this.name = name;
       this.positionX = positionX;
       this.positionY = positionY;
@@ -42,7 +40,7 @@ public class Restaurant
       this.numItem = 0;
       
       //Creating a items database if doesnt exists
-      File itemDatabase = new File(this.id+FILE_ENDING);
+      File itemDatabase = new File(this.name+FILE_ENDING);
       if(!itemDatabase.exists())
       {
          try
@@ -56,7 +54,7 @@ public class Restaurant
       }
       else
       {
-         loadMenuFromFile(); //Check later, what if file is empty?
+         loadMenuFromFile();
       }
    }
    
@@ -87,6 +85,37 @@ public class Restaurant
    
    /*
       PARAMETERS:    No params
+      RETURN VALUE:  Returns the value of category field
+      PURPOSE:       Acessor of the category field
+   */
+   public String getCategory()
+   {
+      return this.category;
+   }
+   
+   /*
+      PARAMETERS:    No params
+      RETURN VALUE:  Returns the value of ratings field
+      PURPOSE:       Acessor of the ratings field
+   */
+   public double getRating()
+   {
+      return this.rating;
+   }
+   
+   
+   /*
+      PARAMETERS:    No params
+      RETURN VALUE:  Returns the value of numRatings field
+      PURPOSE:       Acessor of the numRatings field
+   */
+   public int getNumRating()
+   {
+      return this.numRating;
+   }
+   
+   /*
+      PARAMETERS:    No params
       RETURN VALUE:  Returns the positionX field value
       PURPOSE:       Acessor of the positionX field
    */
@@ -110,7 +139,7 @@ public class Restaurant
       RETURN VALUE:  the value of the rating
       PURPOSE:       A special type of accessor that returns the rating divided by the number of times its rated
    */
-   public double getRating()
+   public double getAverageRating()
    {
       return this.rating / this.numRating;
    }
@@ -158,7 +187,7 @@ public class Restaurant
       }
       else
       {
-         this.menu[numItem] = new Item(name, price, this.id); 
+         this.menu[numItem] = new Item(name, price); 
          numItem++; 
          saveMenu();
       }
@@ -257,11 +286,10 @@ public class Restaurant
    {
       String name;
       double price;
-      int restaurantID;
       
       try
       {
-         BufferedReader in = new BufferedReader(new FileReader(this.id+FILE_ENDING));
+         BufferedReader in = new BufferedReader(new FileReader(this.name+FILE_ENDING));
          String input;
          
          int numToLoad = Integer.parseInt(in.readLine());
@@ -270,9 +298,8 @@ public class Restaurant
          {
             name = in.readLine();
             price = Double.parseDouble(in.readLine());
-            restaurantID = Integer.parseInt(in.readLine());
             
-            menu[numItem] = new Item(name, price, restaurantID);
+            menu[numItem] = new Item(name, price);
             numItem++;
          }
 
@@ -294,7 +321,7 @@ public class Restaurant
    {
       try
       {
-         BufferedWriter out = new BufferedWriter(new FileWriter(this.id+FILE_ENDING, false));
+         BufferedWriter out = new BufferedWriter(new FileWriter(this.name+FILE_ENDING, false));
          out.write(Integer.toString(this.numItem));
          out.newLine();
          
@@ -303,8 +330,6 @@ public class Restaurant
             out.write(menu[i].getName());
             out.newLine();
             out.write( Double.toString(menu[i].getPrice()) );
-            out.newLine();
-            out.write( Integer.toString(menu[i].getRestaurantID()) );
             out.newLine();
 
          }
