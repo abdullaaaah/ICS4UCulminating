@@ -42,6 +42,17 @@ public class Driver extends Person
    {
       return this.phoneNumber;
    }
+   
+   /*
+      PARAMETERS:    No params
+      RETURN VALUE:  Returns the driver's id
+      PURPOSE:       Acessor of the id field
+   */
+   public int getId()
+   {
+      return this.id;
+   }
+    
     
    /*
       PARAMETERS:    No params

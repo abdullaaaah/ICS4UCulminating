@@ -224,6 +224,59 @@ public class CityDeliveryDatabase
       return this.drivers;
    }
    
+   public int getDRIVERS()
+   {
+      return this.MAX_DRIVERS;
+   }
+   
+   public void incrementNumDrivers()
+   {
+      this.numDrivers++;
+   }
+   
+   public void decrementNumDrivers()
+   {
+      this.numDrivers--;
+   }
+   
+   /*
+      PARAMETERS:    -
+      RETURN VALUE:  true or false depending on the result
+      PURPOSE:       Indicates if a restaurant exists in the database given the name
+  */
+   public boolean doesDriverExist(int id)
+   {
+         
+      for(int i = 0; i<numDrivers; i++)
+      {
+         if(this.drivers[i].getId() == id)
+         {
+            return true;
+         }
+      }
+      
+      return false;
+   }
+   
+   /*
+      PARAMETERS:    The name of the restaurant to be found
+      RETURN VALUE:  the index of the restaurant or -1 if not found
+      PURPOSE:       Returns the index of the restaurant to be found by name
+  */
+   public int findDriverIndex(int id)
+   {
+         
+      for(int i = 0; i<numDrivers; i++)
+      {
+         if(this.drivers[i].getId() == id)
+         {
+            return i;
+         }
+      }
+      
+      return -1;  //-1 is returned if item does not exist.
+   }
+   
    public void loadDrivers()
    {
       int id, x, y;
@@ -253,12 +306,189 @@ public class CityDeliveryDatabase
          System.out.println("Error loading drivers");
       }
    }
+   
+  /*
+      PARAMETERS:    None
+      RETURN VALUE:  None
+      PURPOSE:       Save all of the restaurants in the database to the file.
+  */ 
+   public void saveDrivers()
+   {
+      try
+      {
+         BufferedWriter out = new BufferedWriter(new FileWriter(DRIVERS_FILE, false));
+         out.write(Integer.toString(this.numDrivers));
+         out.newLine();
+         
+         for(int i = 0; i<this.numDrivers; i++)
+         {
+            out.write(Integer.toString(drivers[i].getId()) );
+            out.newLine();
+            out.write(drivers[i].getName());
+            out.newLine();
+            out.write(drivers[i].getPhoneNumber());
+            out.newLine();
+            out.write(drivers[i].getDescription());
+            out.newLine();
+            out.write(Integer.toString( drivers[i].getPositionX()) );
+            out.newLine();
+            out.write(Integer.toString( drivers[i].getPositionY()) );
+            out.newLine();
+         }
+         
+         out.close();
+         
+      }
+      catch(IOException e)
+      {
+         System.out.println("Error writing to driver database");
+      }
+   }
+
+
 
    public void addDriver (Driver dri)
    {
    }
    public void addCoupon (Coupon cou)
    {
+   }
+   
+   
+   /////////////////////////////////   USER RELATED   /////////////////////////////////
+
+      
+   /*
+      PARAMETERS:    Restaurants list, name, category, rating, positoinX, positionY
+      RETURN VALUE:  N/A
+      PURPOSE:       Add new restaurant to existing restaurant list
+   */
+   public void addUser(String name, String username, String password)
+   {
+   
+      if(doesUserExist(username))
+      {
+         System.out.println("Error: User with the username " + username + " already exists.");
+      }
+      else if( numUsers == MAX_USERS )
+      {
+         System.out.println("Error: This software can not store any more users");
+      }
+      else
+      {
+         users[numUsers] = new User(name, username, password);
+         numUsers++;
+         saveUsers();
+      }
+   }
+   
+      
+   /*
+      PARAMETERS:    The name of the restaurant to be found
+      RETURN VALUE:  true or false depending on the result
+      PURPOSE:       Indicates if a restaurant exists in the database given the name
+  */
+   public boolean doesUserExist(String username)
+   {
+         
+      for(int i = 0; i<numUsers; i++)
+      {
+         if(this.users[i].getUsername().equalsIgnoreCase(username))
+         {
+            return true;
+         }
+      }
+      
+      return false;
+   }
+   
+   /*
+      PARAMETERS:    The name of the restaurant to be found
+      RETURN VALUE:  the index of the restaurant or -1 if not found
+      PURPOSE:       Returns the index of the restaurant to be found by name
+  */
+   public int findUserIndexByUserName(String username)
+   {
+         
+      for(int i = 0; i<numUsers; i++)
+      {
+         if(this.users[i].getUsername().equalsIgnoreCase(username))
+         {
+            return i;
+         }
+      }
+      
+      return -1;  //-1 is returned if item does not exist.
+   }
+   
+   /*
+      PARAMETERS:    No params
+      RETURN VALUE:  -
+      PURPOSE:       Loads all the restaurants from the database
+   */
+   /*public void loadRestaurants()
+   {
+      
+      int numRatings, x, y;
+      String name, category;
+      double rating;
+   
+      try {
+         BufferedReader in = new BufferedReader(new FileReader(RESTAURANTS_FILE));
+                  
+         int numToLoad = Integer.parseInt(in.readLine());
+         
+         for(int i = 0; i<numToLoad; i++)
+         {
+                     
+            name = in.readLine();
+            category = in.readLine();
+            rating = Double.parseDouble(in.readLine());
+            numRatings = Integer.parseInt(in.readLine());
+            x = Integer.parseInt(in.readLine());
+            y = Integer.parseInt(in.readLine());
+                        
+            restaurants[this.numRestaurants] = new Restaurant(name, x, y, category, rating, numRatings);   
+            this.numRestaurants++;
+         }
+      
+      } catch(IOException e)
+      {
+         System.out.println("Error loading restaurants");
+      }
+   }*/
+   
+  /*
+      PARAMETERS:    None
+      RETURN VALUE:  None
+      PURPOSE:       Save all of the restaurants in the database to the file.
+  */ 
+   public void saveUsers()
+   {
+      try
+      {
+         BufferedWriter out = new BufferedWriter(new FileWriter(USERS_FILE, false));
+         out.write(Integer.toString(this.numUsers));
+         out.newLine();
+         
+         for(int i = 0; i<this.numUsers; i++)
+         {
+            out.write(users[i].getName());
+            out.newLine();
+            out.write( users[i].getUsername() );
+            out.newLine();
+            out.write( users[i].getPassword() );
+            out.newLine();
+
+         }
+         
+         out.close();
+         
+      }
+      catch(IOException e)
+      {
+         System.out.println("Error writing to item database");
+      }
    }
    
 }

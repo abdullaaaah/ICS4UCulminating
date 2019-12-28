@@ -23,6 +23,17 @@ public class User extends Person
       this.password = password;
    }
    
+   
+   public String getUsername()
+   {
+      return this.username;
+   }
+   
+   public String getPassword()
+   {
+      return this.password;
+   }
+   
    // Functions //////////////////////////////////////////////////////
    /*
       PARAMETERS:    username
