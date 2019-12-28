@@ -20,14 +20,26 @@ public class User extends Person
    {
       super (name);
       this.username = username;
-      String temp = "";
+      /*String temp = "";
       for (int i = 0; i < password.length(); i++)
       {
          temp = temp + (char)(password.charAt(i) - 5);
       }
-      this.password = temp;
+      this.password = temp;*/
+      
+      this.password = encrypt(password);
    }
    
+   public static String encrypt(String password)
+   {
+      String temp = "";
+      for(int i = 0; i<password.length(); i++)
+      {
+         temp = temp + (char)(password.charAt(i) - 5);
+      }
+      
+      return temp;
+   }
    
    public String getUsername()
    {

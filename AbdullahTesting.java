@@ -13,15 +13,17 @@ public class AbdullahTesting
       //cityDelivery.getRestaurants()[0].removeItem("Poutine");
       
       
-      Admin me = new Admin("Abdullah Shahid", "nx", "123456");
+      //Admin me = new Admin("Abdullah Shahid", "nx", "123456");
       
-      me.addRestaurant(cityDelivery, "Wendys", "Fast-Food", 50, 10, 2,0);
+      //me.addRestaurant(cityDelivery, "Wendys", "Fast-Food", 50, 10, 2,0);
       
-      me.removeRestaurant(cityDelivery, "Wendys");
+      //me.removeRestaurant(cityDelivery, "Wendys");
       
-      //cityDelivery.addUser("jojojo", "jojo", "1231235");
+      cityDelivery.addUser("jojojo", "jojo2", "123123");
       
-      cityDelivery.login("jojo", "1231235");
+      cityDelivery.login("jojo2", "123123");
+      
+      //System.out.println(User.encypt("123123"));
       
       /*Map m = cityDelivery.getMap();
       
