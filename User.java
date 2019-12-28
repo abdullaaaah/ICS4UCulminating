@@ -30,7 +30,6 @@ public class User extends Person
       this.password = encrypt(password);
    }
    
-<<<<<<< HEAD
    public static String encrypt(String password)
    {
       String temp = "";
@@ -42,9 +41,7 @@ public class User extends Person
       return temp;
    }
    
-=======
    // Accessor & Mutator /////////////////////////////
->>>>>>> ef1b9289159eee0fa48f3cf7a8f63bdf9e08202c
    public String getUsername()
    {
       return this.username;

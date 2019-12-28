@@ -396,6 +396,7 @@ public class CityDeliveryDatabase
       {
          if(users[index].getPassword().equals( User.encrypt(password) ))
          {
+            this.userLoggedIn = users[index];
             System.out.println("Success: Logged in");
          }
          else
