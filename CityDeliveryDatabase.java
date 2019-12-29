@@ -38,6 +38,7 @@ public class CityDeliveryDatabase
       //Drivers
       this.drivers = new Driver[MAX_DRIVERS];
       this.numDrivers = 0;
+      loadDrivers();
       
       //Users
       this.users = new User[MAX_USERS];
@@ -59,6 +60,7 @@ public class CityDeliveryDatabase
    
    
    /////////////////////////////////   RESTAURANT RELATED   /////////////////////////////////
+   //Status: Finished
 
    
 
@@ -240,6 +242,11 @@ public class CityDeliveryDatabase
       this.numDrivers--;
    }
    
+   public int getMAX_DRIVERS()
+   {
+      return this.MAX_DRIVERS;
+   }
+   
    /*
       PARAMETERS:    -
       RETURN VALUE:  true or false depending on the result
@@ -345,18 +352,11 @@ public class CityDeliveryDatabase
          System.out.println("Error writing to driver database");
       }
    }
-
-
-
-   public void addDriver (Driver dri)
-   {
-   }
-   public void addCoupon (Coupon cou)
-   {
-   }
    
    
+
    /////////////////////////////////   USER RELATED   /////////////////////////////////
+   //Status: Finished, maybe some additional methods here and there
 
       
    /*
@@ -364,7 +364,7 @@ public class CityDeliveryDatabase
       RETURN VALUE:  N/A
       PURPOSE:       Add new restaurant to existing restaurant list
    */
-   public void addUser(String name, String username, String password) // can also rename it to register.
+   public void register(String name, String username, String password)
    {
    
       if(doesUserExist(username))

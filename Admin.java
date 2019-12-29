@@ -73,7 +73,65 @@ public class Admin extends User
    }
    
    /////////////////////////////////   DRIVER RELATED   /////////////////////////////////   
+   /*
+      PARAMETERS:    Restaurants list, name, category, rating, positoinX, positionY
+      RETURN VALUE:  N/A
+      PURPOSE:       Add new restaurant to existing restaurant list
+   */
+   public void addDriver(CityDeliveryDatabase db, int id, String name, String phoneNumber, String description, int positionX, int positionY)
+   {
    
+      if(db.doesDriverExist(id))
+      {
+         System.out.println("Error: Driver with the id " + id + " already exists."); //although ids are gonna be unique so..
+      }
+      else if( db.getNumDrivers() == db.getMAX_DRIVERS() )
+      {
+         System.out.println("Error: This software can not store any more drivers");
+      }
+      else if( !db.getMap().doesPositionExist(positionX, positionY) || db.getMap().isOccupied(positionX, positionY) )
+      {
+         System.out.println("Error: Position taken by another object or invalid position provided");
+      }
+      else
+      {
+         db.getDrivers()[db.getNumDrivers()] = new Driver(id, name, phoneNumber, description, positionX, positionY); 
+         db.incrementNumDrivers(); 
+         db.saveDrivers();
+      }
+   }
+   
+   
+   /*
+      PARAMETERS:    -
+      RETURN VALUE:  void
+      PURPOSE:       -
+   */
+   public void removeDriver(CityDeliveryDatabase db, int id)
+   {
+      int temp = db.findDriverIndex(id);
+      
+      if(db.getNumDrivers() >0 && temp != -1)
+      {
+         db.getDrivers()[temp] = null;
+         
+         for(int i = temp; i<db.getNumDrivers()-1; i++)
+         {
+            db.getDrivers()[i] = db.getDrivers()[i+1];
+            db.getDrivers()[i+1] = null;
+         }
+         
+         db.decrementNumDrivers();
+         db.saveDrivers();
+         
+         System.out.println("Success: Driver removed");
+      }
+      else
+      {
+         System.out.println("Error: Driver does not exist");
+      }
+
+   }
    
    
    

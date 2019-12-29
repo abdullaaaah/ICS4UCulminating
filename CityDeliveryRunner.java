@@ -16,7 +16,7 @@ public class CityDeliveryRunner
       Scanner sc = new Scanner(System.in);
       int initChoice;
       String username = "", password = "";
-      boolean login = false, dontGoBack = true, startScreen = true;
+      boolean login = false, dontGoBack = true, startScreen = true, register = false;
       
       while(startScreen)
       {
@@ -32,7 +32,7 @@ public class CityDeliveryRunner
       
          if(initChoice == 1)
          {
-            while(!login && dontGoBack)
+            while(!login && dontGoBack)   //DontGoBack variable allows the screen to go back when user enters -1, if anyone has a better way to do it feel free.
             {
                System.out.println("===========================");
                System.out.println("\t\t\tLOG IN\t\t");
@@ -54,7 +54,7 @@ public class CityDeliveryRunner
                   login = cdd.login(username, password);
                }
                
-               startScreen = false;
+               startScreen = false; //Not sure if this is the right place..
                
             }
                      
@@ -62,7 +62,38 @@ public class CityDeliveryRunner
          }
          else if(initChoice == 2)
          {
-            
+            dontGoBack = true; //check
+            while(!register && dontGoBack)
+            {
+               System.out.println("===========================");
+               System.out.println("\t\t\tREGISTER\t\t");
+               System.out.println("===========================");
+               
+               System.out.print("Enter your name: ");
+               String name = sc.next();
+               if(name.equals("-1"))
+                  dontGoBack = false;
+               
+               if(dontGoBack)
+               {
+                  System.out.print("Enter your desired username: "); //maybe inform user at this point if username is taken later.
+                  username = sc.next();
+                  if(username.equals("-1"))
+                     dontGoBack = false;
+               }
+               
+               
+               if(dontGoBack)
+               {   
+               System.out.print("Enter your desired password: ");
+               password = sc.next();
+               if(password.equals("-1"))
+                  dontGoBack = false;
+               }
+                  
+               
+               
+            }
          }
          else
          {

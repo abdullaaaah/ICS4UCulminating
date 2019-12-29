@@ -8,20 +8,24 @@ public class AbdullahTesting
    {
       CityDeliveryDatabase cityDelivery = new CityDeliveryDatabase();
           
-      cityDelivery.loadDrivers();
  
       //cityDelivery.getRestaurants()[0].removeItem("Poutine");
       
       
-      //Admin me = new Admin("Abdullah Shahid", "nx", "123456");
+      Admin me = new Admin("Abdullah Shahid", "nx", "123456");
+      
+      // test adding and removing for driver
+      
+      me.addDriver(cityDelivery, 100, "dio", "(647) 764 1231", "Black SUV", 3,3);
+      me.removeDriver(cityDelivery, 100);
       
       //me.addRestaurant(cityDelivery, "Wendys", "Fast-Food", 50, 10, 2,0);
       
       //me.removeRestaurant(cityDelivery, "Wendys");
       
-      cityDelivery.addUser("jojojo", "jojo2", "123123");
+      //cityDelivery.addUser("jojojo", "jojo2", "123123");
       
-      cityDelivery.login("jojo2", "123123");
+      //cityDelivery.login("jojo2", "123123");
       
       //System.out.println(User.encypt("123123"));
       
