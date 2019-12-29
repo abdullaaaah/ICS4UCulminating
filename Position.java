@@ -11,6 +11,10 @@ public class Position
    private int x; //the x or row cordinate of the position
    private int y; //the y or column cordinate of the position
    
+   
+    /////////////////////////////////   CONSTRUCTOR(s) /////////////////////////////////
+
+   
    /*
       PARAMETERS: Takes two integer values x and y referring to the x and y cordinates of the position
       PURPOSE:    This method constructs a new Position object
@@ -20,6 +24,9 @@ public class Position
       this.x = x;
       this.y = y;
    }
+   
+   /////////////////////////////////   ACESSORS   /////////////////////////////////
+
    
    /*
       PARAMETERS:    No params

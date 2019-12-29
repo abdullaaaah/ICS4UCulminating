@@ -384,24 +384,26 @@ public class CityDeliveryDatabase
    }
    
    
-   public void login(String username, String password)
+   public boolean login(String username, String password)
    {
       int index = findUserIndexByUserName(username);
       
       if(index == -1)
       {
          System.out.println("Error: Incorrect username");
+         return false;
       }
       else
       {
          if(users[index].getPassword().equals( User.encrypt(password) ))
          {
             this.userLoggedIn = users[index];
-            System.out.println("Success: Logged in");
+            return true;
          }
          else
          {
             System.out.println("Error: Incorrect passsword");
+            return false;
          }
       }
    }
