@@ -96,7 +96,7 @@ public class CityDeliveryRunner
                }
                
                register = cdd.register(name, username, password);
-               login = true;
+               login = cdd.login(username, password);
                startScreen = false; //This makes sure we wont go back to the Welcome to City Delivery Software Screen..
                   
                
@@ -107,7 +107,9 @@ public class CityDeliveryRunner
          {
             startScreen = true;
          }
-         
+                  
+         //The stuff that happens after user is inside the software ;)
+                  
          if(login)
          {
             if(cdd.isUserCustomer())
