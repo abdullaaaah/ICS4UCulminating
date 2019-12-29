@@ -148,6 +148,44 @@ public class CityDeliveryRunner
             {
                      //Admin panel code here
                System.out.println("Admin");
+               System.out.println("1. Profile Settings");
+               System.out.println("2. Manafe Restaurants");
+               System.out.println("3. Manage Drivers");
+               System.out.println("4. Manage Coupons");
+               System.out.println("5. Add / Delete Food");
+               System.out.println("6. View Finances");
+               System.out.println("7. Logout");
+               
+               int choice = sc.nextInt();
+               
+               if (choice == 1)
+               {
+                  // profile setting
+               }
+               else if (choice == 2)
+               {
+                  // manage restaurant
+               }
+               else if (choice == 3)
+               {
+                  // manage drivers
+               }
+               else if (choice == 4)
+               {
+                  // manage coupons
+               }
+               else if (choice == 5)
+               {
+                  // add / delete food
+               }
+               else if (choice == 6)
+               {
+                  // view finances
+               }
+               else if (choice == 7)
+               {
+                  cdd.logout();
+               }
             }
          }  
          
