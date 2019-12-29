@@ -114,7 +114,35 @@ public class CityDeliveryRunner
                System.out.println("2. Wallet");
                System.out.println("3. Place Order");
                System.out.println("4. View Order History");
-               System.out.println("5. Log Out");
+               System.out.println("5. Active Delivery");
+               System.out.println("6. Log Out");
+               
+               int choice = sc.nextInt();
+               
+               if (choice == 1)
+               {
+                  // profile setting
+               }
+               else if (choice == 2)
+               {
+                  // Wallet
+               }
+               else if (choice == 3)
+               {
+                  // Place Order
+               }
+               else if (choice == 4)
+               {
+                  // View Order History
+               }
+               else if (choice == 5)
+               {
+                  // Active Delivery
+               }
+               else if (choice == 6)
+               {
+                  cdd.logout();
+               }
             }
             else 
             {
