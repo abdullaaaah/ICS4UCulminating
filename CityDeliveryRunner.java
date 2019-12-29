@@ -16,9 +16,9 @@ public class CityDeliveryRunner
       Scanner sc = new Scanner(System.in);
       int initChoice;
       String username = "", password = "";
-      boolean login = false, dontGoBack = true, exitProgram = false;
+      boolean login = false, dontGoBack = true, startScreen = true;
       
-      while(!exitProgram)
+      while(startScreen)
       {
          System.out.println("======================================================");
          System.out.println("\t\t\tWelcome to City Delivery Software");
@@ -29,7 +29,7 @@ public class CityDeliveryRunner
          System.out.println("2. Create a account");
          
          initChoice = sc.nextInt();
-   
+      
          if(initChoice == 1)
          {
             while(!login && dontGoBack)
@@ -41,37 +41,23 @@ public class CityDeliveryRunner
                System.out.print("Enter your username: ");
                username = sc.next();
                if(username.equals("-1"))
-               dontGoBack = false;
+                  dontGoBack = false;
                
                if(dontGoBack)
                {
                   System.out.print("Enter your password: ");
                   password = sc.next();
-                  System.out.println(password);
                   
                   if(password.equals("-1"))
-                  dontGoBack = false;
+                     dontGoBack = false;
                   
                   login = cdd.login(username, password);
                }
                
+               startScreen = false;
+               
             }
-            
-               if(login)
-               {
-                  if(cdd.isUserCustomer())
-                  {
-                     clearScreen();
-                  
-                     //Customer panel code here
-                     System.out.println("Customer");
-                  }
-                  else 
-                  {
-                     //Admin panel code here
-                     System.out.println("Admin");
-                  }
-               }           
+                     
          
          }
          else if(initChoice == 2)
@@ -80,8 +66,22 @@ public class CityDeliveryRunner
          }
          else
          {
-            exitProgram = true;
+            startScreen = true;
          }
+         
+         if(login)
+         {
+            if(cdd.isUserCustomer())
+            {                  
+                     //Customer panel code here
+               System.out.println("Customer");
+            }
+            else 
+            {
+                     //Admin panel code here
+               System.out.println("Admin");
+            }
+         }  
          
       }
    

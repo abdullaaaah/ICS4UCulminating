@@ -403,6 +403,7 @@ public class CityDeliveryDatabase
          else
          {
             System.out.println("Error: Incorrect passsword");
+            //Remove this when program is close to finish
             System.out.println("Password enetered: " + User.encrypt(password));
             System.out.println("Password needed: " + users[index].getPassword());
             return false;
