@@ -23,6 +23,8 @@ public class CityDeliveryDatabase
    private int numDrivers;
    private final int MAX_USERS = 50;
    private int numUsers;
+   private final int MAX_COUPONS = 50;
+   private int numCoupons;
    
    /////////////////////////////////   CONSTRUCTOR(s) /////////////////////////////////
 
@@ -538,6 +540,131 @@ public class CityDeliveryDatabase
       
       return false;
    }
+   
+   
+   /////////////////////////////////   COUPON RELATED   /////////////////////////////////
+
+   
+   
+   public int getNumCoupons()
+   {
+      return this.numCoupons;
+   }
+   
+   public Coupon[] getCoupons()
+   {
+      return this.coupons;
+   }
+   
+   public int getMAX_COUPONS()
+   {
+      return this.MAX_DRIVERS;
+   }
+   
+   public void incrementNumCoupons()
+   {
+      this.numCoupons++;
+   }
+   
+   public void decrementNumCoupons()
+   {
+      this.numCoupons--;
+   }
+   
+   /*
+      PARAMETERS:    -
+      RETURN VALUE:  true or false depending on the result
+      PURPOSE:       Indicates if a restaurant exists in the database given the name
+  */
+   public boolean doesCouponExist(String code)
+   {
+         
+      for(int i = 0; i<numCoupons; i++)
+      {
+         if(this.coupons[i].getCode() == code)
+         {
+            return true;
+         }
+      }
+      
+      return false;
+   }
+   
+   /*
+      PARAMETERS:    The name of the restaurant to be found
+      RETURN VALUE:  the index of the restaurant or -1 if not found
+      PURPOSE:       Returns the index of the restaurant to be found by name
+  */
+   public int findCouponIndex(String code)
+   {
+         
+      for(int i = 0; i<numCoupons; i++)
+      {
+         if(this.coupons[i].getCode().equals(code))
+         {
+            return i;
+         }
+      }
+      
+      return -1;  //-1 is returned if item does not exist.
+   }
+   
+   public void loadCoupons()
+   {
+      String code;
+      double discount;
+   
+      try {
+         BufferedReader in = new BufferedReader(new FileReader(COUPONS_FILE));
+         String input;
+         
+         int numToLoad = Integer.parseInt(in.readLine());
+         
+         for(int i = 0; i<numToLoad; i++)
+         {
+            code = in.readLine();
+            discount = Double.parseDouble(in.readLine());
+            
+            coupons[this.numCoupons] = new Coupon(code, discount);   
+            this.numCoupons++;
+         }
+      
+      } catch(IOException e)
+      {
+         System.out.println("Error loading Coupons");
+      }
+   }
+   
+  /*
+      PARAMETERS:    None
+      RETURN VALUE:  None
+      PURPOSE:       Save all of the restaurants in the database to the file.
+  */ 
+   public void saveCoupons()
+   {
+      try
+      {
+         BufferedWriter out = new BufferedWriter(new FileWriter(COUPONS_FILE, false));
+         out.write(Integer.toString(this.numCoupons));
+         out.newLine();
+         
+         for(int i = 0; i<this.numDrivers; i++)
+         {
+            out.write(coupons[i].getCode());
+            out.newLine();
+            out.write(Double.toString( coupons[i].getDiscountRate()) );
+            out.newLine();
+         }
+         
+         out.close();
+         
+      }
+      catch(IOException e)
+      {
+         System.out.println("Error writing to coupon database");
+      }
+   }
+   
    
 }
 

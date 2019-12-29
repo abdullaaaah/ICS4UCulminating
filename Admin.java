@@ -133,7 +133,62 @@ public class Admin extends User
 
    }
    
+   /////////////////////////////////   COUPON RELATED  /////////////////////////////////   
+   /*
+      PARAMETERS:    Restaurants list, name, category, rating, positoinX, positionY
+      RETURN VALUE:  N/A
+      PURPOSE:       Add new restaurant to existing restaurant list
+   */
+   public void addCoupon(CityDeliveryDatabase db, String code, double discount)
+   {
    
+      if(db.doesCouponExist(code))
+      {
+         System.out.println("Error: Coupon with the code " + code + " already exists.");
+      }
+      else if( db.getNumCoupons() == db.getMAX_COUPONS() )
+      {
+         System.out.println("Error: This software can not store any more coupons");
+      }
+      else
+      {
+         db.getCoupons()[db.getNumCoupons()] = new Coupon(code, discount); 
+         db.incrementNumCoupons(); 
+         db.saveCoupons();
+      }
+   }
+   
+   
+   /*
+      PARAMETERS:    -
+      RETURN VALUE:  void
+      PURPOSE:       -
+   */
+   public void removeCoupon(CityDeliveryDatabase db, String code)
+   {
+      int temp = db.findCouponIndex(code);
+      
+      if(db.getNumCoupons() >0 && temp != -1)
+      {
+         db.getCoupons()[temp] = null;
+         
+         for(int i = temp; i<db.getNumCoupons()-1; i++)
+         {
+            db.getCoupons()[i] = db.getCoupons()[i+1];
+            db.getDrivers()[i+1] = null;
+         }
+         
+         db.decrementNumDrivers();
+         db.saveDrivers();
+         
+         System.out.println("Success: Driver removed");
+      }
+      else
+      {
+         System.out.println("Error: Driver does not exist");
+      }
+
+   }  
    
   
 }
