@@ -5,6 +5,11 @@ import java.util.Scanner;
 public class CityDeliveryRunner
 {
 
+   public static void clearScreen()
+   {
+      System.out.println("\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n");
+   }
+
    public static void main(String[] args)
    {
       CityDeliveryDatabase cdd = new CityDeliveryDatabase();
@@ -42,6 +47,8 @@ public class CityDeliveryRunner
                {
                   System.out.print("Enter your password: ");
                   password = sc.next();
+                  System.out.println(password);
+                  
                   if(password.equals("-1"))
                   dontGoBack = false;
                   
@@ -49,6 +56,22 @@ public class CityDeliveryRunner
                }
                
             }
+            
+               if(login)
+               {
+                  if(cdd.isUserCustomer())
+                  {
+                     clearScreen();
+                  
+                     //Customer panel code here
+                     System.out.println("Customer");
+                  }
+                  else 
+                  {
+                     //Admin panel code here
+                     System.out.println("Admin");
+                  }
+               }           
          
          }
          else if(initChoice == 2)
@@ -57,7 +80,7 @@ public class CityDeliveryRunner
          }
          else
          {
-            System.out.println("Incorrect option");
+            exitProgram = true;
          }
          
       }

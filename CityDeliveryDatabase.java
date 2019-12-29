@@ -377,7 +377,7 @@ public class CityDeliveryDatabase
       }
       else
       {
-         users[numUsers] = new User(name, username, password);
+         users[numUsers] = new Customer(name, username, User.encrypt(password));
          numUsers++;
          saveUsers();
       }
@@ -403,6 +403,8 @@ public class CityDeliveryDatabase
          else
          {
             System.out.println("Error: Incorrect passsword");
+            System.out.println("Password enetered: " + User.encrypt(password));
+            System.out.println("Password needed: " + users[index].getPassword());
             return false;
          }
       }
@@ -455,7 +457,7 @@ public class CityDeliveryDatabase
    public void loadUsers()
    {
       
-      String name, username, password;
+      String name, username, password, type;
    
       try {
          BufferedReader in = new BufferedReader(new FileReader(USERS_FILE));
@@ -468,9 +470,15 @@ public class CityDeliveryDatabase
             name = in.readLine();
             username = in.readLine();
             password = in.readLine();
+            type = in.readLine();
                         
-            users[this.numUsers] = new User(name, username, password);   
+            if(type.equalsIgnoreCase("customer"))
+               users[this.numUsers] = new Customer(name, username, password); 
+            else
+               users[this.numUsers] = new Admin(name, username, password);  
+            
             this.numUsers++;
+
          }
       
       } catch(IOException e)
@@ -500,6 +508,13 @@ public class CityDeliveryDatabase
             out.newLine();
             out.write( users[i].getPassword() );
             out.newLine();
+            if(users[i] instanceof Customer)
+               out.write("customer");
+            else
+               out.write("admin");
+            
+            out.newLine();
+            
 
          }
          
@@ -510,6 +525,17 @@ public class CityDeliveryDatabase
       {
          System.out.println("Error writing to item database");
       }
+   }
+   
+   
+   public boolean isUserCustomer()
+   {
+      if(this.userLoggedIn instanceof Customer)
+      {
+         return true;
+      }
+      
+      return false;
    }
    
 }
