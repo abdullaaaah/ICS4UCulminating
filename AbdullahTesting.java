@@ -16,9 +16,12 @@ public class AbdullahTesting
       
       // test adding and removing for driver
       
-      me.addDriver(cityDelivery, 100, "dio", "(647) 764 1231", "Black SUV", 3,3);
-      me.removeDriver(cityDelivery, 100);
+      //me.addDriver(cityDelivery, 100, "dio", "(647) 764 1231", "Black SUV", 3,3);
+      //me.removeDriver(cityDelivery, 100);
       
+      //me.addCoupon(cityDelivery, "FREE", 0.5);
+      //me.addCoupon(cityDelivery, "HALFOFF", 0.5);
+
       //me.addRestaurant(cityDelivery, "Wendys", "Fast-Food", 50, 10, 2,0);
       
       //me.removeRestaurant(cityDelivery, "Wendys");
