@@ -48,10 +48,14 @@ public class CityDeliveryRunner
                   System.out.print("Enter your password: ");
                   password = sc.next();
                   
-                  if(password.equals("-1"))
+                  if(!password.equals("-1"))
+                  {
+                     login = cdd.login(username, password);
+                  }
+                  else
+                  {   
                      dontGoBack = false;
-                  
-                  login = cdd.login(username, password);
+                  }
                }
                
                startScreen = false; //Not sure if this is the right place..
@@ -85,10 +89,10 @@ public class CityDeliveryRunner
                
                if(dontGoBack)
                {   
-               System.out.print("Enter your desired password: ");
-               password = sc.next();
-               if(password.equals("-1"))
-                  dontGoBack = false;
+                  System.out.print("Enter your desired password: ");
+                  password = sc.next();
+                  if(password.equals("-1"))
+                     dontGoBack = false;
                }
                   
                
@@ -106,6 +110,11 @@ public class CityDeliveryRunner
             {                  
                      //Customer panel code here
                System.out.println("Customer");
+               System.out.println("1. Profile Settings");
+               System.out.println("2. Wallet");
+               System.out.println("3. Place Order");
+               System.out.println("4. View Order History");
+               System.out.println("5. Log Out");
             }
             else 
             {
