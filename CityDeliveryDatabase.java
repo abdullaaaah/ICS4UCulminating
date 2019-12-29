@@ -47,6 +47,11 @@ public class CityDeliveryDatabase
       this.numUsers = 0;
       loadUsers();
       
+      //Coupons
+      this.coupons = new Coupon[MAX_COUPONS];
+      this.numCoupons = 0;
+      loadCoupons();
+      
       //Map
       map = new Map(5,5); 
       map.addAllPositions(restaurants, numRestaurants, drivers, numDrivers);
@@ -558,7 +563,7 @@ public class CityDeliveryDatabase
    
    public int getMAX_COUPONS()
    {
-      return this.MAX_DRIVERS;
+      return this.MAX_COUPONS;
    }
    
    public void incrementNumCoupons()
@@ -581,7 +586,7 @@ public class CityDeliveryDatabase
          
       for(int i = 0; i<numCoupons; i++)
       {
-         if(this.coupons[i].getCode() == code)
+         if(this.coupons[i].getCode().equals(code))
          {
             return true;
          }
@@ -648,7 +653,7 @@ public class CityDeliveryDatabase
          out.write(Integer.toString(this.numCoupons));
          out.newLine();
          
-         for(int i = 0; i<this.numDrivers; i++)
+         for(int i = 0; i<this.numCoupons; i++)
          {
             out.write(coupons[i].getCode());
             out.newLine();

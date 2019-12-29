@@ -141,7 +141,7 @@ public class Admin extends User
    */
    public void addCoupon(CityDeliveryDatabase db, String code, double discount)
    {
-   
+      
       if(db.doesCouponExist(code))
       {
          System.out.println("Error: Coupon with the code " + code + " already exists.");
