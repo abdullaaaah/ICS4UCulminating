@@ -371,22 +371,25 @@ public class CityDeliveryDatabase
       RETURN VALUE:  N/A
       PURPOSE:       Add new restaurant to existing restaurant list
    */
-   public void register(String name, String username, String password)
+   public boolean register(String name, String username, String password)
    {
    
       if(doesUserExist(username))
       {
          System.out.println("Error: User with the username " + username + " already exists.");
+         return false;
       }
       else if( numUsers == MAX_USERS )
       {
          System.out.println("Error: This software can not store any more users");
+         return false;
       }
       else
       {
          users[numUsers] = new Customer(name, username, User.encrypt(password));
          numUsers++;
          saveUsers();
+         return true;
       }
    }
    
@@ -544,6 +547,11 @@ public class CityDeliveryDatabase
       }
       
       return false;
+   }
+   
+   public void logout()
+   {
+      
    }
    
    

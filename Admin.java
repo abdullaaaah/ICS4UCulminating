@@ -1,34 +1,48 @@
+/*
+   CLASS NAME: Admin
+   AUTHOR:     Abdullah Shahid
+   DATE:       12/26/2019
+   SCHOOL:     AY Jackson Secondary School
+   PURPOSE:    A class that stores information about a special type of user called admin. This user has special methods that allow it to make changes to the database.
+               For security purposes, the addition, removal, and modification of such objects like restaurant, drivers, and coupons in the database is only possible
+               with the admin object.
+*/
 public class Admin extends User
 {
-   // Constructor ///////////////////////////////
+
+
+   /////////////////////////////////   CONSTRUCTOR(s) /////////////////////////////////
    /*
-      PARAMETERS:    Actual name, username, password
-      RETURN VALUE:  N/A
-      PURPOSE:       Creat Amin object
+      PARAMETERS:    Name of the person, username to login with, password to login with
+      PURPOSE:       Creat Admin object
    */
    public Admin (String name, String username, String password)
    {
       super(name, username, password);
    }
    
+   
+   
    /////////////////////////////////   RESTAURANT RELATED   /////////////////////////////////
+   
    /*
-      PARAMETERS:    Restaurants list, name, category, rating, positoinX, positionY
+      PARAMETERS:    The database object, name, category, rating, number of raters, position X and position Y of the restaurant
       RETURN VALUE:  N/A
-      PURPOSE:       Add new restaurant to existing restaurant list
+      PURPOSE:       Add new restaurant to the restaurant list & save it in the database.
    */
    public void addRestaurant (CityDeliveryDatabase db, String name, String category, double rating, int numRating, int positionX, int positionY)
    {
    
-      if(db.doesRestaurantExist(name))
+      if(db.doesRestaurantExist(name)) //Check if restaurant with this name already exists
       {
          System.out.println("Error: Restaurant with the name " + name + " already exists.");
       }
-      else if( db.getNumRestaurants() == db.getMAX_RESTAURANTS() )
+      else if( db.getNumRestaurants() == db.getMAX_RESTAURANTS() ) //Check if the software has reached the maximum number of restaurants to be stored
       {
          System.out.println("Error: This restaurant can not store any more items");
       }
-      else if( !db.getMap().doesPositionExist(positionX, positionY) || db.getMap().isOccupied(positionX, positionY) )
+      /////////////  Remove this if we take care of position check during runtime /////////////
+      else if( !db.getMap().doesPositionExist(positionX, positionY) || db.getMap().isOccupied(positionX, positionY) ) //Check if the given position is taken by another object
       {
          System.out.println("Error: Position taken by another object or invalid position provided");
       }
@@ -42,9 +56,9 @@ public class Admin extends User
    
    
    /*
-      PARAMETERS:    -
+      PARAMETERS:    The database and the name of the restaurant
       RETURN VALUE:  void
-      PURPOSE:       -
+      PURPOSE:       Remove a restaurant from the list
    */
    public void removeRestaurant(CityDeliveryDatabase db, String name)
    {

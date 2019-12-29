@@ -94,6 +94,9 @@ public class CityDeliveryRunner
                   if(password.equals("-1"))
                      dontGoBack = false;
                }
+               
+               register = cdd.register(name, username, password);
+               startScreen = false; //This makes sure we wont go back to the Welcome to City Delivery Software Screen..
                   
                
                
