@@ -204,5 +204,19 @@ public class Admin extends User
 
    }  
    
+   public double getTotalRevenue()
+   {
+      return 1;
+   }
+   
+   public double getDriverCost()
+   {
+      return 2;
+   }
+   
+   public double getProfit()
+   {
+      return 3;
+   }
   
 }
