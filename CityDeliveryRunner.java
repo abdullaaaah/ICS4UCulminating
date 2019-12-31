@@ -151,7 +151,7 @@ public class CityDeliveryRunner
             }
             else 
             {
-               while (true)
+               while (login)
                {
                      //Admin panel code here
                   System.out.println("Admin");
@@ -162,9 +162,14 @@ public class CityDeliveryRunner
                   System.out.println("5. Add / Delete Food");
                   System.out.println("6. View Finances");
                   System.out.println("7. Logout");
-               
+                  
                   String choice = sc.next();
-               
+                  while (choice.charAt(0) < '1' || choice.charAt(0) > '9')
+                  {
+                     System.out.println("\nIvalid Input, Please Choose a Number: ");
+                     choice = sc.next();
+                  }
+                  
                   if (choice.equals("1"))
                   {
                   // profile setting
@@ -174,6 +179,7 @@ public class CityDeliveryRunner
                      System.out.println("Press anything else to go back");
                   
                      choice = sc.next();
+                     
                      if (choice.equals("1"))
                      {
                         System.out.print("Enter New Name: ");
@@ -219,6 +225,7 @@ public class CityDeliveryRunner
                      else if (choice.equals("2"))
                      {
                      // view / modify restaurant
+                        System.out.println(cdd.restaurants());
                      }
                      else if (choice.equals("3"))
                      {
@@ -331,10 +338,14 @@ public class CityDeliveryRunner
                   else if (choice.equals("6"))
                   {
                   // view finances
+                     System.out.println("Total Revenue: " + ((Admin)cdd.userLoggedIn).getTotalRevenue());
+                     System.out.println("Driver Salary: " + ((Admin)cdd.userLoggedIn).getDriverCost());
+                     System.out.println("Total Profit:  " + ((Admin)cdd.userLoggedIn).getProfit());
                   }
                   else if (choice.equals("7"))
                   {
                      cdd.logout();
+                     login = false;
                   }
                }
             }

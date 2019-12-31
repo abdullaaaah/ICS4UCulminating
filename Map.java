@@ -27,7 +27,7 @@ public class Map
    {
       this.numRows = numRows;
       this.numCols = numCols;
-      positions = new Position[numRows*numCols];   //The max positions we can have are the startXs times the startYumns.
+      Position[] positions = new Position[numRows*numCols];   //The max positions we can have are the startXs times the startYumns.
       numPositions = 0;                            //Initially there are no stored positions so numPosition is 0
       map = new char[numRows][numCols];            //Initializes our map
       
