@@ -2,6 +2,7 @@ import java.io.*;
 
 public class CityDeliveryDatabase
 {
+<<<<<<< HEAD
    protected User userLoggedIn;
    protected Restaurant[] restaurants;
    protected User[] users;
@@ -29,6 +30,38 @@ public class CityDeliveryDatabase
    protected int numCoupons;
    protected int numWallets;
    
+=======
+
+   private User userLoggedIn;
+   private Restaurant[] restaurants;
+   private User[] users;
+   private Coupon[] coupons;
+   private Order[] orders;
+   private Driver[] drivers; 
+   private Wallet[] wallets;
+   private Card[] cards;
+   private Map map;
+   private final double DELIVERY_FEE = 1;
+   private final double TAX_RATE = 0.13;
+   private final String USERS_FILE = "users.txt";
+   private final String RESTAURANTS_FILE = "restaurants.txt";
+   private final String COUPONS_FILE = "coupons.txt";
+   private final String WALLETS_FILE = "wallets.txt";
+   private final String CARDS_FILE = "cards.txt";
+   private final String DRIVERS_FILE = "drivers.txt";
+   private final String DIRECTORY = "database/";
+   private final int MAX_RESTAURANTS = 6;
+   private int numRestaurants;
+   private final int MAX_DRIVERS = 5;
+   private int numDrivers;
+   private final int MAX_USERS = 50;
+   private int numUsers;
+   private final int MAX_COUPONS = 50;
+   private int numCoupons;
+   private int numWallets;
+   private int numCards;
+
+>>>>>>> a70365fd5b546392d14c52ff37466ae573553c2e
    /////////////////////////////////   CONSTRUCTOR(s) /////////////////////////////////
 
    
@@ -150,6 +183,30 @@ public class CityDeliveryDatabase
          loadWallets();
       }
 
+      
+      //cards
+      this.cards = new Card[MAX_USERS];
+      this.numCards = 0;
+
+      //Creating a cards file if not exist
+      File cardsFile = new File(DIRECTORY+CARDS_FILE);
+      if(!cardsFile.exists())
+      {
+         try
+         {
+            cardsFile.createNewFile();
+            saveCards(); // This will write 0 on the file.
+            
+         } catch(IOException e)
+         {
+            System.out.println("Error creating cards database");
+         }
+      }
+      else
+      {
+         loadCards();
+      }
+      
       
       //Map
       map = new Map(5,5); 
@@ -846,6 +903,73 @@ public class CityDeliveryDatabase
       catch(IOException e)
       {
          System.out.println("Error writing to wallets database");
+      }
+   }
+   
+      /////////////////////////////////   CARDS RELATED   /////////////////////////////////
+
+   public void loadCards()
+   {
+      String customer, number;
+      String expMonth, expYear, cvv;
+   
+      try {
+         BufferedReader in = new BufferedReader(new FileReader(DIRECTORY+CARDS_FILE));
+         
+         int numToLoad = Integer.parseInt(in.readLine());
+         
+         for(int i = 0; i<numToLoad; i++)
+         {
+            customer = in.readLine();
+            number = in.readLine();
+            expMonth = in.readLine();
+            expYear = in.readLine();
+            cvv = in.readLine();
+
+            
+            cards[this.numCards] = new Card(customer, number, expMonth, expYear, cvv);   
+            this.numCards++;
+         }
+      
+      } catch(IOException e)
+      {
+         System.out.println("Error loading Cards");
+      }
+   }
+   
+  /*
+      PARAMETERS:    None
+      RETURN VALUE:  None
+      PURPOSE:       Save all of the restaurants in the database to the file.
+  */ 
+   public void saveCards()
+   {
+      try
+      {
+         BufferedWriter out = new BufferedWriter(new FileWriter(DIRECTORY+CARDS_FILE, false));
+         out.write(Integer.toString(this.numCards));
+         out.newLine();
+         
+         for(int i = 0; i<this.numCards; i++)
+         {
+            out.write(cards[i].getUsername()); //make it customer later
+            out.newLine();
+            out.write(cards[i].getCardNumber());
+            out.newLine();
+            out.write(cards[i].getExpiryMonth());
+            out.newLine();
+            out.write(cards[i].getExpiryYear());
+            out.newLine();
+            out.write(cards[i].getCVV());
+            out.newLine();
+         }
+         
+         out.close();
+         
+      }
+      catch(IOException e)
+      {
+         System.out.println("Error writing to Cards database");
       }
    }
 
