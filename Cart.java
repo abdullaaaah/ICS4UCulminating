@@ -4,8 +4,12 @@ public class Cart
    protected Driver driver;
    protected Restaurant restaurant;
    protected Coupon coupon;
+   protected Customer customer;
    protected final int LIMIT = 100;
    protected int numItems;
+   protected final double SPEED_LIMIT = 60;
+   protected final double DELIVERY_RATE = 1.2;
+   protected final double DELIVERY_FEE = 5;
    
    public Cart(Restaurant restaurant)
    {
@@ -77,7 +81,59 @@ public class Cart
          }
       
       }
-   
    }
+   
+   public Driver findDriver(Map map)
+   {
+      return map.findDriver(restaurant.getPositionX(), restaurant.getPositionY());
+   }
+   
+   public double getTotalDistance(Map map, Customer customer) //distance driver has to travel from restaurant to customer
+   {
+      return map.getDistance(restaurant.getPositionX(), restaurant.getPositionY(), customer.getPositionX(), customer.getPositionY());
+   }
+   
+   public double getSubPrice(Map map, Customer customer)
+   {
+      return getTotalDistance(map, customer)/SPEED_LIMIT;
+   }
+   
+   public double getDeliveryPrice(Map map, Customer customer)
+   {
+      return (getTotalDistance(map, customer)*DELIVERY_RATE)+DELIVERY_FEE;
+   }
+   
+   public double getTaxes(Map map, Customer customer)
+   {
+      return (getSubPrice(map, customer)+getDeliveryPrice(map, customer)) * 0.13;
+   }
+   
+   public double getTotalPrice(Map map, Customer customer)
+   {
+      if(coupon==null)
+      return getSubPrice(map, customer)+getTaxes(map, customer)+getDeliveryPrice(map, customer);
+      else
+      return (getSubPrice(map, customer)+getTaxes(map, customer)+getDeliveryPrice(map, customer) ) * coupon.getDiscountRate();
+
+      
+   }
+   
+   public void addCoupon(Coupon coupon)
+   {
+      this.coupon = coupon;
+   }
+   
+   public void createOrder(String username, double amountPaid, int driverID)
+   {
+      if(customer.getWallet().getBalance() >= amountPaid)
+      {
+         customer.addOrder(new Order(username, amountPaid, driverID)); // add to main orders array too later
+      }
+      else
+      {
+         System.out.println("Error: Insufficient funds to create order");
+      }
+   }
+   
    
 }

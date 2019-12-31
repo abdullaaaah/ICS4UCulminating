@@ -10,7 +10,8 @@ public class Position
 {
    private int x; //the x or row cordinate of the position
    private int y; //the y or column cordinate of the position
-   
+   private Driver driver;
+   private Restaurant restaurant;   
    
     /////////////////////////////////   CONSTRUCTOR(s) /////////////////////////////////
 
@@ -19,10 +20,20 @@ public class Position
       PARAMETERS: Takes two integer values x and y referring to the x and y cordinates of the position
       PURPOSE:    This method constructs a new Position object
    */
-   public Position(int x, int y)
+   public Position(int x, int y, Driver driver)
    {
       this.x = x;
       this.y = y;
+      this.driver = driver;
+      this.restaurant = null;
+   }
+   
+   public Position(int x, int y, Restaurant restaurant)
+   {
+      this.x = x;
+      this.y = y;
+      this.restaurant = restaurant;
+      this.driver = null;
    }
    
    /////////////////////////////////   ACESSORS   /////////////////////////////////
@@ -46,6 +57,24 @@ public class Position
    public int getY()
    {
       return this.y;
+   }
+   
+   public String getType()
+   {
+      if(this.driver == null)
+      return "restaurant";
+      else 
+      return "driver";
+   }
+   
+   public Restaurant getRestaurant()
+   {
+      return this.restaurant;
+   }
+   
+   public Driver getDriver()
+   {
+      return this.driver;
    }
 
 }
