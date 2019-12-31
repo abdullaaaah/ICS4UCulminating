@@ -2,31 +2,7 @@ import java.io.*;
 
 public class CityDeliveryDatabase
 {
-<<<<<<< HEAD
-   protected User userLoggedIn;
-   protected Restaurant[] restaurants;
-   protected User[] users;
-   protected Coupon[] coupons;
-   protected Order[] orders;
-   protected Driver[] drivers; 
-   protected Map map;
-   protected final double DELIVERY_FEE = 1;
-   protected final double TAX_RATE = 0.13;
-   protected final String USERS_FILE = "users.txt";
-   protected final String RESTAURANTS_FILE = "restaurants.txt";
-   protected final String COUPONS_FILE = "coupons.txt";
-   protected final String WALLETS_FILE = "wallets.txt";
-   protected final String CARDS_FILE = "cards.txt";
-   protected final String DRIVERS_FILE = "drivers.txt";
-   protected final int MAX_RESTAURANTS = 6;
-   protected int numRestaurants;
-   protected final int MAX_DRIVERS = 5;
-   protected int numDrivers;
-   protected final int MAX_USERS = 50;
-   protected int numUsers;
-   protected final int MAX_COUPONS = 50;
-   protected int numCoupons;
-=======
+
    private User userLoggedIn;
    private Restaurant[] restaurants;
    private User[] users;
@@ -54,12 +30,8 @@ public class CityDeliveryDatabase
    private final int MAX_COUPONS = 50;
    private int numCoupons;
    private int numWallets;
-<<<<<<< HEAD
    private int numCards;
-=======
->>>>>>> 3e46fff0035d92c184c02436dd4bd7104111ef37
->>>>>>> 1994b9ec90cef97bdae5e5ec50553ce27cb94b59
-   
+
    /////////////////////////////////   CONSTRUCTOR(s) /////////////////////////////////
 
    
