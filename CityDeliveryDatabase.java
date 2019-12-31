@@ -2,32 +2,34 @@ import java.io.*;
 
 public class CityDeliveryDatabase
 {
-   protected User userLoggedIn;
-   protected Restaurant[] restaurants;
-   protected User[] users;
-   protected Coupon[] coupons;
-   protected Order[] orders;
-   protected Driver[] drivers; 
-   protected Wallet[] wallets;
-   protected Map map;
-   protected final double DELIVERY_FEE = 1;
-   protected final double TAX_RATE = 0.13;
-   protected final String USERS_FILE = "users.txt";
-   protected final String RESTAURANTS_FILE = "restaurants.txt";
-   protected final String COUPONS_FILE = "coupons.txt";
-   protected final String WALLETS_FILE = "wallets.txt";
-   protected final String CARDS_FILE = "cards.txt";
-   protected final String DRIVERS_FILE = "drivers.txt";
-   protected final String DIRECTORY = "database/";
-   protected final int MAX_RESTAURANTS = 6;
-   protected int numRestaurants;
-   protected final int MAX_DRIVERS = 5;
-   protected int numDrivers;
-   protected final int MAX_USERS = 50;
-   protected int numUsers;
-   protected final int MAX_COUPONS = 50;
-   protected int numCoupons;
-   protected int numWallets;
+   private User userLoggedIn;
+   private Restaurant[] restaurants;
+   private User[] users;
+   private Coupon[] coupons;
+   private Order[] orders;
+   private Driver[] drivers; 
+   private Wallet[] wallets;
+   private Card[] cards;
+   private Map map;
+   private final double DELIVERY_FEE = 1;
+   private final double TAX_RATE = 0.13;
+   private final String USERS_FILE = "users.txt";
+   private final String RESTAURANTS_FILE = "restaurants.txt";
+   private final String COUPONS_FILE = "coupons.txt";
+   private final String WALLETS_FILE = "wallets.txt";
+   private final String CARDS_FILE = "cards.txt";
+   private final String DRIVERS_FILE = "drivers.txt";
+   private final String DIRECTORY = "database/";
+   private final int MAX_RESTAURANTS = 6;
+   private int numRestaurants;
+   private final int MAX_DRIVERS = 5;
+   private int numDrivers;
+   private final int MAX_USERS = 50;
+   private int numUsers;
+   private final int MAX_COUPONS = 50;
+   private int numCoupons;
+   private int numWallets;
+   private int numCards;
 
    /////////////////////////////////   CONSTRUCTOR(s) /////////////////////////////////
 
