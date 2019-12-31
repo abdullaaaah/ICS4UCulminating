@@ -8,14 +8,14 @@
 
 public class Wallet
 {
-   protected String username;
+   protected String customer;
    protected Card creditCard;
    protected double balance;
    
    // Accessor & Mutator ///////////////////////////////////////////////
-   public String getUsername ()
+   public String getCustomer ()
    {
-      return username;
+      return customer;
    }
    ////////////////////////////
    public Card getCreditCard ()
@@ -28,9 +28,9 @@ public class Wallet
       return balance;
    }
    ///////////////////////
-   public void setUsername (String s)
+   public void setCustomer (String username)
    {
-      username = s;
+      customer = username;
    }
 
    // Constructor ///////////////////////////////////
@@ -39,10 +39,9 @@ public class Wallet
       RETURN VALUE:  N/A
       PURPOSE:       Creat wallet object
    */
-   public Wallet (String username, Card creditCard, double balance)
+   public Wallet (String customer, double balance)
    {
-      this.username = username;
-      this.creditCard = creditCard;
+      this.customer = customer;
       this.balance = balance;
    }
    

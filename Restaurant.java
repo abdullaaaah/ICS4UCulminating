@@ -47,6 +47,7 @@ public class Restaurant
          {
             itemDatabase.createNewFile();
             saveMenu(); // This will write 0 on the file.
+            
          } catch(IOException e)
          {
             System.out.println("Error creating item database");

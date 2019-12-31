@@ -1,4 +1,4 @@
-3
+4
 Mcdonalds
 Fast Food
 23.0
@@ -17,3 +17,9 @@ Coffee
 5
 2
 0
+chick fila
+junk food
+5.0
+1
+4
+2

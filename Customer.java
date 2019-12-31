@@ -77,6 +77,24 @@ public class Customer extends User
    {
       this.wallet = wallet;
    }
+   
+   //////////////////////////////////////////////////
+   /*
+      PARAMETERS:    Wallet[]
+      RETURN VALUE:  void
+      PURPOSE:       Find customer's wallet and set it.
+   */
+   public void setWallet(Wallet[] wallets, int num) // this will be used when opening the wallet screen
+   {
+      boolean walletFound = false;
+      for(int i = 0; i<num && !walletFound; i++)
+      {
+         if(wallets[i].getCustomer() == this.username)
+         this.wallet = wallets[i];
+         walletFound = true;
+      }
+   }
+   
    ///////////////////////////////////////////////////
    /*
       PARAMETERS:    amount want to add

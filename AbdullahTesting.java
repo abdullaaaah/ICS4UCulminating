@@ -10,9 +10,9 @@ public class AbdullahTesting
           
  
       //cityDelivery.getRestaurants()[0].removeItem("Poutine");
-      
-      
+            
       Admin me = new Admin("Abdullah Shahid", "nx", "123456");
+      me.addRestaurant(cityDelivery, "chick fila", "junk food", 5, 1, 4,2);
       
       // test adding and removing for driver
       

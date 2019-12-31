@@ -8,6 +8,7 @@ public class CityDeliveryDatabase
    private Coupon[] coupons;
    private Order[] orders;
    private Driver[] drivers; 
+   private Wallet[] wallets;
    private Map map;
    private final double DELIVERY_FEE = 1;
    private final double TAX_RATE = 0.13;
@@ -25,6 +26,7 @@ public class CityDeliveryDatabase
    private int numUsers;
    private final int MAX_COUPONS = 50;
    private int numCoupons;
+   private int numWallets;
    
    /////////////////////////////////   CONSTRUCTOR(s) /////////////////////////////////
 
@@ -51,6 +53,30 @@ public class CityDeliveryDatabase
       this.coupons = new Coupon[MAX_COUPONS];
       this.numCoupons = 0;
       loadCoupons();
+      
+      //wallets
+      this.wallets = new Wallet[MAX_USERS];
+      this.numWallets = 0;
+
+      //Creating a wallets file if not exist
+      File walletsFile = new File(WALLETS_FILE);
+      if(!walletsFile.exists())
+      {
+         try
+         {
+            walletsFile.createNewFile();
+            saveWallets(); // This will write 0 on the file.
+            
+         } catch(IOException e)
+         {
+            System.out.println("Error creating wallets database");
+         }
+      }
+      else
+      {
+         loadWallets();
+      }
+
       
       //Map
       map = new Map(5,5); 
@@ -389,6 +415,11 @@ public class CityDeliveryDatabase
          users[numUsers] = new Customer(name, username, User.encrypt(password));
          numUsers++;
          saveUsers();
+         
+         wallets[numWallets] = new Wallet(username, 0);
+         numWallets++;
+         saveWallets();
+         
          return true;
       }
    }
@@ -678,7 +709,63 @@ public class CityDeliveryDatabase
       }
    }
    
+      /////////////////////////////////   WALLET RELATED   /////////////////////////////////
+
+   public void loadWallets()
+   {
+      String customer;
+      double balance;
    
+      try {
+         BufferedReader in = new BufferedReader(new FileReader(WALLETS_FILE));
+         
+         int numToLoad = Integer.parseInt(in.readLine());
+         
+         for(int i = 0; i<numToLoad; i++)
+         {
+            customer = in.readLine();
+            balance = Double.parseDouble(in.readLine());
+            
+            wallets[this.numWallets] = new Wallet(customer, balance);   
+            this.numWallets++;
+         }
+      
+      } catch(IOException e)
+      {
+         System.out.println("Error loading Wallets");
+      }
+   }
+   
+  /*
+      PARAMETERS:    None
+      RETURN VALUE:  None
+      PURPOSE:       Save all of the restaurants in the database to the file.
+  */ 
+   public void saveWallets()
+   {
+      try
+      {
+         BufferedWriter out = new BufferedWriter(new FileWriter(WALLETS_FILE, false));
+         out.write(Integer.toString(this.numWallets));
+         out.newLine();
+         
+         for(int i = 0; i<this.numWallets; i++)
+         {
+            out.write(wallets[i].getCustomer());
+            out.newLine();
+            out.write(Double.toString( wallets[i].getBalance()) );
+            out.newLine();
+         }
+         
+         out.close();
+         
+      }
+      catch(IOException e)
+      {
+         System.out.println("Error writing to wallets database");
+      }
+   }
+
 }
 
 
