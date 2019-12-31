@@ -9,6 +9,7 @@ public class CityDeliveryDatabase
    protected Order[] orders;
    protected Driver[] drivers; 
    protected Wallet[] wallets;
+   protected Card[] cards;
    protected Map map;
    protected final double DELIVERY_FEE = 1;
    protected final double TAX_RATE = 0.13;
@@ -28,6 +29,7 @@ public class CityDeliveryDatabase
    protected final int MAX_COUPONS = 50;
    protected int numCoupons;
    protected int numWallets;
+   private int numCards;
 
    /////////////////////////////////   CONSTRUCTOR(s) /////////////////////////////////
 
