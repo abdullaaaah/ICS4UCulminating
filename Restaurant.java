@@ -20,6 +20,7 @@ public class Restaurant
    protected int numRating;
    protected final int MAX_ITEMS = 10;
    protected final String FILE_ENDING = ".items.txt";
+   protected final String DIRECTORY = "database/items/";
    
    /////////////////////////////////   CONSTRUCTOR(s) /////////////////////////////////
    
@@ -40,7 +41,7 @@ public class Restaurant
       this.numItem = 0;
       
       //Creating a items database if doesnt exists
-      File itemDatabase = new File(this.name+FILE_ENDING);
+      File itemDatabase = new File(DIRECTORY+this.name+FILE_ENDING);
       if(!itemDatabase.exists())
       {
          try
@@ -290,7 +291,7 @@ public class Restaurant
       
       try
       {
-         BufferedReader in = new BufferedReader(new FileReader(this.name+FILE_ENDING));
+         BufferedReader in = new BufferedReader(new FileReader(DIRECTORY+this.name+FILE_ENDING));
          String input;
          
          int numToLoad = Integer.parseInt(in.readLine());
@@ -322,7 +323,7 @@ public class Restaurant
    {
       try
       {
-         BufferedWriter out = new BufferedWriter(new FileWriter(this.name+FILE_ENDING, false));
+         BufferedWriter out = new BufferedWriter(new FileWriter(DIRECTORY+this.name+FILE_ENDING, false));
          out.write(Integer.toString(this.numItem));
          out.newLine();
          
