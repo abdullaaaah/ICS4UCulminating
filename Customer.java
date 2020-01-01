@@ -6,6 +6,8 @@
    PURPOSE:    A class that stores information of a customer..!
 */
 
+//Test
+
 public class Customer extends User
 {
    protected Order[] orderHistory;
