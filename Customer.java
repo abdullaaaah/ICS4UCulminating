@@ -3,8 +3,9 @@
    AUTHOR:     Oliver Huang
    DATE:       12/26/2019
    SCHOOL:     AY Jackson Secondary School
-   PURPOSE:    A class that stores information of a customer
+   PURPOSE:    A class that stores information of a customer..!
 */
+
 
 public class Customer extends User
 {
@@ -14,7 +15,7 @@ public class Customer extends User
    protected int positionX;
    protected int positionY;
    
-   // Accessor /////////////////////////////////////
+   // Accessor /////////////////////////////////////haha
    public Order[] getOrderHistory ()
    {
       return orderHistory;

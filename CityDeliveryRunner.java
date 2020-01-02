@@ -24,8 +24,8 @@ public class CityDeliveryRunner
          System.out.println("======================================================");
          
          System.out.println("Select your choice");
-         System.out.println("1. Log in");
-         System.out.println("2. Create a account");
+         System.out.println("1. Login");
+         System.out.println("2. Register");
          
          initChoice = sc.nextInt();
       
@@ -122,29 +122,50 @@ public class CityDeliveryRunner
                System.out.println("5. Active Delivery");
                System.out.println("6. Log Out");
                
-               String choice = sc.next();
+               int choice = sc.nextInt();
                
-               if (choice == "1")
+               if (choice == 1) // profile setting
                {
-                  // profile setting
+                  System.out.println("Profile Settings");
+                  System.out.println("Change name");
+                  System.out.println("Change username");
+                  System.out.println("Change password");
+                  
+                  int choiceProfile = sc.nextInt();
+                  
+                  switch (choiceProfile) {
+                     case 1:
+                        System.out.println("Enter -1 to go back");
+                        System.out.println("Enter current name:");
+                        String currentName = sc.next();
+                        
+                        break;
+                     default:
+                        try {
+                        
+                        }
+                        catch ( ){
+                           
+                        }
+                  }
                }
-               else if (choice == "2")
+               else if (choice == 2) // Wallet
                {
-                  // Wallet
+                  
                }
-               else if (choice == "3")
+               else if (choice == 3) // Place Order
                {
-                  // Place Order
+                  
                }
-               else if (choice == "4")
+               else if (choice == 4) // View Order History
                {
-                  // View Order History
+                  
                }
-               else if (choice == "5")
+               else if (choice == 5) // Active Delivery
                {
-                  // Active Delivery
+                  
                }
-               else if (choice == "6")
+               else if (choice == 6)
                {
                   cdd.logout();
                }

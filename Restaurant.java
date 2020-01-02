@@ -40,7 +40,7 @@ public class Restaurant
       menu = new Item[MAX_ITEMS];
       this.numItem = 0;
       
-      //Creating a items database if doesnt exists
+      //Creating an items database if doesnt exists
       File itemDatabase = new File(DIRECTORY+this.name+FILE_ENDING);
       if(!itemDatabase.exists())
       {
