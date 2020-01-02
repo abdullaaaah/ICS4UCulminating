@@ -113,58 +113,71 @@ public class CityDeliveryRunner
          {
             if(false)//cdd.isUserCustomer())
             {                  
-                     //Customer panel code here
-               System.out.println("Customer");
-               System.out.println("1. Profile Settings");
-               System.out.println("2. Wallet");
-               System.out.println("3. Place Order");
-               System.out.println("4. View Order History");
-               System.out.println("5. Active Delivery");
-               System.out.println("6. Log Out");
-               System.out.println("Enter your choice (or -1 to go back): ");
-               int choicePanel = sc.nextInt();
+               boolean continuePanel = true;
+               do {
+                  System.out.println("Customer");
+                  System.out.println("1. Profile Settings");
+                  System.out.println("2. Wallet");
+                  System.out.println("3. Place Order");
+                  System.out.println("4. View Order History");
+                  System.out.println("5. Active Delivery");
+                  System.out.println("6. Log Out");
+                  System.out.println("Enter your choice (or anything else to go back): ");
+                  int choicePanel = sc.nextInt();
                
-               switch (choicePanel) {
-                  case 1:                                                                       // profile setting
-                     System.out.println("Profile Settings");
-                     System.out.println("Change name");
-                     System.out.println("Change username");
-                     System.out.println("Change password");
+                  switch (choicePanel) {
+                     case 1:                                                                       // profile setting
+                        
+                        System.out.println("Profile Settings");
+                        System.out.println("1. Change name");
+                        System.out.println("2. Change username");
+                        System.out.println("3. Change password");
+                        System.out.println("Enter your choice (or anything else to go back): ");
+                        int choiceProfile = sc.nextInt();
                      
-                     int choiceProfile = sc.nextInt();
-                     
-                     switch (choiceProfile) {
-                        case 1:
-                           System.out.println("Enter -1 to go back");
-                           System.out.println("Enter current name:");
-                           String currentName = sc.next();
-                           if (currentName.equals(cdd.getUserLoggedIn().getName())){
-                              
-                           }
-                           break;
-                        default:
-                           try {
+                        switch (choiceProfile) {
+                           case 1:
+                              System.out.println("Enter -1 to go back");
+                              System.out.println("Enter current name:");
+                              String currentName = sc.next();
                            
-                           }
-                           catch (IOException ix){
-                              
-                           }
-                     }
-                  case 2:                                                        // wallet
-                  
-                     break;
-                  case 3:                                                        // place order
-                     break;
-                  case 4:                                                        // view order history
-                     break;
-                  case 5:                                                        // view active deliveries
-                     break;
-                  case 6:
-                     cdd.logout();
-                     break;
-                  default:
-                  // go back
-               }
+                              boolean exit = false; // for currentName
+                           
+                              while (!exit && continuePanel)
+                                 if (currentName.equals(cdd.getUserLoggedIn().getName())){
+                                    System.out.println("Enter new name: ");
+                                    String newName = sc.next();
+                                    cdd.getUserLoggedIn().setName(newName);
+                                    exit = true;
+                                 }
+                                 else if (currentName.equals("-1")) {
+                                    continuePanel = false;
+                                 }
+                                 else {
+                                    System.out.println("Error, try again");
+                                    System.out.println("Enter current name: ");
+                                    currentName = sc.next();
+                                 }
+                              break;
+                           default:
+                              continuePanel = false;
+                        }
+                     case 2:                                                        // wallet
+                     
+                        break;
+                     case 3:                                                        // place order
+                        break;
+                     case 4:                                                        // view order history
+                        break;
+                     case 5:                                                        // view active deliveries
+                        break;
+                     case 6:
+                        cdd.logout();
+                        break;
+                     default:
+                        // go back to
+                  }
+               } while (!continuePanel);
             }
             else 
             {
