@@ -49,9 +49,15 @@ public class Map
    }
    
  
-   public void addPosition(int x, int y)
+   public void addPosition(int x, int y, Restaurant r)
    {
-      positions[numPositions] = new Position(x,y); 
+      positions[numPositions] = new Position(x,y, r); 
+      numPositions++;
+   }
+   
+   public void addPosition(int x, int y, Driver d)
+   {
+      positions[numPositions] = new Position(x,y, d); 
       numPositions++;
    }
    
@@ -67,6 +73,45 @@ public class Map
       }
       
       return false;
+   }
+   
+   public Driver findDriver(int restaurantX, int restaurantY)
+   {
+      //When looking for the closest driver, we do not account for the route taken because the customer does not pay for this distance.
+     // Just the absolute proximity is considered when searching for the best driver
+     
+     Driver closest = null;
+     double distance = 0;
+     boolean firstFound = false;
+     int firstIndex = 0;
+     double temp;
+     
+     for(int i = 0; i<numPositions && !firstFound; i++)
+     {     
+         if(positions[i].getType().equals("driver"))
+         {
+            firstIndex = i;
+            distance = getDistance(positions[i].getX(), positions[i].getY(), restaurantX, restaurantY);
+            closest = positions[i].getDriver();
+            firstFound = true;
+         } 
+     }
+     
+     for(int i = firstIndex+1; i<numPositions; i++)
+     {
+         if(positions[i].getType().equals("driver"))
+         {
+            temp = getDistance(positions[i].getX(), positions[i].getY(), restaurantX, restaurantY);
+            if(temp < distance)
+            {
+               distance = temp;
+               closest = positions[i].getDriver();
+            }
+         }
+     }
+     
+     return closest;
+     
    }
    
    
@@ -139,12 +184,12 @@ public class Map
    
       for(int i = 0; i<numRestaurants; i++)
       {  
-         addPosition(restaurants[i].getPositionX(), restaurants[i].getPositionY());
+         addPosition(restaurants[i].getPositionX(), restaurants[i].getPositionY(), restaurants[i]);
       }
    
       for(int i = 0; i<numDrivers; i++)
       {
-         addPosition(drivers[i].getPositionX(), drivers[i].getPositionY());
+         addPosition(drivers[i].getPositionX(), drivers[i].getPositionY(), drivers[i]);
       }
    
    }
