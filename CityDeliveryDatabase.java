@@ -718,7 +718,7 @@ public class CityDeliveryDatabase
       return this.numCoupons;
    }
    
-   public Coupon[] coupons()
+   public Coupon[] getCoupons()
    {
       return this.coupons;
    }

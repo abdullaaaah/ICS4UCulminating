@@ -337,7 +337,7 @@ public class CityDeliveryRunner
                      }
                      else if (choice.equals("2"))
                      {
-                        System.out.println(cdd.coupons());
+                        System.out.println(cdd.getCoupons());
                         System.out.print("Press anything to continue");
                         sc.next();
                      }

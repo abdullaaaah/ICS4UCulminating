@@ -51,6 +51,7 @@ public class Map
  
    public void addPosition(int x, int y, Restaurant r)
    {
+      System.out.println(""+x+y+r.getName());
       positions[numPositions] = new Position(x,y, r); 
       numPositions++;
    }
