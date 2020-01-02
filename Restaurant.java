@@ -345,6 +345,13 @@ public class Restaurant
       }
    }
    
+   public void editRestaurant (String name, String category, double rating)
+   {
+      this.name = name;
+      this.category = category;
+      this.rating = rating;
+   }
+   
    public String toString ()
    {
       return name;  

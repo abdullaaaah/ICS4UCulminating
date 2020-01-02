@@ -697,6 +697,11 @@ public class CityDeliveryDatabase
       return false;
    }
    
+   public User user()
+   {
+      return userLoggedIn;
+   }
+   
    public void logout()
    {
       
@@ -712,7 +717,7 @@ public class CityDeliveryDatabase
       return this.numCoupons;
    }
    
-   public Coupon[] getCoupons()
+   public Coupon[] coupons()
    {
       return this.coupons;
    }
@@ -951,5 +956,4 @@ public class CityDeliveryDatabase
    }
 
 }
-
 
