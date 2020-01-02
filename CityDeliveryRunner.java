@@ -141,12 +141,12 @@ public class CityDeliveryRunner
                         
                         break;
                      default:
-                        try {
-                        
-                        }
-                        catch ( ){
-                           
-                        }
+                        // try {
+//                         
+//                         }
+//                         catch ( ){
+//                            
+//                         }
                   }
                }
                else if (choice == 2) // Wallet
@@ -200,21 +200,20 @@ public class CityDeliveryRunner
                      System.out.println("Press anything else to go back");
                   
                      choice = sc.next();
-                     
                      if (choice.equals("1"))
                      {
                         System.out.print("Enter New Name: ");
-                        cdd.userLoggedIn.setName(sc.next());
+                        cdd.user().setName(sc.next());
                      }
                      else if (choice.equals("2"))
                      {
                         System.out.print("Enter New Username: ");
-                        cdd.userLoggedIn.changeUsername(sc.next());
+                        cdd.user().changeUsername(sc.next());
                      }
                      else if (choice.equals("3"))
                      {
                         System.out.print("Enter New Password: ");
-                        cdd.userLoggedIn.changePassword(sc.next());
+                        cdd.user().changePassword(sc.next());
                      }
                   }
                   else if (choice.equals("2"))
@@ -241,17 +240,26 @@ public class CityDeliveryRunner
                         int positionX = Integer.parseInt(sc.next());
                         System.out.print("Enter Restaurant PositionY: ");
                         int positionY = Integer.parseInt(sc.next());
-                        ((Admin)cdd.userLoggedIn).addRestaurant(cdd, name, cate, rate, numRate, positionX, positionY);
+                        ((Admin)cdd.user()).addRestaurant(cdd, name, cate, rate, numRate, positionX, positionY);
                      }
                      else if (choice.equals("2"))
                      {
                      // view / modify restaurant
-                        System.out.println(cdd.restaurants());
+                        System.out.println(cdd.getRestaurants());
+                        System.out.print("Enter Restaurant ID: ");
+                        String resID = sc.next();
+                        System.out.print("Enter New Name: ");
+                        String name = sc.next();
+                        System.out.print("Enter New Category: ");
+                        String cate = sc.nextLine();
+                        System.out.print("Enter New Rating: ");
+                        double rating = sc.nextDouble();
+                        cdd.getRestaurants()[Integer.parseInt(resID)].editRestaurant(name, cate, rating);
                      }
                      else if (choice.equals("3"))
                      {
                         System.out.print("Enter Restaurant Name: ");
-                        ((Admin)cdd.userLoggedIn).removeRestaurant(cdd, sc.nextLine());
+                        ((Admin)cdd.user()).removeRestaurant(cdd, sc.nextLine());
                      }
                   }
                   else if (choice.equals("3"))
@@ -277,16 +285,28 @@ public class CityDeliveryRunner
                         int positionX = sc.nextInt();
                         System.out.print("Enter Driver PositionY: ");
                         int positionY = sc.nextInt();
-                        ((Admin)cdd.userLoggedIn).addDriver(cdd, id, name, phoneNum, des, positionX, positionY);
+                        ((Admin)cdd.user()).addDriver(cdd, id, name, phoneNum, des, positionX, positionY);
                      }
                      else if (choice.equals("2"))
                      {
                      // view driver
+                        System.out.println(cdd.getDrivers());
+                        System.out.print("Enter Driver ID: ");
+                        String drivID = sc.next();
+                        System.out.print("Enter New Name: ");
+                        String name = sc.next();
+                        System.out.print("Enter New Phone Number: ");
+                        String phoneNum = sc.nextLine();
+                        System.out.print("Enter New Car Description: ");
+                        String description = sc.nextLine();
+                        cdd.getDrivers()[Integer.parseInt(drivID)].editDriver(name, phoneNum, description);
+
+
                      }
                      else if (choice.equals("3"))
                      {
                         System.out.print("Enter Driver ID: ");
-                        ((Admin)cdd.userLoggedIn).removeDriver(cdd, sc.nextInt());
+                        ((Admin)cdd.user()).removeDriver(cdd, sc.nextInt());
                      }
                   }
                   else if (choice.equals("4"))
@@ -304,18 +324,18 @@ public class CityDeliveryRunner
                         String code = sc.nextLine();
                         System.out.print("Enter Coupon Discount: ");
                         double dis = sc.nextDouble();
-                        ((Admin)cdd.userLoggedIn).addCoupon(cdd, code, dis);
+                        ((Admin)cdd.user()).addCoupon(cdd, code, dis);
                      }
                      else if (choice.equals("2"))
                      {
-                        System.out.println(cdd.coupons);
+                        System.out.println(cdd.coupons());
                         System.out.print("Press anything to continue");
                         sc.next();
                      }
                      else if (choice.equals("3"))
                      {
                         System.out.print("Enter Coupon Code: ");
-                        ((Admin)cdd.userLoggedIn).removeCoupon(cdd, sc.next());
+                        ((Admin)cdd.user()).removeCoupon(cdd, sc.next());
                      }
                   }
                   else if (choice.equals("5"))
@@ -335,33 +355,33 @@ public class CityDeliveryRunner
                         String name = sc.next();
                         System.out.print("Enter Item Price: ");
                         double price = sc.nextDouble();
-                        cdd.restaurants[Integer.parseInt(resID)].addItem(name, price);
+                        cdd.getRestaurants()[Integer.parseInt(resID)].addItem(name, price);
                      }
                      else if (choice.equals("2"))
                      {
-                        System.out.println(cdd.restaurants[Integer.parseInt(resID)].getMenu());
+                        System.out.println(cdd.getRestaurants()[Integer.parseInt(resID)].getMenu());
                         System.out.print("Enter Item ID: ");
                         String itemID = sc.next();
                         System.out.print("Enter New Name: ");
                         String name = sc.next();
                         System.out.print("Enter New Price: ");
                         double price = sc.nextDouble();
-                        cdd.restaurants[Integer.parseInt(resID)].editItem(cdd.restaurants[Integer.parseInt(resID)].menu[Integer.parseInt(itemID)], name, price);
+                        cdd.getRestaurants()[Integer.parseInt(resID)].editItem(cdd.getRestaurants()[Integer.parseInt(resID)].menu[Integer.parseInt(itemID)], name, price);
                      }
                      else if (choice.equals("3"))
                      {
-                        System.out.println(cdd.restaurants[Integer.parseInt(resID)].getMenu());
+                        System.out.println(cdd.getRestaurants()[Integer.parseInt(resID)].getMenu());
                         System.out.print("Enter Item Name: ");
                         String name = sc.next();
-                        cdd.restaurants[Integer.parseInt(resID)].removeItem(name);
+                        cdd.getRestaurants()[Integer.parseInt(resID)].removeItem(name);
                      }
                   }
                   else if (choice.equals("6"))
                   {
                   // view finances
-                     System.out.println("Total Revenue: " + ((Admin)cdd.userLoggedIn).getTotalRevenue());
-                     System.out.println("Driver Salary: " + ((Admin)cdd.userLoggedIn).getDriverCost());
-                     System.out.println("Total Profit:  " + ((Admin)cdd.userLoggedIn).getProfit());
+                     System.out.println("Total Revenue: " + ((Admin)cdd.user()).getTotalRevenue());
+                     System.out.println("Driver Salary: " + ((Admin)cdd.user()).getDriverCost());
+                     System.out.println("Total Profit:  " + ((Admin)cdd.user()).getProfit());
                   }
                   else if (choice.equals("7"))
                   {

@@ -128,4 +128,11 @@ public class Driver extends Person
    {
       return super.getName() + " Contact Number: " + this.phoneNumber + " Description: " + this.description;
    }
+   
+   public void editDriver (String name, String phoneNumber, String description)
+   {
+      this.name = name;
+      this.phoneNumber = phoneNumber;
+      this.description = description;
+   }
 }
