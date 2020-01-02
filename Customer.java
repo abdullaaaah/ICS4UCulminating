@@ -6,6 +6,9 @@
    PURPOSE:    A class that stores information of a customer..!
 */
 
+//Test
+//testeststes
+//testestest
 
 public class Customer extends User
 {

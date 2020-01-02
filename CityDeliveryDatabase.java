@@ -500,15 +500,15 @@ public class CityDeliveryDatabase
    /////////////////////////////////   USER RELATED   /////////////////////////////////
    //Status: Finished, maybe some additional methods here and there
 
+
    /*
       PARAMETERS:    N/A
       RETURN VALUE:  User
-      PURPOSE:       Accessor returning userLoggedIn
+      PURPOSE:       Accessor which returns the user that is currently logged in
    */
    public User getUserLoggedIn() {
       return userLoggedIn;
-   }   
-   
+   }       
    /*
       PARAMETERS:    Restaurants list, name, category, rating, positoinX, positionY
       RETURN VALUE:  N/A

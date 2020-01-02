@@ -24,8 +24,8 @@ public class CityDeliveryRunner
          System.out.println("======================================================");
          
          System.out.println("Select your choice");
-         System.out.println("1. Login");
-         System.out.println("2. Register");
+         System.out.println("1. Log in");
+         System.out.println("2. Create a account");
          
          initChoice = sc.nextInt();
       
@@ -121,64 +121,49 @@ public class CityDeliveryRunner
                System.out.println("4. View Order History");
                System.out.println("5. Active Delivery");
                System.out.println("6. Log Out");
+               System.out.println("Enter your choice (or -1 to go back): ");
+               int choicePanel = sc.nextInt();
                
-               int choice = sc.nextInt();
-               
-               if (choice == 1) // profile setting
-               {
-                  System.out.println("Profile Settings");
-                  System.out.println("Change name");
-                  System.out.println("Change username");
-                  System.out.println("Change password");
-                  
-                  int choiceProfile = sc.nextInt();
-                  
-                  switch (choiceProfile) {
-                     case 1:
-                        System.out.println("Enter -1 to go back");
-                        System.out.println("Enter current name:");
-                        String currentName = sc.next();
-                        if (currentName.equals(cdd.getUserLoggedIn().getUsername())){
+               switch (choicePanel) {
+                  case 1:                                                                       // profile setting
+                     System.out.println("Profile Settings");
+                     System.out.println("Change name");
+                     System.out.println("Change username");
+                     System.out.println("Change password");
+                     
+                     int choiceProfile = sc.nextInt();
+                     
+                     switch (choiceProfile) {
+                        case 1:
+                           System.out.println("Enter -1 to go back");
+                           System.out.println("Enter current name:");
+                           String currentName = sc.next();
+                           if (currentName.equals(cdd.getUserLoggedIn().getName())){
+                              
+                           }
+                           break;
+                        default:
+                           try {
                            
-                        }
-                        break;
-                     default:
-<<<<<<< HEAD
-                        try {
-                        
-                        }
-                        catch (IOException ix){
-                           
-                        }
-=======
-                        // try {
-//                         
-//                         }
-//                         catch ( ){
-//                            
-//                         }
->>>>>>> 866c205916404763dfc847751820fc341973acc2
-                  }
-               }
-               else if (choice == 2) // Wallet
-               {
+                           }
+                           catch (IOException ix){
+                              
+                           }
+                     }
+                  case 2:                                                        // wallet
                   
-               }
-               else if (choice == 3) // Place Order
-               {
-                  
-               }
-               else if (choice == 4) // View Order History
-               {
-                  
-               }
-               else if (choice == 5) // Active Delivery
-               {
-                  
-               }
-               else if (choice == 6)
-               {
-                  cdd.logout();
+                     break;
+                  case 3:                                                        // place order
+                     break;
+                  case 4:                                                        // view order history
+                     break;
+                  case 5:                                                        // view active deliveries
+                     break;
+                  case 6:
+                     cdd.logout();
+                     break;
+                  default:
+                  // go back
                }
             }
             else 
@@ -311,8 +296,8 @@ public class CityDeliveryRunner
                         System.out.print("Enter New Car Description: ");
                         String description = sc.nextLine();
                         cdd.getDrivers()[Integer.parseInt(drivID)].editDriver(name, phoneNum, description);
-
-
+                     
+                     
                      }
                      else if (choice.equals("3"))
                      {
