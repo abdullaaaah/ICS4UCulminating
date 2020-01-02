@@ -138,13 +138,15 @@ public class CityDeliveryRunner
                         System.out.println("Enter -1 to go back");
                         System.out.println("Enter current name:");
                         String currentName = sc.next();
-                        
+                        if (currentName.equals(cdd.getUserLoggedIn().getUsername())){
+                           
+                        }
                         break;
                      default:
                         try {
                         
                         }
-                        catch ( ){
+                        catch (IOException ix){
                            
                         }
                   }
