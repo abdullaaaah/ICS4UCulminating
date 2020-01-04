@@ -51,14 +51,9 @@ public class Wallet
       RETURN VALUE:  boolean
       PURPOSE:       add specific amount to balance
    */
-   public boolean addBalance (double amount)
+   public void addBalance (double amount)
    {
-      if (hasCard())
-      {
-         balance = balance + amount;
-         return true;
-      }
-      return false;
+      balance += amount;
    }
    ////////////////////////////////////////////////////
    /*

@@ -25,7 +25,7 @@ public class CityDeliveryRunner
          
          System.out.println("Select your choice");
          System.out.println("1. Log in");
-         System.out.println("2. Create a account");
+         System.out.println("2. Register");
          
          initChoice = sc.nextInt();
       
@@ -112,7 +112,8 @@ public class CityDeliveryRunner
          if(login)
          {
             if(false)//cdd.isUserCustomer())
-            {                  
+            {              
+               Customer curCustomer = (Customer)cdd.getUserLoggedIn();   
                boolean continuePanel = true;
                do {
                   System.out.println("Customer");
@@ -127,43 +128,185 @@ public class CityDeliveryRunner
                
                   switch (choicePanel) {
                      case 1:                                                                       // profile setting
+                        boolean continueProfileSetting = true;
+                        do {
+                           System.out.println("Profile Settings");
+                           System.out.println("1. Change name");
+                           System.out.println("2. Change username");
+                           System.out.println("3. Change password");
+                           System.out.println("Enter your choice (or anything else to go back): ");
+                           int choiceProfile = sc.nextInt();
+                           
+                           switch (choiceProfile) {
+                              case 1:
+                                 System.out.println("Enter -1 to go back");
+                                 System.out.println("Enter current name:");
+                                 String currentName = sc.next();
+                              
+                                 boolean exit = false; // for currentName
+                                 while (true)
+                                 while (!exit && continuePanel)
+                                    if (currentName.equals(cdd.getUserLoggedIn().getName())){
+                                       System.out.println("Enter new name: ");
+                                       String newName = sc.next();
+                                       cdd.getUserLoggedIn().setName(newName);
+                                       exit = true;
+                                    }
+                                    else if (currentName.equals("-1")) {
+                                       continueProfileSetting = false;
+                                    }
+                                    else {
+                                       System.out.println("Error, try again");
+                                       System.out.println("Enter current name: ");
+                                       currentName = sc.next();
+                                    }
+                                 break;
+                              case 2:
+                                 System.out.println("Enter current username:");
+                                 String currentUsername = sc.next();
+                              
+                                 exit = false; // for currentName
+                              
+                                 while (!exit && continuePanel)
+                                    if (currentUsername.equals(cdd.getUserLoggedIn().getUsername())){
+                                       System.out.println("Enter new username: ");
+                                       String newUsername = sc.next();
+                                       cdd.getUserLoggedIn().setUsername(newUsername);
+                                       exit = true;
+                                    }
+                                    else if (currentUsername.equals("-1")) {
+                                       continuePanel = false;
+                                    }
+                                    else {
+                                       System.out.println("Error, try again");
+                                       System.out.println("Enter current username: ");
+                                       currentUsername = sc.next();
+                                    }
+                                 break;
+                              case 3:
+                                 System.out.println("Enter current password:");
+                                 String currentPassword = sc.next();
+                              
+                                 exit = false; // for currentPass
+                              
+                                 while (!exit && continuePanel)
+                                    if (currentPassword.equals(cdd.getUserLoggedIn().getPassword())){
+                                       System.out.println("Enter new password: ");
+                                       String newPassword = sc.next();
+                                       cdd.getUserLoggedIn().setPassword(newPassword);
+                                       exit = true;
+                                    }
+                                    else if (currentPassword.equals("-1")) {
+                                       continuePanel = false;
+                                    }
+                                    else {
+                                       System.out.println("Error, try again");
+                                       System.out.println("Enter current password: ");
+                                       currentPassword = sc.next();
+                                    }
+                                 break;
+                              default:
+                                 continuePanel = false;
+                           }
+                        } while(!continueProfileSetting);
+                     case 2:                                                        // wallet
                         
-                        System.out.println("Profile Settings");
-                        System.out.println("1. Change name");
-                        System.out.println("2. Change username");
-                        System.out.println("3. Change password");
-                        System.out.println("Enter your choice (or anything else to go back): ");
-                        int choiceProfile = sc.nextInt();
-                     
-                        switch (choiceProfile) {
-                           case 1:
-                              System.out.println("Enter -1 to go back");
-                              System.out.println("Enter current name:");
-                              String currentName = sc.next();
+                        boolean hasCard = curCustomer.getWallet().hasCard();
+                        
+                        if (hasCard) {
+                           boolean continueWallet = true;
+                           do {
+                              System.out.print("Card Status: Added");
+                              System.out.print("Account balance: ");
+                              System.out.println(curCustomer.getWallet().getBalance());
                            
-                              boolean exit = false; // for currentName
-                           
-                              while (!exit && continuePanel)
-                                 if (currentName.equals(cdd.getUserLoggedIn().getName())){
-                                    System.out.println("Enter new name: ");
-                                    String newName = sc.next();
-                                    cdd.getUserLoggedIn().setName(newName);
-                                    exit = true;
-                                 }
-                                 else if (currentName.equals("-1")) {
+                              System.out.println("1. Edit Card");
+                              System.out.println("2. Add Money");
+                              System.out.println("Enter your choice (or anything else to go back): ");
+                              int walletChoice = sc.nextInt();
+                              
+                              switch (walletChoice) {
+                                 case 1:                                   // edit card
+                                    System.out.println("Enter your modifications (or 0 to skip and -1 to go back)");
+                                    System.out.print("Credit Card Number: ");
+                                    String creditCardNum = sc.next();
+                                    if (creditCardNum.equals("-1")) {
+                                       continueWallet = false;
+                                    }
+                                    else {
+                                       if (!creditCardNum.equals("0"))
+                                          curCustomer.getWallet().getCreditCard().setCardNumber(creditCardNum);
+                                       System.out.print("CVV (ex 123): ");
+                                       String CVV = sc.next();
+                                       if (CVV.equals("-1")) {
+                                          continueWallet = false;
+                                       }
+                                       else {
+                                          if (!CVV.equals("0")) 
+                                             curCustomer.getWallet().getCreditCard().setCVV(CVV);
+                                          System.out.print("Expiry Month (ex 09): ");
+                                          String expiryMonth = sc.next();
+                                          if (expiryMonth.equals("-1")) 
+                                             continueWallet = false;
+                                          else {
+                                             if (!expiryMonth.equals("0"))
+                                                curCustomer.getWallet().getCreditCard().setExpiryMonth(expiryMonth);
+                                             System.out.print("Expiry Year (ex 2025): ");
+                                             String expiryYear = sc.next();
+                                             if (expiryYear.equals("-1")) {
+                                                continueWallet = false;
+                                             }
+                                             else if (!expiryYear.equals("0"))
+                                                curCustomer.getWallet().getCreditCard().setExpiryYear(expiryYear);
+                                          }
+                                       }
+                                    }
+                                 case 2:                                   // add money
+                                    System.out.println("Enter amount (or -1 to go back): ");
+                                    double money = sc.nextDouble();
+                                    if (money != -1)
+                                       curCustomer.getWallet().addBalance(money);
+                                    else
+                                       continueWallet = false;
+                                 default:
+                                    continuePanel = false;
+                              }
+                           } while (!continueWallet);
+                        }
+                        else { // doesnt have card
+                           System.out.println("Add Card");
+                           System.out.println("\nEnter -1 anytime to go back");
+                           System.out.print("Enter Credit Card Number:" );
+                           String cardNum = sc.next();
+                           if (cardNum.equals("-1")){
+                              continuePanel = false;
+                           }
+                           else {
+                              System.out.print("Enter CVV (ex 123): ");
+                              String CVV = sc.next();
+                              if (CVV.equals("-1")){
+                                 continuePanel = false;
+                              }
+                              else {
+                                 System.out.print("Enter Expiry Month (ex 09): ");
+                                 String expiryMonth = sc.next();
+                                 if (expiryMonth.equals("-1")){
                                     continuePanel = false;
                                  }
                                  else {
-                                    System.out.println("Error, try again");
-                                    System.out.println("Enter current name: ");
-                                    currentName = sc.next();
+                                    System.out.print("Enter Expiry Year (ex 2025): ");
+                                    String expiryYear = sc.next();
+                                    if (expiryYear.equals("-1")){
+                                       continuePanel = false;
+                                    }
+                                    else {
+                                       curCustomer.getWallet().addCard(cdd.getUserLoggedIn().getUsername(), cardNum, CVV, expiryMonth, expiryYear);
+                                    }
                                  }
-                              break;
-                           default:
-                              continuePanel = false;
+                              }
+                           }
+                           
                         }
-                     case 2:                                                        // wallet
-                     
                         break;
                      case 3:                                                        // place order
                         break;
@@ -186,7 +329,7 @@ public class CityDeliveryRunner
                      //Admin panel code here
                   System.out.println("Admin");
                   System.out.println("1. Profile Settings");
-                  System.out.println("2. Manafe Restaurants");
+                  System.out.println("2. Manage Restaurants");
                   System.out.println("3. Manage Drivers");
                   System.out.println("4. Manage Coupons");
                   System.out.println("5. Add / Delete Food");

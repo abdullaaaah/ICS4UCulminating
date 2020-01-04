@@ -51,6 +51,33 @@ public class Card
       return CVV;
    }  
    
+   ////////////////////////////////////
+   // Mutators
+   ////////////////////////////////////
+   public void setUsername (String name)
+   {
+      username = name;
+   }
+   ////////////////////////////////////
+   public void setCardNumber (String num) 
+   {
+      cardNumber = num;
+   }
+   ////////////////////////////////////
+   public void setExpiryMonth (String month) 
+   {
+      expiryMonth = month;
+   }
+   ////////////////////////////////////
+   public void setExpiryYear (String year) 
+   {
+      expiryYear = year;
+   }
+   ////////////////////////////////////
+   public void setCVV (String number)
+   {
+      CVV = number;
+   }
    // Constructor /////////////////////////////////////////////////////////
    /*
       PARAMETERS:    username, cardNumber, expiryMonth, expiryYear, CVV
