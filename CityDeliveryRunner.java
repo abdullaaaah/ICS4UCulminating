@@ -144,22 +144,22 @@ public class CityDeliveryRunner
                                  String currentName = sc.next();
                               
                                  boolean exit = false; // for currentName
-                                 while (true)
-                                 while (!exit && continuePanel)
+                                 while (!exit) {
                                     if (currentName.equals(cdd.getUserLoggedIn().getName())){
                                        System.out.println("Enter new name: ");
                                        String newName = sc.next();
                                        cdd.getUserLoggedIn().setName(newName);
-                                       exit = true;
+                                       continueProfileSetting = false;
                                     }
                                     else if (currentName.equals("-1")) {
                                        continueProfileSetting = false;
                                     }
-                                    else {
+                                    else {   // need to make this loop
                                        System.out.println("Error, try again");
                                        System.out.println("Enter current name: ");
                                        currentName = sc.next();
                                     }
+                                 }
                                  break;
                               case 2:
                                  System.out.println("Enter current username:");
