@@ -111,7 +111,7 @@ public class CityDeliveryRunner
                   
          if(login)
          {
-            if(false)//cdd.isUserCustomer())
+            if(cdd.isUserCustomer())
             {              
                Customer curCustomer = (Customer)cdd.getUserLoggedIn();   
                boolean continuePanel = true;
