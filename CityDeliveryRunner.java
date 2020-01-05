@@ -130,11 +130,11 @@ public class CityDeliveryRunner
                      case 1:                                                                       // profile setting
                         boolean continueProfileSetting = true;
                         do {
-                           System.out.println("Profile Settings");
+                           System.out.println("\n     Profile Settings");
                            System.out.println("1. Change name");
                            System.out.println("2. Change username");
                            System.out.println("3. Change password");
-                           System.out.println("Enter your choice (or anything else to go back): ");
+                           System.out.print("Enter your choice (or anything else to go back): ");
                            int choiceProfile = sc.nextInt();
                            
                            switch (choiceProfile) {

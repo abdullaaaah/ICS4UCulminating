@@ -13,7 +13,7 @@
 public class Customer extends User
 {
    protected Order[] orderHistory;
-   protected Wallet wallet;
+   private Wallet wallet;
    //protected Cart cart;
    protected int positionX;
    protected int positionY;
