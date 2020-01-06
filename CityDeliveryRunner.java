@@ -13,37 +13,36 @@ public class CityDeliveryRunner
    {
       CityDeliveryDatabase cdd = new CityDeliveryDatabase();
       Scanner sc = new Scanner(System.in);
-      int initChoice;
+      String choiceHome, currentName;
       String username = "", password = "";
-      boolean login = false, dontGoBack = true, startScreen = true, register = false;
+      boolean login = false, exit = false, register = false;
       
-      do
-      {
-         System.out.println("======================================================");
+      while (!exit) {
+         System.out.println("\n\n======================================================");
          System.out.println("\t\t\tWelcome to City Delivery Software");
          System.out.println("======================================================");
          
          System.out.println("1. Log in");
          System.out.println("2. Register");
          System.out.print("Enter your choice: ");
+         choiceHome = sc.next();
          
-         initChoice = sc.nextInt();
-      
-         if(initChoice == 1)
-         {
-            while(!login && dontGoBack)   //DontGoBack variable allows the screen to go back when user enters -1, if anyone has a better way to do it feel free.
-            {
-               System.out.println("===========================");
+         while ((choiceHome.charAt(0) < '1' || choiceHome.charAt(0) > '2') && !choiceHome.equals("-1")){
+            System.out.println("\nError, enter valid input");
+            System.out.print("Enter your choice: ");
+            choiceHome = sc.next();
+         }
+         
+         switch (choiceHome){
+            case "1":
+               System.out.println("\n\n===========================");
                System.out.println("\t\t\tLOG IN\t\t");
                System.out.println("===========================");
                
+               System.out.println("Enter -1 to return to home page");
                System.out.print("Enter your username: ");
                username = sc.next();
-               if(username.equals("-1"))
-                  dontGoBack = false;
-               
-               if(dontGoBack)
-               {
+               if(!username.equals("-1")) {
                   System.out.print("Enter your password: ");
                   password = sc.next();
                   
@@ -51,60 +50,32 @@ public class CityDeliveryRunner
                   {
                      login = cdd.login(username, password);
                   }
-                  else
-                  {   
-                     startScreen = false;
-                  }
                }
-               
-            }
-                     
-         
-         }
-         else if(initChoice == 2)
-         {
-            dontGoBack = true; //check
-            while(!register && dontGoBack)
-            {
-               System.out.println("===========================");
+               break;
+            case "2":
+               System.out.println("Enter -1 to return to home page");
+               System.out.println("\n\n===========================");
                System.out.println("\t\t\tREGISTER\t\t");
                System.out.println("===========================");
                
                System.out.print("Enter your name: ");
                String name = sc.next();
-               if(name.equals("-1"))
-                  dontGoBack = false;
-               
-               if(dontGoBack)
-               {
+               if(!name.equals("-1")) {
                   System.out.print("Enter your desired username: "); //maybe inform user at this point if username is taken later.
                   username = sc.next();
-                  if(username.equals("-1"))
-                     dontGoBack = false;
-               }
-               
-               
-               if(dontGoBack)
-               {   
-                  System.out.print("Enter your desired password: ");
-                  password = sc.next();
-                  if(password.equals("-1"))
-                     dontGoBack = false;
-               }
-               
-               register = cdd.register(name, username, password);
-               login = cdd.login(username, password);
-               startScreen = false; //This makes sure we wont go back to the Welcome to City Delivery Software Screen..
-                  
-               
-               
-            }
+                  if(!username.equals("-1")) {
+                     System.out.print("Enter your desired password: ");
+                     password = sc.next();
+                     if(!password.equals("-1")) {
+                        register = cdd.register(name, username, password);
+                        login = cdd.login(username, password);
+                     }
+                  }
+               } 
+               break;
+            case "-1":
+               exit = true;
          }
-         else
-         {
-            startScreen = true;
-         }
-                  
          //The stuff that happens after user is inside the software ;)
                   
          if(login)
@@ -113,8 +84,9 @@ public class CityDeliveryRunner
             {              
                Customer curCustomer = (Customer)cdd.getUserLoggedIn();   
                boolean continuePanel = true;
-               do {
-                  System.out.println("\n        Customer");
+               do { // while (!continuePanel)
+                  continuePanel = true;
+                  System.out.println("\n\t\tCustomer");
                   System.out.println("1. Profile Settings");
                   System.out.println("2. Wallet");
                   System.out.println("3. Place Order");
@@ -127,7 +99,8 @@ public class CityDeliveryRunner
                   switch (choicePanel) {
                      case 1:                                                                       // profile setting
                         boolean continueProfileSetting = true;
-                        do {
+                        do { // while (!continueProfileSetting)
+                           continueProfileSetting = true;
                            System.out.println("\n     Profile Settings");
                            System.out.println("1. Change name");
                            System.out.println("2. Change username");
@@ -137,26 +110,25 @@ public class CityDeliveryRunner
                            
                            switch (choiceProfile) {
                               case 1:
-                                 System.out.println("Enter -1 to go back");
+                                 System.out.println("\nEnter -1 to go back");
                                  System.out.println("Enter current name:");
-                                 String currentName = sc.next();
-                              
-                                 boolean exit = false; // for currentName
-                                 while (!exit) {
-                                    if (currentName.equals(cdd.getUserLoggedIn().getName())){
-                                       System.out.println("Enter new name: ");
-                                       String newName = sc.next();
-                                       cdd.getUserLoggedIn().setName(newName);
-                                       continueProfileSetting = false;
-                                    }
-                                    else if (currentName.equals("-1")) {
-                                       continueProfileSetting = false;
-                                    }
-                                    else {   // need to make this loop
-                                       System.out.println("Error, try again");
-                                       System.out.println("Enter current name: ");
+                                 currentName = sc.next();
+                                 
+                                 boolean nameMatches = currentName.equals(cdd.getUserLoggedIn().getName());
+                                 
+                                 while (!nameMatches && !currentName.equals("-1")) {
+                                       System.out.println("\nError, name doesn't match");
+                                       System.out.print("Enter current name: ");
                                        currentName = sc.next();
-                                    }
+                                       nameMatches = currentName.equals(cdd.getUserLoggedIn().getName());
+                                 }
+                                 if (currentName.equals("-1"))
+                                    continueProfileSetting = false;
+                                 else {
+                                    System.out.print("Enter new name: ");
+                                    String newName = sc.next();
+                                    cdd.getUserLoggedIn().setName(newName);
+                                    continueProfileSetting = false;
                                  }
                                  break;
                               case 2:
@@ -195,7 +167,7 @@ public class CityDeliveryRunner
                                        exit = true;
                                     }
                                     else if (currentPassword.equals("-1")) {
-                                       continuePanel = false;
+                                       continueProfileSetting = false;
                                     }
                                     else {
                                        System.out.println("Error, try again");
@@ -207,12 +179,14 @@ public class CityDeliveryRunner
                                  continuePanel = false;
                            }
                         } while(!continueProfileSetting);
+                        break;
                      case 2:                                                        // wallet
                         boolean hasCard = curCustomer.getWallet().hasCard();
-                        
+                        System.out.println(hasCard);
                         if (hasCard) {
                            boolean continueWallet = true; // to go back
                            do {  // while (!continueWallet)
+                              continueWallet = true;
                               System.out.println("\n\nCard Status: Added");
                               System.out.print("Account balance: $");
                               System.out.println(curCustomer.getWallet().getBalance());
@@ -258,7 +232,7 @@ public class CityDeliveryRunner
                                              }
                                              else if (!expiryYear.equals("0"))
                                                 curCustomer.getWallet().getCreditCard().setExpiryYear(expiryYear);
-                                                continueWallet = false;
+                                             continueWallet = false;
                                           }
                                        }
                                     }
@@ -268,6 +242,8 @@ public class CityDeliveryRunner
                                     double money = sc.nextDouble();
                                     if (money != -1)
                                        curCustomer.getWallet().addBalance(money);
+                                    System.out.println("Money added. Press enter to return to main menu");
+                                    if(sc.next()!=null){}
                                     else
                                        continueWallet = false;
                                     break;
@@ -303,7 +279,7 @@ public class CityDeliveryRunner
                                        continuePanel = false;
                                     }
                                     else {
-                                       curCustomer.getWallet().addCard(cdd.getUserLoggedIn().getUsername(), cardNum, CVV, expiryMonth, expiryYear);
+                                       curCustomer.getWallet().addCard(cdd.getUserLoggedIn().getUsername(), cardNum, CVV, expiryMonth, expiryYear, cdd);
                                        continuePanel = false;
                                     }
                                  }
@@ -319,17 +295,14 @@ public class CityDeliveryRunner
                      case 5:                                                        // view active deliveries
                         break;
                      case 6:
-                        cdd.logout();
-                        // startScreen = false;
+                        exit = false;
                         break;
                      default:
-                        cdd.logout();
-                        startScreen = false;
+                        exit = false;
                   }
                } while (!continuePanel);
             }
-            else 
-            {
+            else {
                while (login)
                {
                      //Admin panel code here
@@ -543,12 +516,11 @@ public class CityDeliveryRunner
                   }
                   else if (choice.equals("7"))
                   {
-                     cdd.logout();
-                     login = false;
+                     exit = false;
                   }
                }
             }
-         }  
-      } while(!startScreen);
-   }
-}
+         }  // if (login)
+      } // end main while
+   } // main method
+} // class

@@ -571,7 +571,7 @@ public class CityDeliveryDatabase
          {
             System.out.println("Error: Incorrect passsword");
             //Remove this when program is close to finish
-            System.out.println("Password enetered: " + User.encrypt(password));
+            System.out.println("Password entered: " + User.encrypt(password));
             System.out.println("Password needed: " + users[index].getPassword());
             return false;
          }
@@ -711,11 +711,11 @@ public class CityDeliveryDatabase
       return userLoggedIn;
    }
    
-   public void logout()
-   {
-      this.userLoggedIn = null;
-      System.out.println("Success! Logged out");
-   }
+//    public void logout()
+//    {
+//       this.userLoggedIn = null;
+//       System.out.println("Success! Logged out");
+//    }
    
    
    /////////////////////////////////   COUPON RELATED   /////////////////////////////////
