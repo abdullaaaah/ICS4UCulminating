@@ -17,15 +17,15 @@ public class CityDeliveryRunner
       String username = "", password = "";
       boolean login = false, dontGoBack = true, startScreen = true, register = false;
       
-      while(startScreen)
+      do
       {
          System.out.println("======================================================");
          System.out.println("\t\t\tWelcome to City Delivery Software");
          System.out.println("======================================================");
          
-         System.out.println("Select your choice");
          System.out.println("1. Log in");
          System.out.println("2. Register");
+         System.out.print("Enter your choice: ");
          
          initChoice = sc.nextInt();
       
@@ -53,11 +53,9 @@ public class CityDeliveryRunner
                   }
                   else
                   {   
-                     dontGoBack = false;
+                     startScreen = false;
                   }
                }
-               
-               startScreen = false; //Not sure if this is the right place..
                
             }
                      
@@ -116,14 +114,14 @@ public class CityDeliveryRunner
                Customer curCustomer = (Customer)cdd.getUserLoggedIn();   
                boolean continuePanel = true;
                do {
-                  System.out.println("Customer");
+                  System.out.println("\n        Customer");
                   System.out.println("1. Profile Settings");
                   System.out.println("2. Wallet");
                   System.out.println("3. Place Order");
                   System.out.println("4. View Order History");
                   System.out.println("5. Active Delivery");
                   System.out.println("6. Log Out");
-                  System.out.println("Enter your choice (or anything else to go back): ");
+                  System.out.print("Enter your choice (or anything else to go back): ");
                   int choicePanel = sc.nextInt();
                
                   switch (choicePanel) {
@@ -316,9 +314,11 @@ public class CityDeliveryRunner
                         break;
                      case 6:
                         cdd.logout();
+                        // startScreen = false;
                         break;
                      default:
-                        // go back to
+                        cdd.logout();
+                        startScreen = false;
                   }
                } while (!continuePanel);
             }
@@ -543,6 +543,6 @@ public class CityDeliveryRunner
                }
             }
          }  
-      }
+      } while(!startScreen);
    }
 }

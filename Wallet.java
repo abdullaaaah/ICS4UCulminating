@@ -43,6 +43,7 @@ public class Wallet
    {
       this.customer = customer;
       this.balance = balance;
+      this.creditCard = null;
    }
    
    // Functions //////////////////////////////////////////////////
