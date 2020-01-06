@@ -181,37 +181,42 @@ public class CityDeliveryRunner
                         } while(!continueProfileSetting);
                         break;
                      case 2:                                                        // wallet
+                        
                         boolean hasCard = curCustomer.getWallet().hasCard();
                         System.out.println(hasCard);
                         if (hasCard) {
+<<<<<<< HEAD
                            boolean continueWallet = true; // to go back
                            do {  // while (!continueWallet)
                               continueWallet = true;
                               System.out.println("\n\nCard Status: Added");
                               System.out.print("Account balance: $");
+=======
+                           boolean continueWallet = true;
+                           do {
+                              System.out.print("Card Status: Added");
+                              System.out.print("Account balance: ");
+>>>>>>> eba3aa28406f6841afc97f6b01f5b23a95ddc816
                               System.out.println(curCustomer.getWallet().getBalance());
                            
-                              System.out.println("\n1. Edit Card");
+                              System.out.println("1. Edit Card");
                               System.out.println("2. Add Money");
-                              System.out.println("\nEnter your choice (or anything else to go back): ");
+                              System.out.println("Enter your choice (or anything else to go back): ");
                               int walletChoice = sc.nextInt();
                               
                               switch (walletChoice) {
                                  case 1:                                   // edit card
-                                    System.out.println("\nEnter your modifications (or 0 to skip and -1 to go back)");
-                                    System.out.println("Credit Card Number: ");
+                                    System.out.println("Enter your modifications (or 0 to skip and -1 to go back)");
+                                    System.out.print("Credit Card Number: ");
                                     String creditCardNum = sc.next();
-                                    
-                                    Card curCard = curCustomer.getWallet().getCreditCard();
-                                    //while (false);
                                     if (creditCardNum.equals("-1")) {
-                                       continueWallet = false;      
+                                       continueWallet = false;
                                     }
                                     else {
                                        if (!creditCardNum.equals("0"))
                                           curCustomer.getWallet().getCreditCard().setCardNumber(creditCardNum);
-                                       System.out.print("CVV (ex 123): "); //Wallet.verifyNum(input)
-                                       String CVV = sc.nextLine();
+                                       System.out.print("CVV (ex 123): ");
+                                       String CVV = sc.next();
                                        if (CVV.equals("-1")) {
                                           continueWallet = false;
                                        }
@@ -219,26 +224,28 @@ public class CityDeliveryRunner
                                           if (!CVV.equals("0")) 
                                              curCustomer.getWallet().getCreditCard().setCVV(CVV);
                                           System.out.print("Expiry Month (ex 09): ");
-                                          String expiryMonth = sc.nextLine();
+                                          String expiryMonth = sc.next();
                                           if (expiryMonth.equals("-1")) 
                                              continueWallet = false;
                                           else {
                                              if (!expiryMonth.equals("0"))
                                                 curCustomer.getWallet().getCreditCard().setExpiryMonth(expiryMonth);
                                              System.out.print("Expiry Year (ex 2025): ");
-                                             String expiryYear = sc.nextLine();
+                                             String expiryYear = sc.next();
                                              if (expiryYear.equals("-1")) {
                                                 continueWallet = false;
                                              }
                                              else if (!expiryYear.equals("0"))
                                                 curCustomer.getWallet().getCreditCard().setExpiryYear(expiryYear);
+<<<<<<< HEAD
                                              continueWallet = false;
+=======
+>>>>>>> eba3aa28406f6841afc97f6b01f5b23a95ddc816
                                           }
                                        }
                                     }
-                                    break;
                                  case 2:                                   // add money
-                                    System.out.print("Enter amount (or -1 to go back): ");
+                                    System.out.println("Enter amount (or -1 to go back): ");
                                     double money = sc.nextDouble();
                                     if (money != -1)
                                        curCustomer.getWallet().addBalance(money);
@@ -246,14 +253,13 @@ public class CityDeliveryRunner
                                     if(sc.next()!=null){}
                                     else
                                        continueWallet = false;
-                                    break;
                                  default:
                                     continuePanel = false;
                               }
                            } while (!continueWallet);
                         }
                         else { // doesnt have card
-                           System.out.println("\n\n        Add Card");
+                           System.out.println("Add Card");
                            System.out.println("\nEnter -1 anytime to go back");
                            System.out.print("Enter Credit Card Number:" );
                            String cardNum = sc.next();
@@ -279,8 +285,12 @@ public class CityDeliveryRunner
                                        continuePanel = false;
                                     }
                                     else {
+<<<<<<< HEAD
                                        curCustomer.getWallet().addCard(cdd.getUserLoggedIn().getUsername(), cardNum, CVV, expiryMonth, expiryYear, cdd);
                                        continuePanel = false;
+=======
+                                       curCustomer.getWallet().addCard(cdd.getUserLoggedIn().getUsername(), cardNum, CVV, expiryMonth, expiryYear);
+>>>>>>> eba3aa28406f6841afc97f6b01f5b23a95ddc816
                                     }
                                  }
                               }
@@ -305,7 +315,7 @@ public class CityDeliveryRunner
             else {
                while (login)
                {
-                     //Admin panel code here
+                  //Admin panel code here
                   System.out.println("Admin");
                   System.out.println("1. Profile Settings");
                   System.out.println("2. Manage Restaurants");
@@ -316,169 +326,91 @@ public class CityDeliveryRunner
                   System.out.println("7. Logout");
                   
                   String choice = sc.next();
-                  while (choice.charAt(0) < '1' || choice.charAt(0) > '7')
+                  while (choice.charAt(0) < '1' || choice.charAt(0) > '9')
                   {
                      System.out.println("\nIvalid Input, Please Choose a Number: ");
                      choice = sc.next();
                   }
                   
-                  if (choice.equals("1"))
+                  switch (choice)
                   {
-                  // profile setting
-                     System.out.println("1. Change Name");
-                     System.out.println("2. Change Username");
-                     System.out.println("3. Change Password");
-                     System.out.println("Press anything else to go back");
-                  
-                     choice = sc.next();
-                     if (choice.equals("1"))
-                     {
-                        System.out.print("Enter New Name: ");
-                        cdd.user().setName(sc.next());
-                     }
-                     else if (choice.equals("2"))
-                     {
-                        System.out.print("Enter New Username: ");
-                        cdd.user().changeUsername(sc.next());
-                     }
-                     else if (choice.equals("3"))
-                     {
-                        System.out.print("Enter New Password: ");
-                        cdd.user().changePassword(sc.next());
-                     }
-                  }
-                  else if (choice.equals("2"))
-                  {
-                  // manage restaurant
-                     System.out.println("1. Add Restaurant");
-                     System.out.println("2. View / Modify Restaurant");
-                     System.out.println("3. Delete Restaurant");
-                     System.out.println("Press anything else to go back");
-                  
-                     choice = sc.next();
-                     if (choice.equals("1"))
-                     {
-                        System.out.print("Enter Restaurant Name: ");
-                        String name = sc.next();
-                        System.out.print("Enter Restaurant Category: ");
-                        String cate = sc.next();
-                        System.out.print("Enter Restaurant Rating: ");
-                        double rate = sc.nextDouble();
-                        System.out.print("Please Enter a Number: ");
-                        System.out.print("Enter Number of Ratings Restaurant Got: ");
-                        int numRate = Integer.parseInt(sc.next());
-                        System.out.print("Enter Restaurant PositionX: ");
-                        int positionX = Integer.parseInt(sc.next());
-                        System.out.print("Enter Restaurant PositionY: ");
-                        int positionY = Integer.parseInt(sc.next());
-                        ((Admin)cdd.user()).addRestaurant(cdd, name, cate, rate, numRate, positionX, positionY);
-                     }
-                     else if (choice.equals("2"))
-                     {
-                     // view / modify restaurant
-                        System.out.println(cdd.getRestaurants());
-                        System.out.print("Enter Restaurant ID: ");
-                        String resID = sc.next();
-                        System.out.print("Enter New Name: ");
-                        String name = sc.next();
-                        System.out.print("Enter New Category: ");
-                        String cate = sc.nextLine();
-                        System.out.print("Enter New Rating: ");
-                        double rating = sc.nextDouble();
-                        cdd.getRestaurants()[Integer.parseInt(resID)].editRestaurant(name, cate, rating);
-                     }
-                     else if (choice.equals("3"))
-                     {
-                        System.out.print("Enter Restaurant Name: ");
-                        ((Admin)cdd.user()).removeRestaurant(cdd, sc.nextLine());
-                     }
-                  }
-                  else if (choice.equals("3"))
-                  {
-                  // manage drivers
-                     System.out.println("1. Add Driver");
-                     System.out.println("2. View / Modify Driver");
-                     System.out.println("3. Delete Driver");
-                     System.out.println("Press anything else to go back");
-                  
-                     choice = sc.next();
-                     if (choice.equals("1"))
-                     {
-                        System.out.print("Enter Driver ID: ");
-                        int id = sc.nextInt();
-                        System.out.print("Enter Driver Name: ");
-                        String name = sc.nextLine();
-                        System.out.print("Enter Driver Phone Number: ");
-                        String phoneNum = sc.nextLine();
-                        System.out.print("Enter Driver Description: ");
-                        String des = sc.nextLine();
-                        System.out.print("Enter Driver PositionX: ");
-                        int positionX = sc.nextInt();
-                        System.out.print("Enter Driver PositionY: ");
-                        int positionY = sc.nextInt();
-                        ((Admin)cdd.user()).addDriver(cdd, id, name, phoneNum, des, positionX, positionY);
-                     }
-                     else if (choice.equals("2"))
-                     {
-                     // view driver
-                        System.out.println(cdd.getDrivers());
-                        System.out.print("Enter Driver ID: ");
-                        String drivID = sc.next();
-                        System.out.print("Enter New Name: ");
-                        String name = sc.next();
-                        System.out.print("Enter New Phone Number: ");
-                        String phoneNum = sc.nextLine();
-                        System.out.print("Enter New Car Description: ");
-                        String description = sc.nextLine();
-                        cdd.getDrivers()[Integer.parseInt(drivID)].editDriver(name, phoneNum, description);
+                     case "1":
+                        // profile setting
+                        System.out.println("1. Change Name");
+                        System.out.println("2. Change Username");
+                        System.out.println("3. Change Password");
+                        System.out.println("Press anything else to go back");
                      
+                        choice = sc.next();
+                        if (choice.equals("1"))
+                        {
+                           System.out.print("Enter New Name: ");
+                           cdd.user().setName(sc.next());
+                        }
+                        else if (choice.equals("2"))
+                        {
+                           System.out.print("Enter New Username: ");
+                           cdd.user().changeUsername(sc.next());
+                        }
+                        else if (choice.equals("3"))
+                        {
+                           System.out.print("Enter New Password: ");
+                           cdd.user().changePassword(sc.next());
+                        }
+                        break;
+                     case "2":
+                     // manage restaurant
+                        System.out.println("1. Add Restaurant");
+                        System.out.println("2. View / Modify Restaurant");
+                        System.out.println("3. Delete Restaurant");
+                        System.out.println("Press anything else to go back");
                      
-                     }
-                     else if (choice.equals("3"))
-                     {
-                        System.out.print("Enter Driver ID: ");
-                        ((Admin)cdd.user()).removeDriver(cdd, sc.nextInt());
-                     }
-                  }
-                  else if (choice.equals("4"))
-                  {
-                  // manage coupons
-                     System.out.println("1. Add Coupon");
-                     System.out.println("2. View Coupon");
-                     System.out.println("3. Delete Coupon");
-                     System.out.println("Press anything else to go back");
-                  
-                     choice = sc.next();
-                     if (choice.equals("1"))
-                     {
-                        System.out.print("Enter Coupon Code: ");
-                        String code = sc.nextLine();
-                        System.out.print("Enter Coupon Discount: ");
-                        double dis = sc.nextDouble();
-                        ((Admin)cdd.user()).addCoupon(cdd, code, dis);
-                     }
-                     else if (choice.equals("2"))
-                     {
-                        System.out.println(cdd.getCoupons());
-                        System.out.print("Press anything to continue");
-                        sc.next();
-                     }
-                     else if (choice.equals("3"))
-                     {
-                        System.out.print("Enter Coupon Code: ");
-                        ((Admin)cdd.user()).removeCoupon(cdd, sc.next());
-                     }
-                  }
-                  else if (choice.equals("5"))
-                  {
-                  // add / delete food
-                     System.out.println(cdd.getRestaurants());
-                     System.out.print("Press anything to go back");
-                     String resID = sc.next();
-                     System.out.println("1. Add New Food");
-                     System.out.println("2. View");
-                     System.out.println("3. Delete");
+                        choice = sc.next();
+                        if (choice.equals("1"))
+                        {
+                           System.out.print("Enter Restaurant Name: ");
+                           String name = sc.next();
+                           System.out.print("Enter Restaurant Category: ");
+                           String cate = sc.next();
+                           System.out.print("Enter Restaurant Rating: ");
+                           double rate = sc.nextDouble();
+                           System.out.print("Please Enter a Number: ");
+                           System.out.print("Enter Number of Ratings Restaurant Got: ");
+                           int numRate = Integer.parseInt(sc.next());
+                           System.out.print("Enter Restaurant PositionX: ");
+                           int positionX = Integer.parseInt(sc.next());
+                           System.out.print("Enter Restaurant PositionY: ");
+                           int positionY = Integer.parseInt(sc.next());
+                           ((Admin)cdd.user()).addRestaurant(cdd, name, cate, rate, numRate, positionX, positionY);
+                        }
+                        else if (choice.equals("2"))
+                        {
+                        // view / modify restaurant
+                           System.out.println(cdd.getRestaurants());
+                           System.out.print("Enter Restaurant ID: ");
+                           String resID = sc.next();
+                           System.out.print("Enter New Name: ");
+                           String name = sc.next();
+                           System.out.print("Enter New Category: ");
+                           String cate = sc.nextLine();
+                           System.out.print("Enter New Rating: ");
+                           double rating = sc.nextDouble();
+                           cdd.getRestaurants()[Integer.parseInt(resID)].editRestaurant(name, cate, rating);
+                        }
+                        else if (choice.equals("3"))
+                        {
+                           System.out.print("Enter Restaurant Name: ");
+                           ((Admin)cdd.user()).removeRestaurant(cdd, sc.nextLine());
+                        }
+                        break;
+                     case "3":
+                     // manage drivers
+                        System.out.println("1. Add Driver");
+                        System.out.println("2. View / Modify Driver");
+                        System.out.println("3. Delete Driver");
+                        System.out.println("Press anything else to go back");
                      
+<<<<<<< HEAD
                      choice = sc.next();
                      if (choice.equals("1"))
                      {
@@ -517,6 +449,123 @@ public class CityDeliveryRunner
                   else if (choice.equals("7"))
                   {
                      exit = false;
+=======
+                        choice = sc.next();
+                        if (choice.equals("1"))
+                        {
+                           System.out.print("Enter Driver ID: ");
+                           int id = sc.nextInt();
+                           System.out.print("Enter Driver Name: ");
+                           String name = sc.nextLine();
+                           System.out.print("Enter Driver Phone Number: ");
+                           String phoneNum = sc.nextLine();
+                           System.out.print("Enter Driver Description: ");
+                           String des = sc.nextLine();
+                           System.out.print("Enter Driver PositionX: ");
+                           int positionX = sc.nextInt();
+                           System.out.print("Enter Driver PositionY: ");
+                           int positionY = sc.nextInt();
+                           ((Admin)cdd.user()).addDriver(cdd, id, name, phoneNum, des, positionX, positionY);
+                        }
+                        else if (choice.equals("2"))
+                        {
+                        // view driver
+                           System.out.println(cdd.getDrivers());
+                           System.out.print("Enter Driver ID: ");
+                           String drivID = sc.next();
+                           System.out.print("Enter New Name: ");
+                           String name = sc.next();
+                           System.out.print("Enter New Phone Number: ");
+                           String phoneNum = sc.nextLine();
+                           System.out.print("Enter New Car Description: ");
+                           String description = sc.nextLine();
+                           cdd.getDrivers()[Integer.parseInt(drivID)].editDriver(name, phoneNum, description);
+                        
+                        
+                        }
+                        else if (choice.equals("3"))
+                        {
+                           System.out.print("Enter Driver ID: ");
+                           ((Admin)cdd.user()).removeDriver(cdd, sc.nextInt());
+                        }
+                        break;
+                     case "4":
+                     // manage coupons
+                        System.out.println("1. Add Coupon");
+                        System.out.println("2. View Coupon");
+                        System.out.println("3. Delete Coupon");
+                        System.out.println("Press anything else to go back");
+                     
+                        choice = sc.next();
+                        if (choice.equals("1"))
+                        {
+                           System.out.print("Enter Coupon Code: ");
+                           String code = sc.nextLine();
+                           System.out.print("Enter Coupon Discount: ");
+                           double dis = sc.nextDouble();
+                           ((Admin)cdd.user()).addCoupon(cdd, code, dis);
+                        }
+                        else if (choice.equals("2"))
+                        {
+                           System.out.println(cdd.getCoupons());
+                           System.out.print("Press anything to continue");
+                           sc.next();
+                        }
+                        else if (choice.equals("3"))
+                        {
+                           System.out.print("Enter Coupon Code: ");
+                           ((Admin)cdd.user()).removeCoupon(cdd, sc.next());
+                        }
+                        break;
+                     case "5":
+                     // add / delete food
+                        System.out.println(cdd.getRestaurants());
+                        System.out.print("Press anything to go back");
+                        String resID = sc.next();
+                        System.out.println("1. Add New Food");
+                        System.out.println("2. View");
+                        System.out.println("3. Delete");
+                     
+                        choice = sc.next();
+                        if (choice.equals("1"))
+                        {
+                           System.out.print("Enter Item Name: ");
+                           String name = sc.next();
+                           System.out.print("Enter Item Price: ");
+                           double price = sc.nextDouble();
+                           cdd.getRestaurants()[Integer.parseInt(resID)].addItem(name, price);
+                        }
+                        else if (choice.equals("2"))
+                        {
+                           System.out.println(cdd.getRestaurants()[Integer.parseInt(resID)].getMenu());
+                           System.out.print("Enter Item ID: ");
+                           String itemID = sc.next();
+                           System.out.print("Enter New Name: ");
+                           String name = sc.next();
+                           System.out.print("Enter New Price: ");
+                           double price = sc.nextDouble();
+                           cdd.getRestaurants()[Integer.parseInt(resID)].editItem(cdd.getRestaurants()[Integer.parseInt(resID)].menu[Integer.parseInt(itemID)], name, price);
+                        }
+                        else if (choice.equals("3"))
+                        {
+                           System.out.println(cdd.getRestaurants()[Integer.parseInt(resID)].getMenu());
+                           System.out.print("Enter Item Name: ");
+                           String name = sc.next();
+                           cdd.getRestaurants()[Integer.parseInt(resID)].removeItem(name);
+                        }
+                        break;
+                     case "6":
+                     // view finances
+                        System.out.println("Total Revenue: " + ((Admin)cdd.user()).getTotalRevenue());
+                        System.out.println("Driver Salary: " + ((Admin)cdd.user()).getDriverCost());
+                        System.out.println("Total Profit:  " + ((Admin)cdd.user()).getProfit());
+                        break;
+                     case "7":
+                        cdd.logout();
+                        login = false;
+                        break;
+                     default:
+>>>>>>> eba3aa28406f6841afc97f6b01f5b23a95ddc816
                   }
                }
             }
