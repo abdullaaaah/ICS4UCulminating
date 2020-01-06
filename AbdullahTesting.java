@@ -14,7 +14,13 @@ public class AbdullahTesting
       System.out.println(customer);
       
       System.out.println(customer.getWallet().hasCard());
-          
+      
+      customer.getWallet().addCard(customer.getUsername(), "2312321321", "12","24","123", cityDelivery);
+
+      for(int i = 0; i<cityDelivery.getNumCards(); i++)
+      {
+         System.out.println(cityDelivery.getCards()[i].getCardNumber());
+      }          
  
       //cityDelivery.getRestaurants()[0].removeItem("Poutine");
             

@@ -929,6 +929,21 @@ public class CityDeliveryDatabase
       }
    }
    
+   public Card[] getCards()
+   {
+      return this.cards;
+   }
+   
+   public void incrementNumCards()
+   {
+      numCards++;
+   }
+   
+   public int getNumCards()
+   {
+      return this.numCards;
+   }
+   
   /*
       PARAMETERS:    None
       RETURN VALUE:  None
