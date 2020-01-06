@@ -124,7 +124,7 @@ public class Card
       RETURN VALUE:  boolean
       PURPOSE:       validate card number
    */
-   public boolean validateNum (String num)
+   public static boolean validateNum (String num)
    {
       if (num.length() == 16)
       {
