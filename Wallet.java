@@ -90,9 +90,29 @@ public class Wallet
       RETURN VALUE:  N/A
       PURPOSE:       add card to account
    */
-   public void addCard (String username, String cardNumber, String month, String year, String CVV)
+   public void addCard (String username, String cardNumber, String month, String year, String CVV, CityDeliveryDatabase cdd)
    {
-      creditCard = new Card (username, cardNumber, month, year, CVV);
+      boolean added = false;
+      Card newCard = new Card(username, cardNumber, month, year, CVV);
+     
+      for(int i = 0; i<cdd.getNumCards() && !added; i++) // search and replace previous one if exists
+      {
+         if(cdd.getCards()[i].getUsername().equals(username))
+         {
+            cdd.getCards()[i] = newCard;
+            added = true;
+         }
+      }
+      
+      if(!added)
+      {
+         cdd.getCards()[cdd.getNumCards()] = newCard;
+         cdd.incrementNumCards();
+      }
+      
+
+     // cdd.saveCards();
+      
    }
    /////////////////////////////////////////////////////////
    public String toString ()

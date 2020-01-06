@@ -87,14 +87,14 @@ public class Card
    public Card (String username, String number, String month, String year, String CVV)
    {
       this.username = username;
-      if (validateNum(number) && validateExpMonth(month) && validateExpYear(year) && validateCvv(CVV))
-      {
+      /*if (validateNum(number) && validateExpMonth(month) && validateExpYear(year) && validateCvv(CVV))
+      {*/
          this.cardNumber = number;
          this.expiryMonth = month;
          this.expiryYear = year;
          this.CVV = CVV;
          approved = true;
-      }
+      //}
    }
    /////////////////////////////////////////////////////////////////////
    /*
