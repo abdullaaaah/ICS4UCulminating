@@ -705,7 +705,7 @@ public class CityDeliveryDatabase
    public void logout()
    {
       this.userLoggedIn = null;
-      System.out.println("Success: Logged out");
+      System.out.println("Success! Logged out");
    }
    
    

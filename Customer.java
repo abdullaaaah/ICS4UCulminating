@@ -13,7 +13,7 @@
 public class Customer extends User
 {
    protected Order[] orderHistory;
-   private Wallet wallet;
+   protected Wallet wallet;
    //protected Cart cart;
    protected int positionX;
    protected int positionY;
@@ -48,6 +48,7 @@ public class Customer extends User
    public Customer (String name, String username, String password)
    {
       super (name, username, password);
+      this.wallet = new Wallet(this.username, 0);
    }
    
    // Functions /////////////////////////////////

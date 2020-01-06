@@ -17,15 +17,15 @@ public class CityDeliveryRunner
       String username = "", password = "";
       boolean login = false, dontGoBack = true, startScreen = true, register = false;
       
-      while(startScreen)
+      do
       {
          System.out.println("======================================================");
          System.out.println("\t\t\tWelcome to City Delivery Software");
          System.out.println("======================================================");
          
-         System.out.println("Select your choice");
          System.out.println("1. Log in");
          System.out.println("2. Register");
+         System.out.print("Enter your choice: ");
          
          initChoice = sc.nextInt();
       
@@ -116,14 +116,14 @@ public class CityDeliveryRunner
                Customer curCustomer = (Customer)cdd.getUserLoggedIn();   
                boolean continuePanel = true;
                do {
-                  System.out.println("Customer");
+                  System.out.println("\n        Customer");
                   System.out.println("1. Profile Settings");
                   System.out.println("2. Wallet");
                   System.out.println("3. Place Order");
                   System.out.println("4. View Order History");
                   System.out.println("5. Active Delivery");
                   System.out.println("6. Log Out");
-                  System.out.println("Enter your choice (or anything else to go back): ");
+                  System.out.print("Enter your choice (or anything else to go back): ");
                   int choicePanel = sc.nextInt();
                
                   switch (choicePanel) {
@@ -211,103 +211,103 @@ public class CityDeliveryRunner
                         } while(!continueProfileSetting);
                      case 2:                                                        // wallet
                         
-                        boolean hasCard = curCustomer.getWallet().hasCard();
-                        
-                        if (hasCard) {
-                           boolean continueWallet = true;
-                           do {
-                              System.out.print("Card Status: Added");
-                              System.out.print("Account balance: ");
-                              System.out.println(curCustomer.getWallet().getBalance());
-                           
-                              System.out.println("1. Edit Card");
-                              System.out.println("2. Add Money");
-                              System.out.println("Enter your choice (or anything else to go back): ");
-                              int walletChoice = sc.nextInt();
-                              
-                              switch (walletChoice) {
-                                 case 1:                                   // edit card
-                                    System.out.println("Enter your modifications (or 0 to skip and -1 to go back)");
-                                    System.out.print("Credit Card Number: ");
-                                    String creditCardNum = sc.next();
-                                    if (creditCardNum.equals("-1")) {
-                                       continueWallet = false;
-                                    }
-                                    else {
-                                       if (!creditCardNum.equals("0"))
-                                          curCustomer.getWallet().getCreditCard().setCardNumber(creditCardNum);
-                                       System.out.print("CVV (ex 123): ");
-                                       String CVV = sc.next();
-                                       if (CVV.equals("-1")) {
-                                          continueWallet = false;
-                                       }
-                                       else {
-                                          if (!CVV.equals("0")) 
-                                             curCustomer.getWallet().getCreditCard().setCVV(CVV);
-                                          System.out.print("Expiry Month (ex 09): ");
-                                          String expiryMonth = sc.next();
-                                          if (expiryMonth.equals("-1")) 
-                                             continueWallet = false;
-                                          else {
-                                             if (!expiryMonth.equals("0"))
-                                                curCustomer.getWallet().getCreditCard().setExpiryMonth(expiryMonth);
-                                             System.out.print("Expiry Year (ex 2025): ");
-                                             String expiryYear = sc.next();
-                                             if (expiryYear.equals("-1")) {
-                                                continueWallet = false;
-                                             }
-                                             else if (!expiryYear.equals("0"))
-                                                curCustomer.getWallet().getCreditCard().setExpiryYear(expiryYear);
-                                          }
-                                       }
-                                    }
-                                 case 2:                                   // add money
-                                    System.out.println("Enter amount (or -1 to go back): ");
-                                    double money = sc.nextDouble();
-                                    if (money != -1)
-                                       curCustomer.getWallet().addBalance(money);
-                                    else
-                                       continueWallet = false;
-                                 default:
-                                    continuePanel = false;
-                              }
-                           } while (!continueWallet);
-                        }
-                        else { // doesnt have card
-                           System.out.println("Add Card");
-                           System.out.println("\nEnter -1 anytime to go back");
-                           System.out.print("Enter Credit Card Number:" );
-                           String cardNum = sc.next();
-                           if (cardNum.equals("-1")){
-                              continuePanel = false;
-                           }
-                           else {
-                              System.out.print("Enter CVV (ex 123): ");
-                              String CVV = sc.next();
-                              if (CVV.equals("-1")){
-                                 continuePanel = false;
-                              }
-                              else {
-                                 System.out.print("Enter Expiry Month (ex 09): ");
-                                 String expiryMonth = sc.next();
-                                 if (expiryMonth.equals("-1")){
-                                    continuePanel = false;
-                                 }
-                                 else {
-                                    System.out.print("Enter Expiry Year (ex 2025): ");
-                                    String expiryYear = sc.next();
-                                    if (expiryYear.equals("-1")){
-                                       continuePanel = false;
-                                    }
-                                    else {
-                                       curCustomer.getWallet().addCard(cdd.getUserLoggedIn().getUsername(), cardNum, CVV, expiryMonth, expiryYear);
-                                    }
-                                 }
-                              }
-                           }
-                           
-                        }
-                        break;
+                        // boolean hasCard = curCustomer.getWallet().hasCard();
+//                         
+//                         if (hasCard) {
+//                            boolean continueWallet = true;
+//                            do {
+//                               System.out.print("Card Status: Added");
+//                               System.out.print("Account balance: ");
+//                               System.out.println(curCustomer.getWallet().getBalance());
+//                            
+//                               System.out.println("1. Edit Card");
+//                               System.out.println("2. Add Money");
+//                               System.out.println("Enter your choice (or anything else to go back): ");
+//                               int walletChoice = sc.nextInt();
+//                               
+//                               switch (walletChoice) {
+//                                  case 1:                                   // edit card
+//                                     System.out.println("Enter your modifications (or 0 to skip and -1 to go back)");
+//                                     System.out.print("Credit Card Number: ");
+//                                     String creditCardNum = sc.next();
+//                                     if (creditCardNum.equals("-1")) {
+//                                        continueWallet = false;
+//                                     }
+//                                     else {
+//                                        if (!creditCardNum.equals("0"))
+//                                           curCustomer.getWallet().getCreditCard().setCardNumber(creditCardNum);
+//                                        System.out.print("CVV (ex 123): ");
+//                                        String CVV = sc.next();
+//                                        if (CVV.equals("-1")) {
+//                                           continueWallet = false;
+//                                        }
+//                                        else {
+//                                           if (!CVV.equals("0")) 
+//                                              curCustomer.getWallet().getCreditCard().setCVV(CVV);
+//                                           System.out.print("Expiry Month (ex 09): ");
+//                                           String expiryMonth = sc.next();
+//                                           if (expiryMonth.equals("-1")) 
+//                                              continueWallet = false;
+//                                           else {
+//                                              if (!expiryMonth.equals("0"))
+//                                                 curCustomer.getWallet().getCreditCard().setExpiryMonth(expiryMonth);
+//                                              System.out.print("Expiry Year (ex 2025): ");
+//                                              String expiryYear = sc.next();
+//                                              if (expiryYear.equals("-1")) {
+//                                                 continueWallet = false;
+//                                              }
+//                                              else if (!expiryYear.equals("0"))
+//                                                 curCustomer.getWallet().getCreditCard().setExpiryYear(expiryYear);
+//                                           }
+//                                        }
+//                                     }
+//                                  case 2:                                   // add money
+//                                     System.out.println("Enter amount (or -1 to go back): ");
+//                                     double money = sc.nextDouble();
+//                                     if (money != -1)
+//                                        curCustomer.getWallet().addBalance(money);
+//                                     else
+//                                        continueWallet = false;
+//                                  default:
+//                                     continuePanel = false;
+//                               }
+//                            } while (!continueWallet);
+//                         }
+//                         else { // doesnt have card
+//                            System.out.println("Add Card");
+//                            System.out.println("\nEnter -1 anytime to go back");
+//                            System.out.print("Enter Credit Card Number:" );
+//                            String cardNum = sc.next();
+//                            if (cardNum.equals("-1")){
+//                               continuePanel = false;
+//                            }
+//                            else {
+//                               System.out.print("Enter CVV (ex 123): ");
+//                               String CVV = sc.next();
+//                               if (CVV.equals("-1")){
+//                                  continuePanel = false;
+//                               }
+//                               else {
+//                                  System.out.print("Enter Expiry Month (ex 09): ");
+//                                  String expiryMonth = sc.next();
+//                                  if (expiryMonth.equals("-1")){
+//                                     continuePanel = false;
+//                                  }
+//                                  else {
+//                                     System.out.print("Enter Expiry Year (ex 2025): ");
+//                                     String expiryYear = sc.next();
+//                                     if (expiryYear.equals("-1")){
+//                                        continuePanel = false;
+//                                     }
+//                                     else {
+//                                        curCustomer.getWallet().addCard(cdd.getUserLoggedIn().getUsername(), cardNum, CVV, expiryMonth, expiryYear);
+//                                     }
+//                                  }
+//                               }
+//                            }
+//                            
+//                         }
+//                         break;
                      case 3:                                                        // place order
                         break;
                      case 4:                                                        // view order history
@@ -316,9 +316,11 @@ public class CityDeliveryRunner
                         break;
                      case 6:
                         cdd.logout();
+                        // startScreen = false;
                         break;
                      default:
-                        // go back to
+                        cdd.logout();
+                        startScreen = false;
                   }
                } while (!continuePanel);
             }
@@ -543,6 +545,6 @@ public class CityDeliveryRunner
                }
             }
          }  
-      }
+      } while(!startScreen);
    }
 }
