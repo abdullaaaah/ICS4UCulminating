@@ -556,6 +556,15 @@ public class CityDeliveryDatabase
          if(users[index].getPassword().equals( User.encrypt(password) ))
          {
             this.userLoggedIn = users[index];
+            
+            for(int i = 0; i<numWallets; i++)
+            {
+               if(wallets[i].getCustomer().equals( this.userLoggedIn.getUsername() ))
+               {
+                  ((Customer)this.userLoggedIn).setWallet(wallets[i]);
+               }
+            }
+            
             return true;
          }
          else

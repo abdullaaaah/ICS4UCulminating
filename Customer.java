@@ -169,6 +169,6 @@ public class Customer extends User
    */
    public String toString ()
    {
-      return name + "/n" + username + "/n" + wallet.balance + "/n" + "Customer";
+      return name + "/n" + username + "/n"/* + wallet.balance*/ + "/n" + "Customer";
    }
 }

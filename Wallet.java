@@ -81,7 +81,7 @@ public class Wallet
    */
    public boolean hasCard ()
    {
-      return !creditCard.equals(null) && creditCard.getApproved();
+      return creditCard != null;
    }
    //////////////////////////////////////////////////////
    /*
