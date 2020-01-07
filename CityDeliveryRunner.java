@@ -394,7 +394,7 @@ public class CityDeliveryRunner
                {
                   String name, cate;
                   //Admin panel code here
-                  System.out.println("Admin");                    //
+                  System.out.println("\nAdmin");                  //
                   System.out.println("1. Profile Settings");      //
                   System.out.println("2. Manage Restaurants");    //
                   System.out.println("3. Manage Drivers");        //
@@ -413,13 +413,13 @@ public class CityDeliveryRunner
                   switch (choice)
                   {
                      case "1":   // profile settings
+                        System.out.println("\nEnter -1 to go back");
                         System.out.println("1. Change Name");
                         System.out.println("2. Change Username");
                         System.out.println("3. Change Password");
-                        System.out.println("Press anything else to go back");
                               
                         choice = sc.next();
-                        while (choice.length() != 1 || choice.charAt(0) < '1' || choice.charAt(0) > '3') // check if choice entered is between 1 and 3
+                        while ((choice.length() != 1 || choice.charAt(0) < '1' || choice.charAt(0) > '3') && !choice.equals("-1"))  // check if choice entered is between 1 and 3
                         {
                            System.out.println("\nIvalid Input, Please Choose a Number: ");
                            choice = sc.next();
@@ -443,13 +443,13 @@ public class CityDeliveryRunner
                         }
                         break;
                      case "2":   // manage restaurant
+                        System.out.println("\nEnter -1 to go back");
                         System.out.println("1. Add Restaurant");
                         System.out.println("2. View / Modify Restaurant");
                         System.out.println("3. Delete Restaurant");
-                        System.out.println("Press anything else to go back");
                               
                         choice = sc.next();
-                        while (choice.length() != 1 || choice.charAt(0) < '1' || choice.charAt(0) > '3') // check if choice entered is between 1 and 3
+                        while ((choice.length() != 1 || choice.charAt(0) < '1' || choice.charAt(0) > '3') && !choice.equals("-1"))  // check if choice entered is between 1 and 3
                         {
                            System.out.println("\nIvalid Input, Please Choose a Number: ");
                            choice = sc.next();
@@ -491,13 +491,13 @@ public class CityDeliveryRunner
                         }
                         break;
                      case "3":   // manage drivers
+                        System.out.println("\nEnter -1 to go back");
                         System.out.println("1. Add Driver");
                         System.out.println("2. View / Modify Driver");
                         System.out.println("3. Delete Driver");
-                        System.out.println("Press anything else to go back");
                               
                         choice = sc.next();
-                        while (choice.length() != 1 || choice.charAt(0) < '1' || choice.charAt(0) > '3') // check if choice entered is between 1 and 3
+                        while ((choice.length() != 1 || choice.charAt(0) < '1' || choice.charAt(0) > '3') && !choice.equals("-1"))  // check if choice entered is between 1 and 3
                         {
                            System.out.println("\nIvalid Input, Please Choose a Number: ");
                            choice = sc.next();
@@ -541,13 +541,13 @@ public class CityDeliveryRunner
                         }
                         break;
                      case "4":    // manage coupons
+                        System.out.println("\nEnter -1 to go back");
                         System.out.println("1. Add Coupon");
                         System.out.println("2. View Coupon");
                         System.out.println("3. Delete Coupon");
-                        System.out.println("Press anything else to go back");
                               
                         choice = sc.next();
-                        while (choice.length() != 1 || choice.charAt(0) < '1' || choice.charAt(0) > '3') // check if choice entered is between 1 and 3
+                        while ((choice.length() != 1 || choice.charAt(0) < '1' || choice.charAt(0) > '3') && !choice.equals("-1"))  // check if choice entered is between 1 and 3
                         {
                            System.out.println("\nIvalid Input, Please Choose a Number: ");
                            choice = sc.next();
@@ -576,19 +576,22 @@ public class CityDeliveryRunner
                         break;
                      case "5":   // add / delete food
                         System.out.println(cdd.getRestaurants()); // print a list of restaurants
-                        System.out.print("Press anything to go back");
-                        String resID = sc.next();
+                        System.out.println("\nEnter -1 to go back");
                         
-                        System.out.println("1. Add New Food");
-                        System.out.println("2. View");
-                        System.out.println("3. Delete");
-                        System.out.print("Press anything to go back");
-                              
-                        choice = sc.next();
-                        while (choice.length() != 1 || choice.charAt(0) < '1' || choice.charAt(0) > '3') // check if choice entered is between 1 and 3
+                        String resID = sc.next();
+                        while ((choice.length() != 1 || choice.charAt(0) < '1' || choice.charAt(0) > '0'+(cdd.getNumRestaurants()-1)) && !choice.equals("-1"))  // check if choice entered is between 1 and 3
                         {
-                           System.out.println("\nIvalid Input, Please Choose a Number: ");
+                           System.out.println("\nEnter -1 to go back");
+                           System.out.println("1. Add New Food");
+                           System.out.println("2. View");
+                           System.out.println("3. Delete");
+                              
                            choice = sc.next();
+                           while ((choice.length() != 1 || choice.charAt(0) < '1' || choice.charAt(0) > '3') && !choice.equals("-1"))  // check if choice entered is between 1 and 3
+                           {
+                              System.out.println("\nIvalid Input, Please Choose a Number: ");
+                              choice = sc.next();
+                           }
                         }
                         
                         switch (choice)
