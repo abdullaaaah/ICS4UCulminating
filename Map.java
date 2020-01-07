@@ -12,6 +12,7 @@ public class Map
    private int numCols;
    private char[][] map;
    private Position[] positions;
+   private Position[] positions2;
    private int numPositions;
    private int destinationX;
    private int destinationY;
@@ -25,11 +26,16 @@ public class Map
    
    public Map(int numRows, int numCols)
    {
+   
+      System.out.println(""+numRows+numCols);
       this.numRows = numRows;
       this.numCols = numCols;
-      Position[] positions = new Position[numRows*numCols];   //The max positions we can have are the startXs times the startYumns.
+      Position[] positions = new Position[25];   //The max positions we can have are the startXs times the startYumns.
       numPositions = 0;                            //Initially there are no stored positions so numPosition is 0
       map = new char[numRows][numCols];            //Initializes our map
+      positions2 = new Position[25];
+      System.out.println("========="+positions.length);
+      
       
    }
    
@@ -40,7 +46,7 @@ public class Map
  
    public Position[] getPositions()
    {
-      return positions;
+      return positions2;
    }
    
    public int getNumPositions()
@@ -51,23 +57,27 @@ public class Map
  
    public void addPosition(int x, int y, Restaurant r)
    {
-      System.out.println(""+x+y+r.getName());
-      positions[numPositions] = new Position(x,y, r); 
+      
+      //This fkn positions array is not storing the item for some reason
+
+      this.positions2[numPositions] = new Position(x,y, r); 
+            
       numPositions++;
    }
    
    public void addPosition(int x, int y, Driver d)
    {
-      positions[numPositions] = new Position(x,y, d); 
+      positions2[numPositions] = new Position(x,y, d); 
       numPositions++;
    }
    
    
    public boolean isOccupied(int x, int y)
    {
+   
       for(int i = 0; i<numPositions; i++)
       {
-         if(positions[i].getX() == x && positions[i].getY() == y)
+         if(positions2[i].getX() == x && positions2[i].getY() == y)
          {
             return true;
          }
@@ -89,24 +99,24 @@ public class Map
      
      for(int i = 0; i<numPositions && !firstFound; i++)
      {     
-         if(positions[i].getType().equals("driver"))
+         if(positions2[i].getType().equals("driver"))
          {
             firstIndex = i;
-            distance = getDistance(positions[i].getX(), positions[i].getY(), restaurantX, restaurantY);
-            closest = positions[i].getDriver();
+            distance = getDistance(positions2[i].getX(), positions2[i].getY(), restaurantX, restaurantY);
+            closest = positions2[i].getDriver();
             firstFound = true;
          } 
      }
      
      for(int i = firstIndex+1; i<numPositions; i++)
      {
-         if(positions[i].getType().equals("driver"))
+         if(positions2[i].getType().equals("driver"))
          {
-            temp = getDistance(positions[i].getX(), positions[i].getY(), restaurantX, restaurantY);
+            temp = getDistance(positions2[i].getX(), positions2[i].getY(), restaurantX, restaurantY);
             if(temp < distance)
             {
                distance = temp;
-               closest = positions[i].getDriver();
+               closest = positions2[i].getDriver();
             }
          }
      }
