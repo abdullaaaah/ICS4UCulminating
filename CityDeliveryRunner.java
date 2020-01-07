@@ -135,6 +135,8 @@ public class CityDeliveryRunner
                                     System.out.print("Enter new name: ");
                                     newName = sc.next();
                                     cdd.getUserLoggedIn().setName(newName);
+                                    System.out.println("Name changed! Enter anything to return to profile settings.");
+                                    if (sc.next()!= null){}
                                     continueProfileSetting = false;
                                  }
                                  break;
@@ -157,6 +159,8 @@ public class CityDeliveryRunner
                                     System.out.print("Enter new username: ");
                                     newUsername = sc.next();
                                     cdd.getUserLoggedIn().setUsername(newUsername);
+                                    System.out.println("Username changed! Enter anything to return to profile settings.");
+                                    if (sc.next()!= null){}
                                     continueProfileSetting = false;
                                  }
                                  break;
@@ -165,7 +169,7 @@ public class CityDeliveryRunner
                                  System.out.println("Enter current password:");
                                  currentPassword = sc.next();
                                  
-                                 nameMatches = currentPassword.equals(cdd.getUserLoggedIn().getPassword());
+                                 nameMatches = currentPassword.equals(cdd.getUserLoggedIn().decryptPassword());
                                  
                                  while (!nameMatches && !currentPassword.equals("-1")) {
                                     System.out.println("\nError, password doesn't match");
@@ -179,6 +183,8 @@ public class CityDeliveryRunner
                                     System.out.print("Enter new password: ");
                                     newPassword = sc.next();
                                     cdd.getUserLoggedIn().setPassword(newPassword);
+                                    System.out.println("Password changed! Enter anything to return to profile settings.");
+                                    if (sc.next()!= null){}
                                     continueProfileSetting = false;
                                  }
                                  break;

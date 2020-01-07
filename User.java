@@ -34,6 +34,16 @@ public class User extends Person
       return temp;
    }
    
+   public String decryptPassword() {
+      String temp = "";
+      for(int i = 0; i<password.length(); i++)
+      {
+         temp = temp + (char)(password.charAt(i) + 5);
+      }
+      
+      return temp;
+   }
+   
    // Accessor & Mutator /////////////////////////////
    public String getUsername()
    {
@@ -42,7 +52,7 @@ public class User extends Person
    /////////////////////////////////////
    public String getPassword()
    {
-      return this.password;
+       return this.password;
    }
    /////////////////////////////////////
    public void setUsername(String name) 
