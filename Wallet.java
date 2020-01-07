@@ -110,13 +110,7 @@ public class Wallet
          cdd.incrementNumCards();
       }
       
-
-<<<<<<< HEAD
-      cdd.saveCards();
-=======
-     cdd.saveCards();
->>>>>>> 90fd59024a6974561c699b128b846520b8ef0747
-      
+     cdd.saveCards();      
    }
    /////////////////////////////////////////////////////////
    public String toString ()

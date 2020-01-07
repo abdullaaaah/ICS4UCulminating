@@ -8,7 +8,7 @@ public class AbdullahTesting
    {
       CityDeliveryDatabase cityDelivery = new CityDeliveryDatabase();
       
-      cityDelivery.login("kori","kosh");
+      /*cityDelivery.login("kori","kosh");
       Customer customer = (Customer)cityDelivery.getUserLoggedIn();
       
       System.out.println(customer);
@@ -20,7 +20,12 @@ public class AbdullahTesting
       for(int i = 0; i<cityDelivery.getNumCards(); i++)
       {
          System.out.println(cityDelivery.getCards()[i].getCardNumber());
-      }          
+      }          */
+ 
+      //cityDelivery.getMap().printMap();
+      
+      Position[] poss = new Position[100];
+      System.out.println(poss.length);
  
       //cityDelivery.getRestaurants()[0].removeItem("Poutine");
             
