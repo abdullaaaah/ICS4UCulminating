@@ -711,11 +711,11 @@ public class CityDeliveryDatabase
       return userLoggedIn;
    }
    
-//    public void logout()
-//    {
-//       this.userLoggedIn = null;
-//       System.out.println("Success! Logged out");
-//    }
+   public void logout()
+   {
+      this.userLoggedIn = null;
+      System.out.println("Success! Logged out");
+   }
    
    
    /////////////////////////////////   COUPON RELATED   /////////////////////////////////
