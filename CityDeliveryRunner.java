@@ -101,7 +101,7 @@ public class CityDeliveryRunner
                   System.out.println("6. Log Out");
                   System.out.print("Enter your choice: ");
                   String choicePanel = sc.next();
-
+               
                   switch (choicePanel) {
                      case "1":                                                                       // profile setting
                         boolean continueProfileSetting = true;
@@ -394,17 +394,17 @@ public class CityDeliveryRunner
                {
                   String name, cate;
                   //Admin panel code here
-                  System.out.println("Admin");
-                  System.out.println("1. Profile Settings");
-                  System.out.println("2. Manage Restaurants");
-                  System.out.println("3. Manage Drivers");
-                  System.out.println("4. Manage Coupons");
-                  System.out.println("5. Add / Delete Food");
-                  System.out.println("6. View Finances");
-                  System.out.println("7. Logout");
+                  System.out.println("Admin");                    //
+                  System.out.println("1. Profile Settings");      //
+                  System.out.println("2. Manage Restaurants");    //
+                  System.out.println("3. Manage Drivers");        //
+                  System.out.println("4. Manage Coupons");        //  Admin Homepage 
+                  System.out.println("5. Add / Delete Food");     //
+                  System.out.println("6. View Finances");         //
+                  System.out.println("7. Logout");                //
                            
                   String choice = sc.next();
-                  while (choice.charAt(0) < '1' || choice.charAt(0) > '9')
+                  while (choice.charAt(0) < '1' || choice.charAt(0) > '7') // check if choice entered is between 1 and 7
                   {
                      System.out.println("\nIvalid Input, Please Choose a Number: ");
                      choice = sc.next();
@@ -412,8 +412,7 @@ public class CityDeliveryRunner
                            
                   switch (choice)
                   {
-                     case "1":
-                        // profile setting
+                     case "1":   // profile settings
                         System.out.println("1. Change Name");
                         System.out.println("2. Change Username");
                         System.out.println("3. Change Password");
@@ -422,23 +421,22 @@ public class CityDeliveryRunner
                         choice = sc.next();
                         switch (choice)
                         {
-                           case "1":
+                           case "1":   // change name
                               System.out.print("Enter New Name: ");
                               cdd.user().setName(sc.next());
                               break;
-                           case "2":
+                           case "2":   // change username
                               System.out.print("Enter New Username: ");
                               cdd.user().changeUsername(sc.next());
                               break;
-                           case "3":
+                           case "3":   // change password
                               System.out.print("Enter New Password: ");
                               cdd.user().changePassword(sc.next());
                               break;
-                           default:
+                           default:    // go back
                         }
                         break;
-                     case "2":
-                        // manage restaurant
+                     case "2":   // manage restaurant
                         System.out.println("1. Add Restaurant");
                         System.out.println("2. View / Modify Restaurant");
                         System.out.println("3. Delete Restaurant");
@@ -447,7 +445,7 @@ public class CityDeliveryRunner
                         choice = sc.next();
                         switch (choice)
                         {
-                           case "1":
+                           case "1":   // add restaurant
                               System.out.print("Enter Restaurant Name: ");
                               name = sc.next();
                               System.out.print("Enter Restaurant Category: ");
@@ -462,8 +460,7 @@ public class CityDeliveryRunner
                               int positionY = Integer.parseInt(sc.next());
                               ((Admin)cdd.user()).addRestaurant(cdd, name, cate, rate, numRate, positionX, positionY);
                               break;
-                           case "2":
-                                 // view / modify restaurant
+                           case "2":   // view/modify restaurant
                               System.out.println(cdd.getRestaurants());
                               System.out.print("Enter Restaurant ID: ");
                               String resID = sc.next();
@@ -475,14 +472,13 @@ public class CityDeliveryRunner
                               double rating = sc.nextDouble();
                               cdd.getRestaurants()[Integer.parseInt(resID)].editRestaurant(name, cate, rating);
                               break;
-                           case "3":
+                           case "3":   // delete restaurant
                               System.out.print("Enter Restaurant Name: ");
                               ((Admin)cdd.user()).removeRestaurant(cdd, sc.nextLine());
                               break;
                         }
                         break;
-                     case "3":
-                              // manage drivers
+                     case "3":   // manage drivers
                         System.out.println("1. Add Driver");
                         System.out.println("2. View / Modify Driver");
                         System.out.println("3. Delete Driver");
@@ -492,7 +488,7 @@ public class CityDeliveryRunner
                         choice = sc.next();
                         switch (choice)
                         {
-                           case "1":
+                           case "1":   // add driver
                               System.out.print("Enter Driver ID: ");
                               int id = sc.nextInt();
                               System.out.print("Enter Driver Name: ");
@@ -507,8 +503,7 @@ public class CityDeliveryRunner
                               int positionY = sc.nextInt();
                               ((Admin)cdd.user()).addDriver(cdd, id, name, phoneNum, des, positionX, positionY);
                               break;
-                           case "2":
-                                 // view driver
+                           case "2":    // view driver
                               System.out.println(cdd.getDrivers());
                               System.out.print("Enter Driver ID: ");
                               String drivID = sc.next();
@@ -519,18 +514,15 @@ public class CityDeliveryRunner
                               System.out.print("Enter New Car Description: ");
                               String description = sc.nextLine();
                               cdd.getDrivers()[Integer.parseInt(drivID)].editDriver(name, phoneNum, description);
-                                 
-                                 
                               break;
-                           case "3":
+                           case "3":   // delete driver
                               System.out.print("Enter Driver ID: ");
                               ((Admin)cdd.user()).removeDriver(cdd, sc.nextInt());
                               break;
-                           default:
+                           default:    // go back
                         }
                         break;
-                     case "4":
-                              // manage coupons
+                     case "4":    // manage coupons
                         System.out.println("1. Add Coupon");
                         System.out.println("2. View Coupon");
                         System.out.println("3. Delete Coupon");
@@ -539,27 +531,26 @@ public class CityDeliveryRunner
                         choice = sc.next();
                         switch (choice)
                         {
-                           case "1":
+                           case "1":   // add coupon
                               System.out.print("Enter Coupon Code: ");
                               String code = sc.nextLine();
                               System.out.print("Enter Coupon Discount: ");
                               double dis = sc.nextDouble();
                               ((Admin)cdd.user()).addCoupon(cdd, code, dis);
                               break;
-                           case "2":
+                           case "2":   // view coupon
                               System.out.println(cdd.getCoupons());
                               System.out.print("Press anything to continue");
                               sc.next();
                               break;
-                           case "3":
+                           case "3":   // delete coupon
                               System.out.print("Enter Coupon Code: ");
                               ((Admin)cdd.user()).removeCoupon(cdd, sc.next());
                               break;
-                           default:
+                           default:    // go back
                         }
                         break;
-                     case "5":
-                              // add / delete food
+                     case "5":   // add / delete food
                         System.out.println(cdd.getRestaurants());
                         System.out.print("Press anything to go back");
                         String resID = sc.next();
@@ -570,14 +561,14 @@ public class CityDeliveryRunner
                         choice = sc.next();
                         switch (choice)
                         {
-                           case "1":
+                           case "1":   // add new food
                               System.out.print("Enter Item Name: ");
                               name = sc.next();
                               System.out.print("Enter Item Price: ");
                               double price = sc.nextDouble();
                               cdd.getRestaurants()[Integer.parseInt(resID)].addItem(name, price);
                               break;
-                           case "2":
+                           case "2":   // view menu
                               System.out.println(cdd.getRestaurants()[Integer.parseInt(resID)].getMenu());
                               System.out.print("Enter Item ID: ");
                               String itemID = sc.next();
@@ -587,7 +578,7 @@ public class CityDeliveryRunner
                               price = sc.nextDouble();
                               cdd.getRestaurants()[Integer.parseInt(resID)].editItem(cdd.getRestaurants()[Integer.parseInt(resID)].menu[Integer.parseInt(itemID)], name, price);
                               break;
-                           case "3":
+                           case "3":   // delete food
                               System.out.println(cdd.getRestaurants()[Integer.parseInt(resID)].getMenu());
                               System.out.print("Enter Item Name: ");
                               name = sc.next();
@@ -597,13 +588,12 @@ public class CityDeliveryRunner
                               break;
                         }
                         break;
-                     case "6":
-                              // view finances
+                     case "6":   // view finances
                         System.out.println("Total Revenue: " + ((Admin)cdd.user()).getTotalRevenue());
                         System.out.println("Driver Salary: " + ((Admin)cdd.user()).getDriverCost());
                         System.out.println("Total Profit:  " + ((Admin)cdd.user()).getProfit());
                         break;
-                     case "7":
+                     case "7":   // logout
                         cdd.logout();
                         login = false;
                         break;
