@@ -178,7 +178,7 @@ public class CityDeliveryDatabase
       
       
       //Map
-      map = new Map(5,5); 
+      map = new Map(10,10); 
       map.addAllPositions(restaurants, numRestaurants, drivers, numDrivers);
       
    }

@@ -394,7 +394,25 @@ public class CityDeliveryRunner
                {
                   String name, cate;
                   //Admin panel code here
+<<<<<<< HEAD
                   System.out.println("\nAdmin");                  //
+=======
+<<<<<<< HEAD
+                  System.out.println("\n\t\tAdmin");
+                  System.out.println("1. Profile Settings");
+                  System.out.println("2. Manage Restaurants");
+                  System.out.println("3. Manage Drivers");
+                  System.out.println("4. Manage Coupons");
+                  System.out.println("5. Add / Delete Food");
+                  System.out.println("6. View Finances");
+                  System.out.println("7. Logout");
+                  System.out.print("Enter your choice: ");
+                  String choice = sc.next();
+                  System.out.println(choice.length());
+                  while ((choice.charAt(0) < '1' || choice.charAt(0) > '9') || choice.length() > 1)
+=======
+                  System.out.println("Admin");                    //
+>>>>>>> refs/remotes/origin/master
                   System.out.println("1. Profile Settings");      //
                   System.out.println("2. Manage Restaurants");    //
                   System.out.println("3. Manage Drivers");        //
@@ -405,6 +423,7 @@ public class CityDeliveryRunner
                            
                   String choice = sc.next();
                   while (choice.length() != 1 || choice.charAt(0) < '1' || choice.charAt(0) > '7') // check if choice entered is between 1 and 7
+>>>>>>> aed4ac027e346dbb275c2d7509197cb45b6314c3
                   {
                      System.out.println("\nIvalid Input, Please Choose a Number: ");
                      choice = sc.next();
