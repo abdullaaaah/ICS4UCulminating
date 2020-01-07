@@ -394,7 +394,7 @@ public class CityDeliveryRunner
                {
                   String name, cate;
                   //Admin panel code here
-                  System.out.println("Admin");
+                  System.out.println("\n\t\tAdmin");
                   System.out.println("1. Profile Settings");
                   System.out.println("2. Manage Restaurants");
                   System.out.println("3. Manage Drivers");
@@ -402,9 +402,10 @@ public class CityDeliveryRunner
                   System.out.println("5. Add / Delete Food");
                   System.out.println("6. View Finances");
                   System.out.println("7. Logout");
-                           
+                  System.out.print("Enter your choice: ");
                   String choice = sc.next();
-                  while (choice.charAt(0) < '1' || choice.charAt(0) > '9')
+                  System.out.println(choice.length());
+                  while ((choice.charAt(0) < '1' || choice.charAt(0) > '9') || choice.length() > 1)
                   {
                      System.out.println("\nIvalid Input, Please Choose a Number: ");
                      choice = sc.next();
