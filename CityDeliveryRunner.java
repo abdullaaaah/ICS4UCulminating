@@ -404,7 +404,7 @@ public class CityDeliveryRunner
                   System.out.println("7. Logout");                //
                            
                   String choice = sc.next();
-                  while (choice.charAt(0) < '1' || choice.charAt(0) > '7') // check if choice entered is between 1 and 7
+                  while (choice.length() != 1 || choice.charAt(0) < '1' || choice.charAt(0) > '7') // check if choice entered is between 1 and 7
                   {
                      System.out.println("\nIvalid Input, Please Choose a Number: ");
                      choice = sc.next();
@@ -419,6 +419,12 @@ public class CityDeliveryRunner
                         System.out.println("Press anything else to go back");
                               
                         choice = sc.next();
+                        while (choice.length() != 1 || choice.charAt(0) < '1' || choice.charAt(0) > '3') // check if choice entered is between 1 and 3
+                        {
+                           System.out.println("\nIvalid Input, Please Choose a Number: ");
+                           choice = sc.next();
+                        }
+                     
                         switch (choice)
                         {
                            case "1":   // change name
@@ -443,6 +449,12 @@ public class CityDeliveryRunner
                         System.out.println("Press anything else to go back");
                               
                         choice = sc.next();
+                        while (choice.length() != 1 || choice.charAt(0) < '1' || choice.charAt(0) > '3') // check if choice entered is between 1 and 3
+                        {
+                           System.out.println("\nIvalid Input, Please Choose a Number: ");
+                           choice = sc.next();
+                        }
+                     
                         switch (choice)
                         {
                            case "1":   // add restaurant
@@ -484,8 +496,14 @@ public class CityDeliveryRunner
                         System.out.println("3. Delete Driver");
                         System.out.println("Press anything else to go back");
                               
-                        String phoneNum;
                         choice = sc.next();
+                        while (choice.length() != 1 || choice.charAt(0) < '1' || choice.charAt(0) > '3') // check if choice entered is between 1 and 3
+                        {
+                           System.out.println("\nIvalid Input, Please Choose a Number: ");
+                           choice = sc.next();
+                        }
+                        
+                        String phoneNum;
                         switch (choice)
                         {
                            case "1":   // add driver
@@ -529,6 +547,12 @@ public class CityDeliveryRunner
                         System.out.println("Press anything else to go back");
                               
                         choice = sc.next();
+                        while (choice.length() != 1 || choice.charAt(0) < '1' || choice.charAt(0) > '3') // check if choice entered is between 1 and 3
+                        {
+                           System.out.println("\nIvalid Input, Please Choose a Number: ");
+                           choice = sc.next();
+                        }
+                        
                         switch (choice)
                         {
                            case "1":   // add coupon
@@ -551,14 +575,22 @@ public class CityDeliveryRunner
                         }
                         break;
                      case "5":   // add / delete food
-                        System.out.println(cdd.getRestaurants());
+                        System.out.println(cdd.getRestaurants()); // print a list of restaurants
                         System.out.print("Press anything to go back");
                         String resID = sc.next();
+                        
                         System.out.println("1. Add New Food");
                         System.out.println("2. View");
                         System.out.println("3. Delete");
+                        System.out.print("Press anything to go back");
                               
                         choice = sc.next();
+                        while (choice.length() != 1 || choice.charAt(0) < '1' || choice.charAt(0) > '3') // check if choice entered is between 1 and 3
+                        {
+                           System.out.println("\nIvalid Input, Please Choose a Number: ");
+                           choice = sc.next();
+                        }
+                        
                         switch (choice)
                         {
                            case "1":   // add new food
