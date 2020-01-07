@@ -13,7 +13,8 @@ public class CityDeliveryRunner
    {
       CityDeliveryDatabase cdd = new CityDeliveryDatabase();
       Scanner sc = new Scanner(System.in);
-      String choiceHome, currentName, currentUsername, currentPassword, newName, newUsername, newPassword;
+      int choiceHome;
+      String currentName, currentUsername, currentPassword, newName, newUsername, newPassword;
       String username = "", password = "";
       boolean login = false, exit = false, register = false, nameMatches;
       
@@ -24,18 +25,18 @@ public class CityDeliveryRunner
          
          System.out.println("1. Log in");
          System.out.println("2. Register");
-         System.out.print("Enter your choice: ");
-         choiceHome = sc.next();
+         System.out.print("Enter your choice (or -1 to end program): ");
+         choiceHome = sc.nextInt();
          
-         while ((choiceHome.charAt(0) < '1' || choiceHome.charAt(0) > '2') && !choiceHome.equals("-1")){
+         while ((choiceHome < 1 || choiceHome > 2) && choiceHome != -1){
             System.out.println("\nError, enter valid input");
             System.out.print("Enter your choice: ");
-            choiceHome = sc.next();
+            choiceHome = sc.nextInt();
          }
          
          
          switch (choiceHome){
-            case "1":
+            case 1:
                boolean continueLogin;
                do {
                   continueLogin = true;
@@ -58,7 +59,7 @@ public class CityDeliveryRunner
                   }
                } while (!continueLogin);
                break;
-            case "2":
+            case 2:
                System.out.println("Enter -1 to return to home page");
                System.out.println("\n\n===========================");
                System.out.println("\t\t\tREGISTER\t\t");
@@ -79,7 +80,7 @@ public class CityDeliveryRunner
                   }
                } 
                break;
-            case "-1":
+            case -1:
                exit = true;
          }
          //The stuff that happens after user is inside the software ;)
@@ -100,10 +101,10 @@ public class CityDeliveryRunner
                   System.out.println("5. Active Delivery");
                   System.out.println("6. Log Out");
                   System.out.print("Enter your choice: ");
-                  String choicePanel = sc.next();
+                  int choicePanel = sc.nextInt();
                
                   switch (choicePanel) {
-                     case "1":                                                                       // profile setting
+                     case 1:                                                                       // profile setting
                         boolean continueProfileSetting = true;
                         do { // while (!continueProfileSetting)
                            continueProfileSetting = true;
@@ -192,7 +193,7 @@ public class CityDeliveryRunner
                            }
                         } while(!continueProfileSetting);
                         break;
-                     case "2":                                                        // wallet
+                     case 2:                                                        // wallet
                         
                         boolean hasCard = curCustomer.getWallet().hasCard();
                         if (hasCard) {
@@ -210,10 +211,10 @@ public class CityDeliveryRunner
                               System.out.println("1. Edit Card");
                               System.out.println("2. Add Money");
                               System.out.println("Enter your choice (or anything else to go back): ");
-                              String walletChoice = sc.next();
+                              int walletChoice = sc.nextInt();
                               
                               switch (walletChoice) {
-                                 case "1":                                   // edit card
+                                 case 1:                                   // edit card
                                     System.out.println("Enter your modifications (or 0 to skip and -1 to go back)");
                                     System.out.print("Credit Card Number: ");
                                     String creditCardNum = sc.next();
@@ -249,7 +250,7 @@ public class CityDeliveryRunner
                                           }
                                        }
                                     }
-                                 case "2":                                   // add money
+                                 case 2:                                   // add money
                                     System.out.println("Enter amount (or -1 to go back): ");
                                     double money = sc.nextDouble();
                                     if (money != -1)
@@ -302,7 +303,7 @@ public class CityDeliveryRunner
                            
                         }
                         break;
-                     case "3":                                                        // place order
+                     case 3:                                                        // place order
                         
                         Map map = cdd.getMap();
                         System.out.println("\n");
@@ -329,16 +330,16 @@ public class CityDeliveryRunner
                               System.out.println("2. Find Restaurant by Item");
                               System.out.println("3. Find Restaurant by Filtering");
                               System.out.print("Enter your choice (or -1 to go back): ");
-                              String choiceOrder = sc.next();
+                              int choiceOrder = sc.nextInt();
                               
-                              while (!choiceOrder.equals("-1") && (choiceOrder.charAt(0) < '1' || choiceOrder.charAt(0) > '3')){ // loop while their choice is not 1-3 and not -1
+                              while (choiceOrder != -1 && (choiceOrder < 1 || choiceOrder > 3)){ // loop while their choice is not 1-3 and not -1
                                  System.out.println("\nError, invalid input.");
                                  System.out.print("Enter your choice (or -1 to go back): ");
-                                 choiceOrder = sc.next();
+                                 choiceOrder = sc.nextInt();
                               }
                               
                               switch (choiceOrder) {
-                                 case "1":               // find restaurant by name
+                                 case 1:               // find restaurant by name
                                     System.out.print("Enter Restaurant Name (or -1 to go back): ");
                                     String resName = sc.next();
                                     while (!cdd.doesRestaurantExist(resName) && !resName.equals("-1")){  // loop while restaurant name doesnt exist and input isnt -1
@@ -362,25 +363,25 @@ public class CityDeliveryRunner
                                        
                                     }
                                     break;
-                                 case "2":               // find restaurant by item
+                                 case 2:               // find restaurant by item
                                     System.out.print("Enter the name of the Item (or -1 to go back): ");
                                     String itemName = sc.next();
                                     
                                     break;
-                                 case "3":               // find restaurant by filtering
+                                 case 3:               // find restaurant by filtering
                                     break;
-                                 case "-1":
+                                 case -1:
                                     continueLocation = false;                                    
                                     break;
                               }
                            }
                         } while (!continueLocation);
                         break;
-                     case "4":                                                        // view order history
+                     case 4:                                                        // view order history
                         break;
-                     case "5":                                                        // view active deliveries
+                     case 5:                                                        // view active deliveries
                         break;
-                     case "6":
+                     case 6:
                         exit = false;
                         break;
                      default:
@@ -393,22 +394,7 @@ public class CityDeliveryRunner
                while (login)
                {
                   String name, cate;
-                  //Admin panel code here
-<<<<<<< HEAD
-                  System.out.println("\n\t\tAdmin");
-                  System.out.println("1. Profile Settings");
-                  System.out.println("2. Manage Restaurants");
-                  System.out.println("3. Manage Drivers");
-                  System.out.println("4. Manage Coupons");
-                  System.out.println("5. Add / Delete Food");
-                  System.out.println("6. View Finances");
-                  System.out.println("7. Logout");
-                  System.out.print("Enter your choice: ");
-                  String choice = sc.next();
-                  System.out.println(choice.length());
-                  while ((choice.charAt(0) < '1' || choice.charAt(0) > '9') || choice.length() > 1)
-=======
-                  System.out.println("Admin");                    //
+                  System.out.println("\n\t\tAdmin");              //
                   System.out.println("1. Profile Settings");      //
                   System.out.println("2. Manage Restaurants");    //
                   System.out.println("3. Manage Drivers");        //
@@ -418,8 +404,7 @@ public class CityDeliveryRunner
                   System.out.println("7. Logout");                //
                            
                   String choice = sc.next();
-                  while (choice.length() != 1 || choice.charAt(0) < '1' || choice.charAt(0) > '7') // check if choice entered is between 1 and 7
->>>>>>> aed4ac027e346dbb275c2d7509197cb45b6314c3
+                  while (choice.length() != 1 || choice.charAt(0) < '1' || choice.charAt(0) > '7') // check if choice entered is between 1 and 7 and only 1 character
                   {
                      System.out.println("\nIvalid Input, Please Choose a Number: ");
                      choice = sc.next();
