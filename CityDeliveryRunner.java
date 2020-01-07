@@ -50,8 +50,7 @@ public class CityDeliveryRunner
                      System.out.print("Enter your password: ");
                      password = sc.next();
                   
-                     if(!password.equals("-1"))
-                     {
+                     if(!password.equals("-1")) {
                         login = cdd.login(username, password);
                         if (!login)
                            continueLogin = false;
@@ -100,9 +99,9 @@ public class CityDeliveryRunner
                   System.out.println("4. View Order History");
                   System.out.println("5. Active Delivery");
                   System.out.println("6. Log Out");
-                  System.out.print("Enter your choice (or anything else to go back): ");
+                  System.out.print("Enter your choice: ");
                   String choicePanel = sc.next();
-               
+
                   switch (choicePanel) {
                      case "1":                                                                       // profile setting
                         boolean continueProfileSetting = true;

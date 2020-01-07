@@ -14,7 +14,7 @@ customer
 kosh
 kori
 fjnc
-customer
+admin
 -1
 -1
 fjnc
