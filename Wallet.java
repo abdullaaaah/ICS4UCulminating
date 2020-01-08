@@ -32,6 +32,11 @@ public class Wallet
    {
       customer = username;
    }
+   
+   public void setCard(Card card)
+   {
+      creditCard = card;
+   }
 
    // Constructor ///////////////////////////////////
    /*
@@ -95,7 +100,7 @@ public class Wallet
       boolean added = false;
       Card newCard = new Card(username, cardNumber, month, year, CVV);
      
-      for(int i = 0; i<cdd.getNumCards() && !added; i++) // search and replace previous one if exists
+      for(int i = 0; i<cdd.getNumCards() && !added; i++) // search and replace previous one if exists in the file.
       {
          if(cdd.getCards()[i].getUsername().equals(username))
          {

@@ -1,4 +1,4 @@
-6
+7
 o
 LOL
 ,-.
@@ -14,7 +14,7 @@ customer
 kosh
 kori
 fjnc
-customer
+admin
 -1
 -1
 fjnc
@@ -22,4 +22,8 @@ customer
 uthman
 mohamed
 (,
+customer
+Abdullah
+nxabdullah
+,-.
 customer

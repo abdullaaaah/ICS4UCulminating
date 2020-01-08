@@ -352,6 +352,18 @@ public class Restaurant
       this.rating = rating;
    }
    
+   public double getAveragePrice()
+   {
+      double averagePrice = 0;
+      
+      for(int i = 0; i<numItem; i++)
+      {
+         averagePrice+=menu[i].getPrice();
+      }
+      
+      return averagePrice/numItem;
+   }
+   
    public String toString ()
    {
       return name;  

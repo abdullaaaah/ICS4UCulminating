@@ -10,34 +10,24 @@ public class AbdullahTesting
    
       CityDeliveryDatabase cityDelivery = new CityDeliveryDatabase();
       
-      /*cityDelivery.login("kori","kosh");
-      Customer customer = (Customer)cityDelivery.getUserLoggedIn();
       
-      System.out.println(customer);
-      
-      System.out.println(customer.getWallet().hasCard());
-      
-      customer.getWallet().addCard(customer.getUsername(), "2312321321", "12","24","123", cityDelivery);
+      cityDelivery.login("nxabdullah", "123");
 
-      for(int i = 0; i<cityDelivery.getNumCards(); i++)
+      System.out.println( ((Customer)cityDelivery.getUserLoggedIn()).getWallet().hasCard());
+      System.out.println("============"); 
+      /*for(int i = 0; i<cityDelivery.getNumCards(); i++)
       {
-         System.out.println(cityDelivery.getCards()[i].getCardNumber());
-      }          */
- 
-      //cityDelivery.getMap().printMap();
-      
-      Position[] poss = new Position[100];
-      System.out.println(poss.length);
- 
-      //cityDelivery.getRestaurants()[0].removeItem("Poutine");
-            
-     // Admin me = new Admin("Abdullah Shahid", "nx", "123456");
-      //me.addRestaurant(cityDelivery, "chick fila", "junk food", 5, 1, 4,2);
+         System.out.println("The card " + cityDelivery.getCards()[i]);
+         
+      }*/
 
-     //cityDelivery.
+     Restaurant[] sorted = cityDelivery.sortRestaurantsByHighestRating();
      
      
-      
+      /*for(int i = 0; i<sorted.length; i++)
+      {
+         System.out.println(sorted[i].getName()+ " " + sorted[i].getAverageRating());
+      }*/
    
    }
 
