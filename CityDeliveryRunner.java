@@ -210,8 +210,19 @@ public class CityDeliveryRunner
                            
                               System.out.println("1. Edit Card");
                               System.out.println("2. Add Money");
-                              System.out.println("Enter your choice (or anything else to go back): ");
+                              System.out.println("Enter your choice (or -1 to go back): ");
                               int walletChoice = sc.nextInt();
+                              
+                              while ((walletChoice < 1 || walletChoice > 2) && walletChoice != -1){
+                                 System.out.println("Error, invalid input");
+                                 System.out.print("Enter your choice (or -1 to go back): ");
+                                 try {
+                                    walletChoice = sc.nextInt();
+                                 }
+                                 catch (InputMismatchException ime) {
+                                    
+                                 }
+                              }
                               
                               switch (walletChoice) {
                                  case 1:                                   // edit card
