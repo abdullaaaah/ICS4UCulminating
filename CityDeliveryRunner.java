@@ -26,11 +26,11 @@ public class CityDeliveryRunner
          System.out.println("1. Log in");
          System.out.println("2. Register");
          System.out.print("Enter your choice (or -1 to end program): ");
-         goodData = false;
-         do { // repeat to find either 1 or 2 as input for choiceHome
          
+         
+         do { // repeat to find either 1 or 2 as input for choiceHome
+            goodData = false;
             while (!goodData) {  // repeat when input for choiceHome is not an integer
-            
                try{
                   choiceHome = sc.nextInt();
                   goodData = true;
@@ -42,9 +42,7 @@ public class CityDeliveryRunner
                System.out.println("\nError, invalid input");
                System.out.print("Enter your choice (or -1 to end program): ");
             } // while(!goodData)
-            
          } while ((choiceHome < 1 || choiceHome > 2));
-         
          
          switch (choiceHome){
             case 1:
