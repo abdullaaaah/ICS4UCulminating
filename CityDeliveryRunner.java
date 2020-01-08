@@ -433,13 +433,10 @@ public class CityDeliveryRunner
             { // user is admin
                while (login)
                {
-                  String name, cate;
-<<<<<<< HEAD
+                  String choice, name, cate;
+                  double rate;
+                  goodData = false;
                
-=======
-
-
->>>>>>> b722ca847687e6a85c0ae9e612b8f6820308187a
                   System.out.println("\n\t\tAdmin");              //
                   System.out.println("1. Profile Settings");      //
                   System.out.println("2. Manage Restaurants");    //
@@ -449,7 +446,7 @@ public class CityDeliveryRunner
                   System.out.println("6. View Finances");         //
                   System.out.println("7. Logout");                //
                            
-                  String choice = sc.next();
+                  choice = sc.next();
 
                   while (choice.length() != 1 || choice.charAt(0) < '1' || choice.charAt(0) > '7') // check if choice entered is between 1 and 7 and only 1 character
                   {
@@ -506,11 +503,24 @@ public class CityDeliveryRunner
                         {
                            case "1":   // add restaurant
                               System.out.print("Enter Restaurant Name: ");
-                              name = sc.next();
+                              name = sc.nextLine();
                               System.out.print("Enter Restaurant Category: ");
-                              cate = sc.next();
+                              cate = sc.nextLine();
                               System.out.print("Enter Restaurant Rating: ");
-                              double rate = sc.nextDouble();
+                              rate = 0;
+                              while (!goodData)
+                              {
+                                 try
+                                 {
+                                    rate = sc.nextDouble();
+                                    goodData = true;
+                                 }
+                                 catch (InputMismatchException IMX)
+                                 {
+                                    System.out.print("Invalid input, please enter a number: ");
+                                    rate = sc.nextDouble();
+                                 }
+                              }
                               System.out.print("Enter Number of Ratings Restaurant Got: ");
                               int numRate = Integer.parseInt(sc.next());
                               System.out.print("Enter Restaurant PositionX: ");
