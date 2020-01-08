@@ -14,7 +14,7 @@ public class CityDeliveryRunner
       CityDeliveryDatabase cdd = new CityDeliveryDatabase();
       Scanner sc = new Scanner(System.in);
       int choiceHome = -1;
-      String currentName, currentUsername, currentPassword, newName, newUsername, newPassword;
+      String currentName, currentUsername, currentPassword, newName, newUsername, newPassword, flush;
       String username = "", password = "";
       boolean login = false, exit = false, register = false, nameMatches, goodData = false;
       
@@ -26,25 +26,23 @@ public class CityDeliveryRunner
          System.out.println("1. Log in");
          System.out.println("2. Register");
          System.out.print("Enter your choice (or -1 to end program): ");
-         goodData = false;
-         do { // repeat to find either 1 or 2 as input for choiceHome
          
+         
+         do { // repeat to find either 1 or 2 as input for choiceHome
+            goodData = false;
             while (!goodData) {  // repeat when input for choiceHome is not an integer
-            
                try{
                   choiceHome = sc.nextInt();
                   goodData = true;
                } catch (InputMismatchException ix) {
                   System.out.println("\nError, invalid input");
                   System.out.println("Please try again");
-                  String flush = sc.next();
+                  flush = sc.next();
                }
                System.out.println("\nError, invalid input");
                System.out.print("Enter your choice (or -1 to end program): ");
             } // while(!goodData)
-            
          } while ((choiceHome < 1 || choiceHome > 2));
-         
          
          switch (choiceHome){
             case 1:
@@ -207,9 +205,12 @@ public class CityDeliveryRunner
                      case 2:                                                        // wallet
                         
                         boolean hasCard = curCustomer.getWallet().hasCard();
-                        if (hasCard) {
+                        System.out.println("hasCard: " + hasCard); // bug fixing
+                        if (hasCard) {       // if customer has card they have different options than a customer that doesnt have card
+                        
                            boolean continueWallet = true; // to go back
                            do {  // while (!continueWallet)
+                           
                               continueWallet = true;
                               System.out.println("\n\nCard Status: Added");
                               System.out.print("Account balance: $");
@@ -290,26 +291,54 @@ public class CityDeliveryRunner
                         else { // doesnt have card
                            System.out.println("Add Card");
                            System.out.println("\nEnter -1 anytime to go back");
-                           System.out.print("Enter Credit Card Number:" );
+                           System.out.print("\nEnter Credit Card Number (16-digits): ");
                            String cardNum = sc.next();
+                           
+                           while (!cardNum.equals("-1") && !curCustomer.getWallet().getCreditCard().validateNum(cardNum)){ // validate card number
+                              System.out.println("\nError, not 16-integer card number.");
+                              System.out.print("Enter Credit Card Number (16-digits): ");
+                              cardNum = sc.next();
+                           }
+                           
                            if (cardNum.equals("-1")){
                               continuePanel = false;
                            }
                            else {
                               System.out.print("Enter CVV (ex 123): ");
                               String CVV = sc.next();
+                              
+                              while (!CVV.equals("-1") && !curCustomer.getWallet().getCreditCard().validateCVV(CVV)){ // validate CVV
+                                 System.out.println("\nError, not 3-integer CVV number.");
+                                 System.out.print("Enter CVV (ex 123): ");
+                                 CVV = sc.next();
+                              }
+                           
                               if (CVV.equals("-1")){
                                  continuePanel = false;
                               }
                               else {
                                  System.out.print("Enter Expiry Month (ex 09): ");
                                  String expiryMonth = sc.next();
+                                 
+                                 while (!expiryMonth.equals("-1") && !curCustomer.getWallet().getCreditCard().validateExpMonth(expiryMonth)){ // validate expiry month
+                                    System.out.println("\nError, not valid expiry month.");
+                                    System.out.print("Enter Expiry Month (ex 09): ");
+                                    expiryMonth = sc.next();
+                                 }
+                              
                                  if (expiryMonth.equals("-1")){
                                     continuePanel = false;
                                  }
                                  else {
                                     System.out.print("Enter Expiry Year (ex 2025): ");
                                     String expiryYear = sc.next();
+                                    
+                                    while (!expiryYear.equals("-1") && !curCustomer.getWallet().getCreditCard().validateExpYear(expiryYear)){ // validate expiry year
+                                       System.out.println("\nError, not valid expiry year.");
+                                       System.out.print("Enter Expiry Year (ex 2025): ");
+                                       expiryYear = sc.next();
+                                    }
+                                 
                                     if (expiryYear.equals("-1")){
                                        continuePanel = false;
                                     }
@@ -436,7 +465,7 @@ public class CityDeliveryRunner
             { // user is admin
                while (login)
                {
-                  String choice, name, cate, flush;
+                  String choice, name, cate;
                   double rating;
                   goodData = false;
                
@@ -448,7 +477,6 @@ public class CityDeliveryRunner
                   System.out.println("5. Add / Delete Food");     //
                   System.out.println("6. View Finances");         //
                   System.out.println("7. Logout");                //
-                           
                   choice = sc.next();
                
                   while (choice.length() != 1 || choice.charAt(0) < '1' || choice.charAt(0) > '7') // check if choice entered is between 1 and 7 and only 1 character
