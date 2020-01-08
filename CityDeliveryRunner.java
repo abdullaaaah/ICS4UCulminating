@@ -13,7 +13,8 @@ public class CityDeliveryRunner
    {
       CityDeliveryDatabase cdd = new CityDeliveryDatabase();
       Scanner sc = new Scanner(System.in);
-      String choiceHome, currentName, currentUsername, currentPassword, newName, newUsername, newPassword;
+      int choiceHome;
+      String currentName, currentUsername, currentPassword, newName, newUsername, newPassword;
       String username = "", password = "";
       boolean login = false, exit = false, register = false, nameMatches;
       
@@ -24,18 +25,18 @@ public class CityDeliveryRunner
          
          System.out.println("1. Log in");
          System.out.println("2. Register");
-         System.out.print("Enter your choice: ");
-         choiceHome = sc.next();
+         System.out.print("Enter your choice (or -1 to end program): ");
+         choiceHome = sc.nextInt();
          
-         while ((choiceHome.charAt(0) < '1' || choiceHome.charAt(0) > '2') && !choiceHome.equals("-1")){
+         while ((choiceHome < 1 || choiceHome > 2) && choiceHome != -1){
             System.out.println("\nError, enter valid input");
             System.out.print("Enter your choice: ");
-            choiceHome = sc.next();
+            choiceHome = sc.nextInt();
          }
          
          
          switch (choiceHome){
-            case "1":
+            case 1:
                boolean continueLogin;
                do {
                   continueLogin = true;
@@ -58,7 +59,7 @@ public class CityDeliveryRunner
                   }
                } while (!continueLogin);
                break;
-            case "2":
+            case 2:
                System.out.println("Enter -1 to return to home page");
                System.out.println("\n\n===========================");
                System.out.println("\t\t\tREGISTER\t\t");
@@ -79,7 +80,7 @@ public class CityDeliveryRunner
                   }
                } 
                break;
-            case "-1":
+            case -1:
                exit = true;
          }
          //The stuff that happens after user is inside the software ;)
@@ -100,10 +101,10 @@ public class CityDeliveryRunner
                   System.out.println("5. Active Delivery");
                   System.out.println("6. Log Out");
                   System.out.print("Enter your choice: ");
-                  String choicePanel = sc.next();
+                  int choicePanel = sc.nextInt();
                
                   switch (choicePanel) {
-                     case "1":                                                                       // profile setting
+                     case 1:                                                                       // profile setting
                         boolean continueProfileSetting = true;
                         do { // while (!continueProfileSetting)
                            continueProfileSetting = true;
@@ -192,7 +193,7 @@ public class CityDeliveryRunner
                            }
                         } while(!continueProfileSetting);
                         break;
-                     case "2":                                                        // wallet
+                     case 2:                                                        // wallet
                         
                         boolean hasCard = curCustomer.getWallet().hasCard();
                         if (hasCard) {
@@ -210,10 +211,10 @@ public class CityDeliveryRunner
                               System.out.println("1. Edit Card");
                               System.out.println("2. Add Money");
                               System.out.println("Enter your choice (or anything else to go back): ");
-                              String walletChoice = sc.next();
+                              int walletChoice = sc.nextInt();
                               
                               switch (walletChoice) {
-                                 case "1":                                   // edit card
+                                 case 1:                                   // edit card
                                     System.out.println("Enter your modifications (or 0 to skip and -1 to go back)");
                                     System.out.print("Credit Card Number: ");
                                     String creditCardNum = sc.next();
@@ -249,7 +250,7 @@ public class CityDeliveryRunner
                                           }
                                        }
                                     }
-                                 case "2":                                   // add money
+                                 case 2:                                   // add money
                                     System.out.println("Enter amount (or -1 to go back): ");
                                     double money = sc.nextDouble();
                                     if (money != -1)
@@ -302,43 +303,61 @@ public class CityDeliveryRunner
                            
                         }
                         break;
-                     case "3":                                                        // place order
+                     case 3:                                                        // place order
                         
                         Map map = cdd.getMap();
                         System.out.println("\n");
-                        map.printMap();      // print map for user
                         
                         boolean continueLocation = true;
                         do {
                            continueLocation = true;
-                           System.out.print("Enter your area code (ex A2), or -1 to go back: ");
-                           String location = sc.next();
-                           while ((location.charAt(0) > 'E' || location.charAt(0) < 'A') && (location.charAt(1) < '0' || location.charAt(1) > '4') && !location.equals("-1")){ // loop while input is not A-E and 0-4 and not -1
-                              System.out.println("Error, invalid area code.");
-                              System.out.print("Enter your area code (ex A2), or -1 to go back: ");
-                              location = sc.next();
+                           System.out.println("===============================================");
+                           System.out.println("                 MAP");
+                           System.out.println("================================================");
+                           System.out.println("Note: locations marked with X are unavailable");
+                           
+                           map.printMap();      // print map for user
+                           
+                           System.out.print("Please take a look at the map of our city and enter your location your row cordinate (e.g A, B, C): ");
+                           String locationX = sc.next();
+                           System.out.print("Now please enter your column cordinate (e.g 0, 1, 2, 3): ");
+                           int locationY = sc.nextInt();
+                           
+                           //while ((location.charAt(0) > 'E' || location.charAt(0) < 'A') && (location.charAt(1) < '0' || location.charAt(1) > '4') && !location.equals("-1")){ // loop while input is not A-E and 0-4 and not -1
+                           while( !cdd.getMap().doesPositionExist(locationX.charAt(0)-64, locationY) && !(locationX.equals("-1")) && !(locationY==-1)) //Loop while the position is invalid and the location isn't -1  
+                           {
+                              System.out.print("Error, invalid location combination. Try again, row: ");
+                              locationX = sc.next();
+                              System.out.print("Column: ");
+                              locationY = sc.nextInt();
                            }
                            
-                           if (location.equals("-1")){   // will make program go back to customer panel
+                           if (locationX.equals("-1") || locationY==-1){   // will make program go back to customer panel
                               continuePanel = false;
                            }
                            else {                        // if location is valid 
-                              curCustomer.addPosition(location.charAt(0), location.charAt(1));
-                              System.out.println("\n\n\t\tOrder");
+                              curCustomer.addPosition(locationX.charAt(0)-64, locationY);
+                              System.out.println("===============================================");
+                              System.out.println("                 ORDER MENU");
+                              System.out.println("================================================");                              
                               System.out.println("1. Find Restaurant by Name");
                               System.out.println("2. Find Restaurant by Item");
                               System.out.println("3. Find Restaurant by Filtering");
-                              System.out.print("Enter your choice (or -1 to go back): ");
-                              String choiceOrder = sc.next();
                               
-                              while (!choiceOrder.equals("-1") && (choiceOrder.charAt(0) < '1' || choiceOrder.charAt(0) > '3')){ // loop while their choice is not 1-3 and not -1
+                              
+                              System.out.print("Enter your choice (or -1 to go back): ");
+                              int choiceOrder = sc.nextInt();
+                              
+                              while (choiceOrder != -1 && (choiceOrder < 1 || choiceOrder > 3)){ // loop while their choice is not 1-3 and not -1
                                  System.out.println("\nError, invalid input.");
                                  System.out.print("Enter your choice (or -1 to go back): ");
-                                 choiceOrder = sc.next();
+                                 choiceOrder = sc.nextInt();
                               }
                               
                               switch (choiceOrder) {
-                                 case "1":               // find restaurant by name
+                                 case 1:               // find restaurant by name
+                                 
+                                 
                                     System.out.print("Enter Restaurant Name (or -1 to go back): ");
                                     String resName = sc.next();
                                     while (!cdd.doesRestaurantExist(resName) && !resName.equals("-1")){  // loop while restaurant name doesnt exist and input isnt -1
@@ -350,6 +369,9 @@ public class CityDeliveryRunner
                                     if (resName.equals("-1"))     // if input is -1 program goes back to location input
                                        continueLocation = false;
                                     else {                        // if restaurant name is valid
+                                    
+                                    //Continue working from here tomorrow
+                                    
                                        System.out.println(cdd.getRestaurants()[cdd.findRestaurantIndexByName(resName)].getMenu()); // gets restaurant menu
                                        System.out.println("\nEnter the number for the item you would like to add,");
                                        System.out.print("or 0 if you are finished, or -1 to cancel order and go back: ");
@@ -362,25 +384,25 @@ public class CityDeliveryRunner
                                        
                                     }
                                     break;
-                                 case "2":               // find restaurant by item
+                                 case 2:               // find restaurant by item
                                     System.out.print("Enter the name of the Item (or -1 to go back): ");
                                     String itemName = sc.next();
                                     
                                     break;
-                                 case "3":               // find restaurant by filtering
+                                 case 3:               // find restaurant by filtering
                                     break;
-                                 case "-1":
+                                 case -1:
                                     continueLocation = false;                                    
                                     break;
                               }
                            }
                         } while (!continueLocation);
                         break;
-                     case "4":                                                        // view order history
+                     case 4:                                                        // view order history
                         break;
-                     case "5":                                                        // view active deliveries
+                     case 5:                                                        // view active deliveries
                         break;
-                     case "6":
+                     case 6:
                         exit = false;
                         break;
                      default:
@@ -393,9 +415,14 @@ public class CityDeliveryRunner
                while (login)
                {
                   String name, cate;
+<<<<<<< HEAD
                   //Admin panel code here
 
                   System.out.println("Admin");                    //
+=======
+
+                  System.out.println("\n\t\tAdmin");              //
+>>>>>>> c3c23871b13031097173ef7a6962a6e084cdeb78
                   System.out.println("1. Profile Settings");      //
                   System.out.println("2. Manage Restaurants");    //
                   System.out.println("3. Manage Drivers");        //
@@ -405,7 +432,11 @@ public class CityDeliveryRunner
                   System.out.println("7. Logout");                //
                            
                   String choice = sc.next();
+<<<<<<< HEAD
                   while (choice.length() != 1 || choice.charAt(0) < '1' || choice.charAt(0) > '7') // check if choice entered is between 1 and 7
+=======
+                  while (choice.length() != 1 || choice.charAt(0) < '1' || choice.charAt(0) > '7') // check if choice entered is between 1 and 7 and only 1 character
+>>>>>>> c3c23871b13031097173ef7a6962a6e084cdeb78
                   {
                      System.out.println("\nIvalid Input, Please Choose a Number: ");
                      choice = sc.next();
@@ -414,13 +445,13 @@ public class CityDeliveryRunner
                   switch (choice)
                   {
                      case "1":   // profile settings
+                        System.out.println("\nEnter -1 to go back");
                         System.out.println("1. Change Name");
                         System.out.println("2. Change Username");
                         System.out.println("3. Change Password");
-                        System.out.println("Press anything else to go back");
                               
                         choice = sc.next();
-                        while (choice.length() != 1 || choice.charAt(0) < '1' || choice.charAt(0) > '3') // check if choice entered is between 1 and 3
+                        while ((choice.length() != 1 || choice.charAt(0) < '1' || choice.charAt(0) > '3') && !choice.equals("-1"))  // check if choice entered is between 1 and 3
                         {
                            System.out.println("\nIvalid Input, Please Choose a Number: ");
                            choice = sc.next();
@@ -444,13 +475,13 @@ public class CityDeliveryRunner
                         }
                         break;
                      case "2":   // manage restaurant
+                        System.out.println("\nEnter -1 to go back");
                         System.out.println("1. Add Restaurant");
                         System.out.println("2. View / Modify Restaurant");
                         System.out.println("3. Delete Restaurant");
-                        System.out.println("Press anything else to go back");
                               
                         choice = sc.next();
-                        while (choice.length() != 1 || choice.charAt(0) < '1' || choice.charAt(0) > '3') // check if choice entered is between 1 and 3
+                        while ((choice.length() != 1 || choice.charAt(0) < '1' || choice.charAt(0) > '3') && !choice.equals("-1"))  // check if choice entered is between 1 and 3
                         {
                            System.out.println("\nIvalid Input, Please Choose a Number: ");
                            choice = sc.next();
@@ -492,13 +523,13 @@ public class CityDeliveryRunner
                         }
                         break;
                      case "3":   // manage drivers
+                        System.out.println("\nEnter -1 to go back");
                         System.out.println("1. Add Driver");
                         System.out.println("2. View / Modify Driver");
                         System.out.println("3. Delete Driver");
-                        System.out.println("Press anything else to go back");
                               
                         choice = sc.next();
-                        while (choice.length() != 1 || choice.charAt(0) < '1' || choice.charAt(0) > '3') // check if choice entered is between 1 and 3
+                        while ((choice.length() != 1 || choice.charAt(0) < '1' || choice.charAt(0) > '3') && !choice.equals("-1"))  // check if choice entered is between 1 and 3
                         {
                            System.out.println("\nIvalid Input, Please Choose a Number: ");
                            choice = sc.next();
@@ -542,13 +573,13 @@ public class CityDeliveryRunner
                         }
                         break;
                      case "4":    // manage coupons
+                        System.out.println("\nEnter -1 to go back");
                         System.out.println("1. Add Coupon");
                         System.out.println("2. View Coupon");
                         System.out.println("3. Delete Coupon");
-                        System.out.println("Press anything else to go back");
                               
                         choice = sc.next();
-                        while (choice.length() != 1 || choice.charAt(0) < '1' || choice.charAt(0) > '3') // check if choice entered is between 1 and 3
+                        while ((choice.length() != 1 || choice.charAt(0) < '1' || choice.charAt(0) > '3') && !choice.equals("-1"))  // check if choice entered is between 1 and 3
                         {
                            System.out.println("\nIvalid Input, Please Choose a Number: ");
                            choice = sc.next();
@@ -577,19 +608,22 @@ public class CityDeliveryRunner
                         break;
                      case "5":   // add / delete food
                         System.out.println(cdd.getRestaurants()); // print a list of restaurants
-                        System.out.print("Press anything to go back");
-                        String resID = sc.next();
+                        System.out.println("\nEnter -1 to go back");
                         
-                        System.out.println("1. Add New Food");
-                        System.out.println("2. View");
-                        System.out.println("3. Delete");
-                        System.out.print("Press anything to go back");
-                              
-                        choice = sc.next();
-                        while (choice.length() != 1 || choice.charAt(0) < '1' || choice.charAt(0) > '3') // check if choice entered is between 1 and 3
+                        String resID = sc.next();
+                        while ((choice.length() != 1 || choice.charAt(0) < '1' || choice.charAt(0) > '0'+(cdd.getNumRestaurants()-1)) && !choice.equals("-1"))  // check if choice entered is between 1 and 3
                         {
-                           System.out.println("\nIvalid Input, Please Choose a Number: ");
+                           System.out.println("\nEnter -1 to go back");
+                           System.out.println("1. Add New Food");
+                           System.out.println("2. View");
+                           System.out.println("3. Delete");
+                              
                            choice = sc.next();
+                           while ((choice.length() != 1 || choice.charAt(0) < '1' || choice.charAt(0) > '3') && !choice.equals("-1"))  // check if choice entered is between 1 and 3
+                           {
+                              System.out.println("\nIvalid Input, Please Choose a Number: ");
+                              choice = sc.next();
+                           }
                         }
                         
                         switch (choice)

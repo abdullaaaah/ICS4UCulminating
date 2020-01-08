@@ -110,7 +110,10 @@ public class Wallet
          cdd.incrementNumCards();
       }
       
+<<<<<<< HEAD
 
+=======
+>>>>>>> c3c23871b13031097173ef7a6962a6e084cdeb78
      cdd.saveCards();      
 
    }
