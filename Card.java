@@ -104,7 +104,7 @@ public class Card
    */
    public void updateCard (String number, String month, String year, String CVV)
    {
-      if (validateNum(number) && validateExpMonth(month) && validateExpYear(year) && validateCvv(CVV))
+      if (validateNum(number) && validateExpMonth(month) && validateExpYear(year) && validateCVV(CVV))
       {
          this.cardNumber = number;
          this.expiryMonth = month;
@@ -175,7 +175,7 @@ public class Card
       RETURN VALUE:  boolean
       PURPOSE:       validate CVV
    */
-   public boolean validateCvv (String cvv)
+   public boolean validateCVV (String cvv)
    {
       if (cvv.length() == 3)
       {
