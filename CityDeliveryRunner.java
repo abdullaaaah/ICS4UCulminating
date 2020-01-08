@@ -13,10 +13,10 @@ public class CityDeliveryRunner
    {
       CityDeliveryDatabase cdd = new CityDeliveryDatabase();
       Scanner sc = new Scanner(System.in);
-      int choiceHome;
+      int choiceHome = -1;
       String currentName, currentUsername, currentPassword, newName, newUsername, newPassword;
       String username = "", password = "";
-      boolean login = false, exit = false, register = false, nameMatches;
+      boolean login = false, exit = false, register = false, nameMatches, goodData = false;
       
       while (!exit) {
          System.out.println("\n\n======================================================");
@@ -26,13 +26,21 @@ public class CityDeliveryRunner
          System.out.println("1. Log in");
          System.out.println("2. Register");
          System.out.print("Enter your choice (or -1 to end program): ");
-         choiceHome = sc.nextInt();
+         do { // repeat to find either 1 or 2 as input for choiceHome
          
-         while ((choiceHome < 1 || choiceHome > 2) && choiceHome != -1){
-            System.out.println("\nError, enter valid input");
-            System.out.print("Enter your choice: ");
-            choiceHome = sc.nextInt();
-         }
+            while (!goodData) {  // repeat when input for choiceHome is not an integer
+               try{
+                  choiceHome = sc.nextInt();
+               } catch (InputMismatchException ix) {
+                  System.out.println("\nError, invalid input");
+                  System.out.println("Please try again");
+                  String flush = sc.next();
+               }
+               System.out.println("\nError, invalid input");
+               System.out.print("Enter your choice (or -1 to end program): ");
+            }
+            
+         } while ((choiceHome < 1 || choiceHome > 2) && choiceHome != -1);
          
          
          switch (choiceHome){
@@ -426,7 +434,7 @@ public class CityDeliveryRunner
                while (login)
                {
                   String name, cate;
-
+               
                   System.out.println("\n\t\tAdmin");              //
                   System.out.println("1. Profile Settings");      //
                   System.out.println("2. Manage Restaurants");    //
