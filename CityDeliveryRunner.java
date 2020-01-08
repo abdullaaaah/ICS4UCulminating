@@ -399,7 +399,7 @@ public class CityDeliveryRunner
                                        continueLocation = false;
                                     else 
                                     {                        // if restaurant name is valid
-                                
+                                    
                                        restaurantID = cdd.findRestaurantIndexByName(resName);
                                        
                                     }
@@ -437,7 +437,7 @@ public class CityDeliveryRunner
                while (login)
                {
                   String choice, name, cate, flush;
-                  double rate;
+                  double rating;
                   goodData = false;
                
                   System.out.println("\n\t\tAdmin");              //
@@ -450,7 +450,7 @@ public class CityDeliveryRunner
                   System.out.println("7. Logout");                //
                            
                   choice = sc.next();
-
+               
                   while (choice.length() != 1 || choice.charAt(0) < '1' || choice.charAt(0) > '7') // check if choice entered is between 1 and 7 and only 1 character
                   {
                      System.out.println("\nIvalid Input, Please Choose a Number: ");
@@ -513,12 +513,12 @@ public class CityDeliveryRunner
                               flush = sc.next();
                               System.out.print("Enter Restaurant Rating: ");
                               flush = sc.next();
-                              rate = 0;
-                              while (!goodData)
+                              rating = 0;
+                              while (!goodData) // check if input is a double
                               {
                                  try
                                  {
-                                    rate = sc.nextDouble();
+                                    rating = sc.nextDouble();
                                     goodData = true;
                                  }
                                  catch (InputMismatchException IMX)
@@ -527,25 +527,103 @@ public class CityDeliveryRunner
                                     flush = sc.next();
                                  }
                               }
+                              goodData = false;
+                              
                               System.out.print("Enter Number of Ratings Restaurant Got: ");
-                              int numRate = Integer.parseInt(sc.next());
+                              int numRat = 0;
+                              while (!goodData) // check if input is a int
+                              {
+                                 try
+                                 {
+                                    numRat = sc.nextInt();
+                                    goodData = true;
+                                 }
+                                 catch (InputMismatchException IMX)
+                                 {
+                                    System.out.print("\nInvalid input, please enter a number: ");
+                                    flush = sc.next();
+                                 }
+                              }
+                              goodData = false;
+                              
                               System.out.print("Enter Restaurant PositionX: ");
-                              int positionX = Integer.parseInt(sc.next());
+                              int positionX = 0;
+                              while (!goodData) // check if input is a int
+                              {
+                                 try
+                                 {
+                                    positionX = sc.nextInt();
+                                    goodData = true;
+                                 }
+                                 catch (InputMismatchException IMX)
+                                 {
+                                    System.out.print("\nInvalid input, please enter a number: ");
+                                    flush = sc.next();
+                                 }
+                              }
+                              goodData = false;
+                              
                               System.out.print("Enter Restaurant PositionY: ");
-                              int positionY = Integer.parseInt(sc.next());
-                              ((Admin)cdd.user()).addRestaurant(cdd, name, cate, rate, numRate, positionX, positionY);
+                              int positionY = 0;
+                              while (!goodData) //check if input is a int
+                              {
+                                 try
+                                 {
+                                    positionY = sc.nextInt();
+                                    goodData = true;
+                                 }
+                                 catch (InputMismatchException IMX)
+                                 {
+                                    System.out.print("\nInvalid input, please enter a number: ");
+                                    flush = sc.next();
+                                 }
+                              }
+                              goodData = false;
+
+                              ((Admin)cdd.user()).addRestaurant(cdd, name, cate, rating, numRat, positionX, positionY);
                               break;
+                              
                            case "2":   // view/modify restaurant
                               System.out.println(cdd.getRestaurantNames());
                               System.out.print("Enter Restaurant ID: ");
-                              String resID = sc.next();
+                              int resID = 0;
+                              while (!goodData) //check if input is a int
+                              {
+                                 try
+                                 {
+                                    resID = sc.nextInt();
+                                    goodData = true;
+                                 }
+                                 catch (InputMismatchException IMX)
+                                 {
+                                    System.out.print("\nInvalid input, please enter a number: ");
+                                    flush = sc.next();
+                                 }
+                              }
+                              goodData = false;
+
                               System.out.print("Enter New Name: ");
                               name = sc.next();
                               System.out.print("Enter New Category: ");
                               cate = sc.nextLine();
                               System.out.print("Enter New Rating: ");
-                              double rating = sc.nextDouble();
-                              cdd.getRestaurants()[Integer.parseInt(resID)].editRestaurant(name, cate, rating);
+                              rating = 0;
+                              while (!goodData) //check if input is a double
+                              {
+                                 try
+                                 {
+                                    rating = sc.nextInt();
+                                    goodData = true;
+                                 }
+                                 catch (InputMismatchException IMX)
+                                 {
+                                    System.out.print("\nInvalid input, please enter a number: ");
+                                    flush = sc.next();
+                                 }
+                              }
+                              goodData = false;
+
+                              cdd.getRestaurants()[resID].editRestaurant(name, cate, rating);
                               break;
                            case "3":   // delete restaurant
                               System.out.print("Enter Restaurant Name: ");
@@ -571,7 +649,22 @@ public class CityDeliveryRunner
                         {
                            case "1":   // add driver
                               System.out.print("Enter Driver ID: ");
-                              int id = sc.nextInt();
+                              int id = 0;
+                              while (!goodData) //check if input is a double
+                              {
+                                 try
+                                 {
+                                    id = sc.nextInt();
+                                    goodData = true;
+                                 }
+                                 catch (InputMismatchException IMX)
+                                 {
+                                    System.out.print("\nInvalid input, please enter a number: ");
+                                    flush = sc.next();
+                                 }
+                              }
+                              goodData = false;
+
                               System.out.print("Enter Driver Name: ");
                               name = sc.nextLine();
                               System.out.print("Enter Driver Phone Number: ");
@@ -579,9 +672,39 @@ public class CityDeliveryRunner
                               System.out.print("Enter Driver Description: ");
                               String des = sc.nextLine();
                               System.out.print("Enter Driver PositionX: ");
-                              int positionX = sc.nextInt();
+                              int positionX = 0;
+                              while (!goodData) //check if input is a double
+                              {
+                                 try
+                                 {
+                                    positionX = sc.nextInt();
+                                    goodData = true;
+                                 }
+                                 catch (InputMismatchException IMX)
+                                 {
+                                    System.out.print("\nInvalid input, please enter a number: ");
+                                    flush = sc.next();
+                                 }
+                              }
+                              goodData = false;
+
                               System.out.print("Enter Driver PositionY: ");
                               int positionY = sc.nextInt();
+                              while (!goodData) //check if input is a double
+                              {
+                                 try
+                                 {
+                                    positionY = sc.nextInt();
+                                    goodData = true;
+                                 }
+                                 catch (InputMismatchException IMX)
+                                 {
+                                    System.out.print("\nInvalid input, please enter a number: ");
+                                    flush = sc.next();
+                                 }
+                              }
+                              goodData = false;
+
                               ((Admin)cdd.user()).addDriver(cdd, id, name, phoneNum, des, positionX, positionY);
                               break;
                            case "2":    // view driver
