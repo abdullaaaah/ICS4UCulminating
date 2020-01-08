@@ -354,7 +354,14 @@ public class CityDeliveryRunner
                                  choiceOrder = sc.nextInt();
                               }
                               
+                              boolean selectRestaurant = false;
+                              int restaurantID = -1;
+                              //there should be a loop or something that lets u select the restaurant, and only once the restaurant is selected
+                              //the program should proceed and at that point, it should print the entire menu.
+                              
+                              
                               switch (choiceOrder) {
+                                                            
                                  case 1:               // find restaurant by name
                                  
                                  
@@ -368,25 +375,18 @@ public class CityDeliveryRunner
                                     
                                     if (resName.equals("-1"))     // if input is -1 program goes back to location input
                                        continueLocation = false;
-                                    else {                        // if restaurant name is valid
-                                    
-                                    //Continue working from here tomorrow
-                                    
-                                       System.out.println(cdd.getRestaurants()[cdd.findRestaurantIndexByName(resName)].getMenu()); // gets restaurant menu
-                                       System.out.println("\nEnter the number for the item you would like to add,");
-                                       System.out.print("or 0 if you are finished, or -1 to cancel order and go back: ");
-                                       int choiceItem = sc.nextInt();   // item # that customer chooses
-                                       
-                                       
-                                       
-                                       
-                                       
+                                    else 
+                                    {                        // if restaurant name is valid
+                                
+                                       restaurantID = cdd.findRestaurantIndexByName(resName);
                                        
                                     }
                                     break;
                                  case 2:               // find restaurant by item
                                     System.out.print("Enter the name of the Item (or -1 to go back): ");
                                     String itemName = sc.next();
+                                    // Loop through cdd.getAllRestaurants()
+                                    // then do cdd.getAllRestaurants()[i].hasItem( itemName ) which returns a boolean
                                     
                                     break;
                                  case 3:               // find restaurant by filtering
@@ -415,14 +415,9 @@ public class CityDeliveryRunner
                while (login)
                {
                   String name, cate;
-<<<<<<< HEAD
-                  //Admin panel code here
 
-                  System.out.println("Admin");                    //
-=======
 
                   System.out.println("\n\t\tAdmin");              //
->>>>>>> c3c23871b13031097173ef7a6962a6e084cdeb78
                   System.out.println("1. Profile Settings");      //
                   System.out.println("2. Manage Restaurants");    //
                   System.out.println("3. Manage Drivers");        //
@@ -432,11 +427,8 @@ public class CityDeliveryRunner
                   System.out.println("7. Logout");                //
                            
                   String choice = sc.next();
-<<<<<<< HEAD
-                  while (choice.length() != 1 || choice.charAt(0) < '1' || choice.charAt(0) > '7') // check if choice entered is between 1 and 7
-=======
+
                   while (choice.length() != 1 || choice.charAt(0) < '1' || choice.charAt(0) > '7') // check if choice entered is between 1 and 7 and only 1 character
->>>>>>> c3c23871b13031097173ef7a6962a6e084cdeb78
                   {
                      System.out.println("\nIvalid Input, Please Choose a Number: ");
                      choice = sc.next();
