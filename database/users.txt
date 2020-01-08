@@ -2,7 +2,7 @@
 o
 LOL
 ,-.
-customer
+admin
 Uthman
 escanor
 bpu\dh\n
@@ -14,7 +14,7 @@ customer
 kosh
 kori
 fjnc
-admin
+customer
 -1
 -1
 fjnc

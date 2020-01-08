@@ -6,6 +6,8 @@ public class AbdullahTesting
 
    public static void main(String[] args)
    {
+      System.out.println('A'-64);
+   
       CityDeliveryDatabase cityDelivery = new CityDeliveryDatabase();
       
       /*cityDelivery.login("kori","kosh");
