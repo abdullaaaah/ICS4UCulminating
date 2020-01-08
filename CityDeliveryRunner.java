@@ -13,7 +13,7 @@ public class CityDeliveryRunner
    {
       CityDeliveryDatabase cdd = new CityDeliveryDatabase();
       Scanner sc = new Scanner(System.in);
-      int choiceHome = -1;
+      int choiceHome = 0, choicePanel = 0, choiceProfile = 0;
       String currentName, currentUsername, currentPassword, newName, newUsername, newPassword, flush;
       String username = "", password = "";
       boolean login = false, exit = false, register = false, nameMatches, goodData = false;
@@ -102,54 +102,89 @@ public class CityDeliveryRunner
                boolean continuePanel = true;
                do { // while (!continuePanel)
                   continuePanel = true;
-                  System.out.println("\n\t\tCustomer");
-                  System.out.println("1. Profile Settings");
+                  System.out.println("\n\n================================");
+                  System.out.println("\t\tMain Menu");
+                  System.out.println("================================");
+                  
+                  System.out.println("\n1. Profile Settings");
                   System.out.println("2. Wallet");
                   System.out.println("3. Place Order");
                   System.out.println("4. View Order History");
                   System.out.println("5. Active Delivery");
                   System.out.println("6. Log Out");
                   System.out.print("Enter your choice: ");
-                  int choicePanel = sc.nextInt();
                
+                  do { // repeat to find either 1 or 2 as input for choicePanel
+                     goodData = false;
+                     while (!goodData) {  // repeat when input for choicePanel is not an integer
+                        try{
+                           choicePanel = sc.nextInt();
+                           goodData = true;
+                        } catch (InputMismatchException ix) {
+                           System.out.println("\nError, invalid input");
+                           System.out.println("Please try again");
+                           flush = sc.next();
+                        }
+                        System.out.println("\nError, invalid input");
+                        System.out.print("Enter your choice: ");
+                     } // while(!goodData)
+                  } while ((choicePanel < 1 || choicePanel > 6));
+                  
+                  
                   switch (choicePanel) {
                      case 1:                                                                       // profile setting
                         boolean continueProfileSetting = true;
                         do { // while (!continueProfileSetting)
                            continueProfileSetting = true;
-                           System.out.println("\n     Profile Settings");
+                           System.out.println("\n\n     Profile Settings");
                            System.out.println("1. Change name");
                            System.out.println("2. Change username");
                            System.out.println("3. Change password");
-                           System.out.print("Enter your choice (or anything else to go back): ");
-                           String choiceProfile = sc.next();
+                           System.out.print("Enter your choice (or -1 to go back): ");
                            
+                           do { // repeat to find either 1 or 2 as input for choiceProfile
+                              goodData = false;
+                              while (!goodData) {  // repeat when input for choiceProfile is not an integer
+                                 try{
+                                    choiceProfile = sc.nextInt();
+                                    goodData = true;
+                                 } catch (InputMismatchException ix) {
+                                    System.out.println("\nError, invalid input");
+                                    System.out.println("Please try again");
+                                    flush = sc.next();
+                                 }
+                                 System.out.println("\nError, invalid input");
+                                 System.out.print("Enter your choice: ");
+                              } // while(!goodData)
+                           } while ((choiceProfile < 1 || choiceProfile > 6));
+                        
                            switch (choiceProfile) {
-                              case "1":                                   // change name
+                              case 1:                                                                             // change name
                                  System.out.println("\nEnter -1 to go back");
                                  System.out.println("Enter current name:");
                                  currentName = sc.next();
                                  
                                  nameMatches = currentName.equals(cdd.getUserLoggedIn().getName());
                                  
-                                 while (!nameMatches && !currentName.equals("-1")) {
+                                 while (!nameMatches && !currentName.equals("-1")) { // keep getting name until it matches database
                                     System.out.println("\nError, name doesn't match");
                                     System.out.print("Enter current name: ");
                                     currentName = sc.next();
                                     nameMatches = currentName.equals(cdd.getUserLoggedIn().getName());
                                  }
+                                 
                                  if (currentName.equals("-1"))
                                     continueProfileSetting = false;
                                  else {
                                     System.out.print("Enter new name: ");
                                     newName = sc.next();
-                                    cdd.getUserLoggedIn().setName(newName);
+                                    cdd.getUserLoggedIn().setName(newName); // set new name
                                     System.out.println("Name changed! Enter anything to return to profile settings.");
-                                    if (sc.next()!= null){}
+                                    if (sc.next()!= null){} // any input entered will take user back to profile settings
                                     continueProfileSetting = false;
                                  }
                                  break;
-                              case "2":                                      // change username
+                              case 2:                                                                       // change username
                                  System.out.println("\nEnter -1 to go back");
                                  System.out.println("Enter current username:");
                                  currentUsername = sc.next();
@@ -173,7 +208,7 @@ public class CityDeliveryRunner
                                     continueProfileSetting = false;
                                  }
                                  break;
-                              case "3":                                     // change password
+                              case 3:                                     // change password
                                  System.out.println("\nEnter -1 to go back");
                                  System.out.println("Enter current password:");
                                  currentPassword = sc.next();
@@ -205,24 +240,24 @@ public class CityDeliveryRunner
                      case 2:                                                        // wallet
                         
                         boolean hasCard = curCustomer.getWallet().hasCard();
-                        System.out.println("hasCard: " + hasCard); // bug fixing
+                     
                         if (hasCard) {       // if customer has card they have different options than a customer that doesnt have card
                         
                            boolean continueWallet = true; // to go back
                            do {  // while (!continueWallet)
                            
                               continueWallet = true;
+                              System.out.println("\n\n================================");
+                              System.out.println("          Wallet");
+                              System.out.println("================================");
+                              
                               System.out.println("\n\nCard Status: Added");
                               System.out.print("Account balance: $");
-                           // boolean continueWallet = true;
-                           // do {
-                              System.out.print("Card Status: Added");
-                              System.out.print("Account balance: ");
                               System.out.println(curCustomer.getWallet().getBalance());
                            
                               System.out.println("1. Edit Card");
                               System.out.println("2. Add Money");
-                              System.out.println("Enter your choice (or -1 to go back): ");
+                              System.out.print("Enter your choice (or -1 to go back): ");
                               int walletChoice = sc.nextInt();
                               
                               while ((walletChoice < 1 || walletChoice > 2) && walletChoice != -1){
@@ -273,13 +308,14 @@ public class CityDeliveryRunner
                                           }
                                        }
                                     }
+                                    break;
                                  case 2:                                   // add money
                                     System.out.println("Enter amount (or -1 to go back): ");
                                     double money = sc.nextDouble();
                                     if (money != -1)
                                        curCustomer.getWallet().addBalance(money);
-                                    System.out.println("Money added. Press enter to return to main menu");
-                                    if(sc.next()!=null){}
+                                    System.out.println("Money added. Enter anything to return to main menu");
+                                    if(sc.next() != null){}
                                     else
                                        continueWallet = false;
                                     break;
@@ -289,7 +325,11 @@ public class CityDeliveryRunner
                            } while (!continueWallet);
                         }
                         else { // doesnt have card
-                           System.out.println("Add Card");
+                           System.out.println("\n\n================================");
+                           System.out.println("\t\tWallet");
+                           System.out.println("================================");
+                           
+                           System.out.println("\nAdd Card");
                            System.out.println("\nEnter -1 anytime to go back");
                            System.out.print("\nEnter Credit Card Number (16-digits): ");
                            String cardNum = sc.next();
@@ -607,7 +647,7 @@ public class CityDeliveryRunner
                                  }
                               }
                               goodData = false;
-
+                           
                               ((Admin)cdd.user()).addRestaurant(cdd, name, cate, rating, numRat, positionX, positionY);
                               break;
                               
@@ -629,7 +669,7 @@ public class CityDeliveryRunner
                                  }
                               }
                               goodData = false;
-
+                           
                               System.out.print("Enter New Name: ");
                               name = sc.next();
                               System.out.print("Enter New Category: ");
@@ -650,7 +690,7 @@ public class CityDeliveryRunner
                                  }
                               }
                               goodData = false;
-
+                           
                               cdd.getRestaurants()[resID].editRestaurant(name, cate, rating);
                               break;
                            case "3":   // delete restaurant
@@ -692,7 +732,7 @@ public class CityDeliveryRunner
                                  }
                               }
                               goodData = false;
-
+                           
                               System.out.print("Enter Driver Name: ");
                               name = sc.nextLine();
                               System.out.print("Enter Driver Phone Number: ");
@@ -715,7 +755,7 @@ public class CityDeliveryRunner
                                  }
                               }
                               goodData = false;
-
+                           
                               System.out.print("Enter Driver PositionY: ");
                               int positionY = sc.nextInt();
                               while (!goodData) //check if input is a double
@@ -732,7 +772,7 @@ public class CityDeliveryRunner
                                  }
                               }
                               goodData = false;
-
+                           
                               ((Admin)cdd.user()).addDriver(cdd, id, name, phoneNum, des, positionX, positionY);
                               break;
                            case "2":    // view driver
