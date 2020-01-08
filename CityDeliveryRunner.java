@@ -26,11 +26,14 @@ public class CityDeliveryRunner
          System.out.println("1. Log in");
          System.out.println("2. Register");
          System.out.print("Enter your choice (or -1 to end program): ");
+         goodData = false;
          do { // repeat to find either 1 or 2 as input for choiceHome
          
             while (!goodData) {  // repeat when input for choiceHome is not an integer
+            
                try{
                   choiceHome = sc.nextInt();
+                  goodData = true;
                } catch (InputMismatchException ix) {
                   System.out.println("\nError, invalid input");
                   System.out.println("Please try again");
@@ -38,9 +41,9 @@ public class CityDeliveryRunner
                }
                System.out.println("\nError, invalid input");
                System.out.print("Enter your choice (or -1 to end program): ");
-            }
+            } // while(!goodData)
             
-         } while ((choiceHome < 1 || choiceHome > 2) && choiceHome != -1);
+         } while ((choiceHome < 1 || choiceHome > 2));
          
          
          switch (choiceHome){
@@ -58,7 +61,7 @@ public class CityDeliveryRunner
                   if(!username.equals("-1")) {
                      System.out.print("Enter your password: ");
                      password = sc.next();
-                  
+                     
                      if(!password.equals("-1")) {
                         login = cdd.login(username, password);
                         if (!login)
@@ -433,13 +436,7 @@ public class CityDeliveryRunner
             { // user is admin
                while (login)
                {
-                  String name, cate;
-<<<<<<< HEAD
-               
-=======
-
-
->>>>>>> b722ca847687e6a85c0ae9e612b8f6820308187a
+                  String name, cate;               
                   System.out.println("\n\t\tAdmin");              //
                   System.out.println("1. Profile Settings");      //
                   System.out.println("2. Manage Restaurants");    //
