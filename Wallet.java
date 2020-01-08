@@ -116,6 +116,8 @@ public class Wallet
       }
       
      cdd.saveCards();      
+     
+     this.creditCard = newCard;
 
    }
    /////////////////////////////////////////////////////////
