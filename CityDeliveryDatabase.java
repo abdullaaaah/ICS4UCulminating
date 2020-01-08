@@ -216,7 +216,7 @@ public class CityDeliveryDatabase
       return this.restaurants;
    }
    
-   public String restaurants()
+   public String getRestaurantNames()
    {
       String s = "";
       for (int i = 0; i < restaurants.length; i++)

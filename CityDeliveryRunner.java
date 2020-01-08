@@ -436,14 +436,10 @@ public class CityDeliveryRunner
             { // user is admin
                while (login)
                {
-<<<<<<< HEAD
-                  String choice, name, cate;
+                  String choice, name, cate, flush;
                   double rate;
                   goodData = false;
                
-=======
-                  String name, cate;               
->>>>>>> refs/remotes/origin/master
                   System.out.println("\n\t\tAdmin");              //
                   System.out.println("1. Profile Settings");      //
                   System.out.println("2. Manage Restaurants");    //
@@ -511,9 +507,12 @@ public class CityDeliveryRunner
                            case "1":   // add restaurant
                               System.out.print("Enter Restaurant Name: ");
                               name = sc.nextLine();
+                              flush = sc.next();
                               System.out.print("Enter Restaurant Category: ");
                               cate = sc.nextLine();
+                              flush = sc.next();
                               System.out.print("Enter Restaurant Rating: ");
+                              flush = sc.next();
                               rate = 0;
                               while (!goodData)
                               {
@@ -524,8 +523,8 @@ public class CityDeliveryRunner
                                  }
                                  catch (InputMismatchException IMX)
                                  {
-                                    System.out.print("Invalid input, please enter a number: ");
-                                    rate = sc.nextDouble();
+                                    System.out.print("\nInvalid input, please enter a number: ");
+                                    flush = sc.next();
                                  }
                               }
                               System.out.print("Enter Number of Ratings Restaurant Got: ");
@@ -537,7 +536,7 @@ public class CityDeliveryRunner
                               ((Admin)cdd.user()).addRestaurant(cdd, name, cate, rate, numRate, positionX, positionY);
                               break;
                            case "2":   // view/modify restaurant
-                              System.out.println(cdd.getRestaurants());
+                              System.out.println(cdd.getRestaurantNames());
                               System.out.print("Enter Restaurant ID: ");
                               String resID = sc.next();
                               System.out.print("Enter New Name: ");
