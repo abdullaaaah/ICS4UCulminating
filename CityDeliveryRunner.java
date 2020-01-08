@@ -465,7 +465,7 @@ public class CityDeliveryRunner
             { // user is admin
                while (login)
                {
-                  String choice, name, cate, flush;
+                  String choice, name, cate;
                   double rating;
                   goodData = false;
                
@@ -477,12 +477,7 @@ public class CityDeliveryRunner
                   System.out.println("5. Add / Delete Food");     //
                   System.out.println("6. View Finances");         //
                   System.out.println("7. Logout");                //
-                           
-<<<<<<< HEAD
-                  String choice = sc.next();
-=======
                   choice = sc.next();
->>>>>>> 70b543a57e7651829a71d867899c86ceaed1639c
                
                   while (choice.length() != 1 || choice.charAt(0) < '1' || choice.charAt(0) > '7') // check if choice entered is between 1 and 7 and only 1 character
                   {
