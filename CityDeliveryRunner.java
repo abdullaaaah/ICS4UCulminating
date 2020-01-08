@@ -16,7 +16,7 @@ public class CityDeliveryRunner
       int choiceHome = 0, choicePanel = 0, choiceProfile = 0;
       String currentName, currentUsername, currentPassword, newName, newUsername, newPassword, flush;
       String username = "", password = "";
-      boolean login = false, exit = false, register = false, nameMatches, goodData = false;
+      boolean login = false, exit = false, register = false, nameMatches, goodData = false, valid;
       
       while (!exit) {
          System.out.println("\n\n======================================================");
@@ -27,28 +27,36 @@ public class CityDeliveryRunner
          System.out.println("2. Register");
          System.out.print("Enter your choice (or -1 to end program): ");
          
-         
          do { // repeat to find either 1 or 2 as input for choiceHome
+         
             goodData = false;
+            valid = false;
+            
             while (!goodData) {  // repeat when input for choiceHome is not an integer
                try{
                   choiceHome = sc.nextInt();
                   goodData = true;
                } catch (InputMismatchException ix) {
-                  System.out.println("\nError, invalid input");
-                  System.out.println("Please try again");
+                  System.out.println("Error, invalid input");
+                  System.out.print("\nEnter your choice (or -1 to end program): ");
                   flush = sc.next();
                }
-               System.out.println("\nError, invalid input");
-               System.out.print("Enter your choice (or -1 to end program): ");
+               
+               valid = (choiceHome < 1 || choiceHome > 2) && choiceHome != -1;
+               
+               if (goodData && valid) {
+                  System.out.println("Error, invalid input");
+                  System.out.print("\nEnter your choice (or -1 to end program): ");
+               }
             } // while(!goodData)
-         } while ((choiceHome < 1 || choiceHome > 2));
+         } while (valid);
          
          switch (choiceHome){
             case 1:
                boolean continueLogin;
                do {
                   continueLogin = true;
+                  
                   System.out.println("\n\n===========================");
                   System.out.println("\t\t\tLOG IN\t\t");
                   System.out.println("===========================");
@@ -91,6 +99,7 @@ public class CityDeliveryRunner
                break;
             case -1:
                exit = true;
+               login = false;
          }
          //The stuff that happens after user is inside the software ;)
                   
@@ -100,6 +109,8 @@ public class CityDeliveryRunner
             {              
                Customer curCustomer = (Customer)cdd.getUserLoggedIn();   
                boolean continuePanel = true;
+               valid = false;
+               
                do { // while (!continuePanel)
                   continuePanel = true;
                   System.out.println("\n\n================================");
@@ -116,19 +127,26 @@ public class CityDeliveryRunner
                
                   do { // repeat to find either 1 or 2 as input for choicePanel
                      goodData = false;
+                     valid = false;
+                     
                      while (!goodData) {  // repeat when input for choicePanel is not an integer
                         try{
                            choicePanel = sc.nextInt();
                            goodData = true;
                         } catch (InputMismatchException ix) {
-                           System.out.println("\nError, invalid input");
-                           System.out.println("Please try again");
+                           System.out.println("Error, invalid input");
+                           System.out.print("\nEnter your choice: ");
                            flush = sc.next();
                         }
-                        System.out.println("\nError, invalid input");
-                        System.out.print("Enter your choice: ");
-                     } // while(!goodData)
-                  } while ((choicePanel < 1 || choicePanel > 6));
+                        
+                        valid = choicePanel < 1 || choicePanel > 6;
+                        
+                        if (goodData && valid) {
+                           System.out.println("Error, invalid input");
+                           System.out.print("\nEnter your choice: ");
+                        }
+                     } // while(!goodData) end
+                  } while (valid); // do while end
                   
                   
                   switch (choicePanel) {
@@ -144,19 +162,26 @@ public class CityDeliveryRunner
                            
                            do { // repeat to find either 1 or 2 as input for choiceProfile
                               goodData = false;
+                              valid = false;
+                              
                               while (!goodData) {  // repeat when input for choiceProfile is not an integer
                                  try{
                                     choiceProfile = sc.nextInt();
                                     goodData = true;
                                  } catch (InputMismatchException ix) {
-                                    System.out.println("\nError, invalid input");
-                                    System.out.println("Please try again");
+                                    System.out.println("Error, invalid input");
+                                    System.out.println("\nEnter your choice (or -1 to go back): ");
                                     flush = sc.next();
                                  }
-                                 System.out.println("\nError, invalid input");
-                                 System.out.print("Enter your choice: ");
+                                 
+                                 valid = (choiceProfile < 1 || choiceProfile > 6) && choiceProfile != -1;
+                                 
+                                 if (goodData && valid) {
+                                    System.out.println("Error, invalid input");
+                                    System.out.print("\nEnter your choice (or -1 to go back): ");
+                                 }
                               } // while(!goodData)
-                           } while ((choiceProfile < 1 || choiceProfile > 6));
+                           } while (valid);
                         
                            switch (choiceProfile) {
                               case 1:                                                                             // change name
@@ -245,8 +270,9 @@ public class CityDeliveryRunner
                         
                            boolean continueWallet = true; // to go back
                            do {  // while (!continueWallet)
-                           
+                              valid = false;
                               continueWallet = true;
+                              
                               System.out.println("\n\n================================");
                               System.out.println("          Wallet");
                               System.out.println("================================");
@@ -260,16 +286,28 @@ public class CityDeliveryRunner
                               System.out.print("Enter your choice (or -1 to go back): ");
                               int walletChoice = sc.nextInt();
                               
-                              while ((walletChoice < 1 || walletChoice > 2) && walletChoice != -1){
-                                 System.out.println("Error, invalid input");
-                                 System.out.print("Enter your choice (or -1 to go back): ");
-                                 try {
-                                    walletChoice = sc.nextInt();
-                                 }
-                                 catch (InputMismatchException ime) {
-                                    
-                                 }
-                              }
+                              do { // repeat to find either 1 or 2 as input for choiceProfile
+                                 goodData = false;
+                                 valid = false;
+                              
+                                 while (!goodData) {  // repeat when input for choiceProfile is not an integer
+                                    try{
+                                       walletChoice = sc.nextInt();
+                                       goodData = true;
+                                    } catch (InputMismatchException ix) {
+                                       System.out.println("Error, invalid input");
+                                       System.out.println("\nEnter your choice (or -1 to go back): ");
+                                       flush = sc.next();
+                                    }
+                                 
+                                    valid = (walletChoice < 1 || walletChoice > 2) && walletChoice != -1;
+                                 
+                                    if (goodData && valid) {
+                                       System.out.println("Error, invalid input");
+                                       System.out.print("\nEnter your choice (or -1 to go back): ");
+                                    }
+                                 } // while(!goodData)
+                              } while (valid);
                               
                               switch (walletChoice) {
                                  case 1:                                   // edit card
@@ -334,7 +372,9 @@ public class CityDeliveryRunner
                            System.out.print("\nEnter Credit Card Number (16-digits): ");
                            String cardNum = sc.next();
                            
-                           while (!cardNum.equals("-1") && !curCustomer.getWallet().getCreditCard().validateNum(cardNum)){ // validate card number
+                           Card customerCard = curCustomer.getWallet().getCreditCard();
+                           
+                           while (!cardNum.equals("-1") && !customerCard.validateNum(cardNum)){ // validate card number
                               System.out.println("\nError, not 16-integer card number.");
                               System.out.print("Enter Credit Card Number (16-digits): ");
                               cardNum = sc.next();
@@ -347,7 +387,7 @@ public class CityDeliveryRunner
                               System.out.print("Enter CVV (ex 123): ");
                               String CVV = sc.next();
                               
-                              while (!CVV.equals("-1") && !curCustomer.getWallet().getCreditCard().validateCVV(CVV)){ // validate CVV
+                              while (!CVV.equals("-1") && !customerCard.validateCVV(CVV)){ // validate CVV
                                  System.out.println("\nError, not 3-integer CVV number.");
                                  System.out.print("Enter CVV (ex 123): ");
                                  CVV = sc.next();
@@ -360,7 +400,7 @@ public class CityDeliveryRunner
                                  System.out.print("Enter Expiry Month (ex 09): ");
                                  String expiryMonth = sc.next();
                                  
-                                 while (!expiryMonth.equals("-1") && !curCustomer.getWallet().getCreditCard().validateExpMonth(expiryMonth)){ // validate expiry month
+                                 while (!expiryMonth.equals("-1") && !customerCard.validateExpMonth(expiryMonth)){ // validate expiry month
                                     System.out.println("\nError, not valid expiry month.");
                                     System.out.print("Enter Expiry Month (ex 09): ");
                                     expiryMonth = sc.next();
@@ -373,7 +413,7 @@ public class CityDeliveryRunner
                                     System.out.print("Enter Expiry Year (ex 2025): ");
                                     String expiryYear = sc.next();
                                     
-                                    while (!expiryYear.equals("-1") && !curCustomer.getWallet().getCreditCard().validateExpYear(expiryYear)){ // validate expiry year
+                                    while (!expiryYear.equals("-1") && !customerCard.validateExpYear(expiryYear)){ // validate expiry year
                                        System.out.println("\nError, not valid expiry year.");
                                        System.out.print("Enter Expiry Year (ex 2025): ");
                                        expiryYear = sc.next();
@@ -409,7 +449,7 @@ public class CityDeliveryRunner
                            
                            map.printMap();      // print map for user
                            
-                           System.out.print("Please take a look at the map of our city and enter your location your row cordinate (e.g A, B, C): ");
+                           System.out.print("Please take a look at the map of our city and enter your location your row coordinate (e.g A, B, C): ");
                            String locationX = sc.next();
                            System.out.print("Now please enter your column cordinate (e.g 0, 1, 2, 3): ");
                            int locationY = sc.nextInt();
