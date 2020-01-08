@@ -27,14 +27,12 @@ public class Map
    public Map(int numRows, int numCols)
    {
    
-      System.out.println(""+numRows+numCols);
       this.numRows = numRows;
       this.numCols = numCols;
-      Position[] positions = new Position[25];   //The max positions we can have are the startXs times the startYumns.
+      Position[] positions = new Position[numRows*numCols];   //The max positions we can have are the startXs times the startYumns.
       numPositions = 0;                            //Initially there are no stored positions so numPosition is 0
       map = new char[numRows][numCols];            //Initializes our map
-      positions2 = new Position[25];
-      System.out.println("========="+positions.length);
+      positions2 = new Position[numRows*numCols];
       
       
    }
@@ -184,10 +182,12 @@ public class Map
    
    public boolean doesPositionExist(int x, int y)
    {
-      if(x < 0 || y < 0 || x>numRows || y>numCols)
-      return false;
+      System.out.println(x);
+      System.out.println(y);
+      System.out.println(!(x < 0 || y < 0 || x>numRows || y>numCols));
+   
+      return !(x < 0 || y < 0 || x>numRows || y>numCols);
       
-      return true;
    }
    
    public void addAllPositions(Restaurant[] restaurants, int numRestaurants, Driver[] drivers, int numDrivers)

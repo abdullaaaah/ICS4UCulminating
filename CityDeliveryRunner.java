@@ -307,28 +307,44 @@ public class CityDeliveryRunner
                         
                         Map map = cdd.getMap();
                         System.out.println("\n");
-                        map.printMap();      // print map for user
                         
                         boolean continueLocation = true;
                         do {
                            continueLocation = true;
-                           System.out.print("Enter your area code (ex A2), or -1 to go back: ");
-                           String location = sc.next();
-                           while ((location.charAt(0) > 'E' || location.charAt(0) < 'A') && (location.charAt(1) < '0' || location.charAt(1) > '4') && !location.equals("-1")){ // loop while input is not A-E and 0-4 and not -1
-                              System.out.println("Error, invalid area code.");
-                              System.out.print("Enter your area code (ex A2), or -1 to go back: ");
-                              location = sc.next();
+                           System.out.println("===============================================");
+                           System.out.println("                 MAP");
+                           System.out.println("================================================");
+                           System.out.println("Note: locations marked with X are unavailable");
+                           
+                           map.printMap();      // print map for user
+                           
+                           System.out.print("Please take a look at the map of our city and enter your location your row cordinate (e.g A, B, C): ");
+                           String locationX = sc.next();
+                           System.out.print("Now please enter your column cordinate (e.g 0, 1, 2, 3): ");
+                           int locationY = sc.nextInt();
+                           
+                           //while ((location.charAt(0) > 'E' || location.charAt(0) < 'A') && (location.charAt(1) < '0' || location.charAt(1) > '4') && !location.equals("-1")){ // loop while input is not A-E and 0-4 and not -1
+                           while( !cdd.getMap().doesPositionExist(locationX.charAt(0)-64, locationY) && !(locationX.equals("-1")) && !(locationY==-1)) //Loop while the position is invalid and the location isn't -1  
+                           {
+                              System.out.print("Error, invalid location combination. Try again, row: ");
+                              locationX = sc.next();
+                              System.out.print("Column: ");
+                              locationY = sc.nextInt();
                            }
                            
-                           if (location.equals("-1")){   // will make program go back to customer panel
+                           if (locationX.equals("-1") || locationY==-1){   // will make program go back to customer panel
                               continuePanel = false;
                            }
                            else {                        // if location is valid 
-                              curCustomer.addPosition(location.charAt(0), location.charAt(1));
-                              System.out.println("\n\n\t\tOrder");
+                              curCustomer.addPosition(locationX.charAt(0)-64, locationY);
+                              System.out.println("===============================================");
+                              System.out.println("                 ORDER MENU");
+                              System.out.println("================================================");                              
                               System.out.println("1. Find Restaurant by Name");
                               System.out.println("2. Find Restaurant by Item");
                               System.out.println("3. Find Restaurant by Filtering");
+                              
+                              
                               System.out.print("Enter your choice (or -1 to go back): ");
                               int choiceOrder = sc.nextInt();
                               
@@ -340,6 +356,8 @@ public class CityDeliveryRunner
                               
                               switch (choiceOrder) {
                                  case 1:               // find restaurant by name
+                                 
+                                 
                                     System.out.print("Enter Restaurant Name (or -1 to go back): ");
                                     String resName = sc.next();
                                     while (!cdd.doesRestaurantExist(resName) && !resName.equals("-1")){  // loop while restaurant name doesnt exist and input isnt -1
@@ -351,6 +369,9 @@ public class CityDeliveryRunner
                                     if (resName.equals("-1"))     // if input is -1 program goes back to location input
                                        continueLocation = false;
                                     else {                        // if restaurant name is valid
+                                    
+                                    //Continue working from here tomorrow
+                                    
                                        System.out.println(cdd.getRestaurants()[cdd.findRestaurantIndexByName(resName)].getMenu()); // gets restaurant menu
                                        System.out.println("\nEnter the number for the item you would like to add,");
                                        System.out.print("or 0 if you are finished, or -1 to cancel order and go back: ");
@@ -394,30 +415,8 @@ public class CityDeliveryRunner
                while (login)
                {
                   String name, cate;
-<<<<<<< HEAD
-                  //Admin panel code here
-<<<<<<< HEAD
-                  System.out.println("\nAdmin");                  //
-=======
-<<<<<<< HEAD
-                  System.out.println("\n\t\tAdmin");
-                  System.out.println("1. Profile Settings");
-                  System.out.println("2. Manage Restaurants");
-                  System.out.println("3. Manage Drivers");
-                  System.out.println("4. Manage Coupons");
-                  System.out.println("5. Add / Delete Food");
-                  System.out.println("6. View Finances");
-                  System.out.println("7. Logout");
-                  System.out.print("Enter your choice: ");
-                  String choice = sc.next();
-                  System.out.println(choice.length());
-                  while ((choice.charAt(0) < '1' || choice.charAt(0) > '9') || choice.length() > 1)
-=======
-                  System.out.println("Admin");                    //
->>>>>>> refs/remotes/origin/master
-=======
+
                   System.out.println("\n\t\tAdmin");              //
->>>>>>> 8153e48001d458420f4ba06d91440b91fe6946ab
                   System.out.println("1. Profile Settings");      //
                   System.out.println("2. Manage Restaurants");    //
                   System.out.println("3. Manage Drivers");        //
