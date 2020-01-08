@@ -216,7 +216,7 @@ public class CityDeliveryDatabase
       return this.restaurants;
    }
    
-   public String restaurants()
+   public String getRestaurantNames()
    {
       String s = "";
       for (int i = 0; i < restaurants.length; i++)
@@ -565,6 +565,15 @@ public class CityDeliveryDatabase
                }
             }
             
+            //set the card
+            for(int i = 0; i<numCards; i++)
+            {
+               if(cards[i].getUsername().equals(this.userLoggedIn.getUsername()))
+               {
+                  ((Customer)this.userLoggedIn).getWallet().setCard(cards[i]);
+               }
+            }
+            
             return true;
          }
          else
@@ -898,6 +907,16 @@ public class CityDeliveryDatabase
       }
    }
    
+   public Wallet[] getWallets()
+   {
+      return this.wallets;
+   }
+   
+   public int getNumWallets()
+   {
+      return this.numWallets;
+   }
+   
       /////////////////////////////////   CARDS RELATED   /////////////////////////////////
 
    public void loadCards()
@@ -979,6 +998,121 @@ public class CityDeliveryDatabase
          System.out.println("Error writing to Cards database");
       }
    }
+   
+   /////////////////////////////////   RESTAURANT SEARCH RELATED   /////////////////////////////////
+   
+   public Restaurant findRestaurantByName(String name)
+   {
+   
+   
+      for(int i = 0; i<numRestaurants; i++)
+      {
+         if(restaurants[i].getName().equals(name))
+         return restaurants[i];
+      }
+      
+      return null;
+   
+   }
+   
+   public Restaurant[] findRestaurantByItem(String itemName)
+   {
+      int count = 0;
+      Restaurant[] result = null;
+      
+      for(int i = 0; i<numRestaurants; i++)
+      {
+         if(restaurants[i].doesItemExist(itemName))
+         {
+            count++;
+         }
+      }
+      
+      result = new Restaurant[count];
+      int num = 0;
+      
+      for(int i = 0; i<numRestaurants; i++)
+      {
+         if(restaurants[i].doesItemExist(itemName))
+         {
+            restaurants[num] = restaurants[i];
+            num++;
+         }
+      }
+      
+      return result;
+   
+   }
+   
+   private Restaurant[] getCopyOfRestaurants()
+   {
+   
+      Restaurant[] copy = new Restaurant[numRestaurants];
+      for(int i = 0; i<numRestaurants; i++)  //Making a new copy of the array to prevent changes in the main array
+      {
+         copy[i] = restaurants[i];
+      }
+      
+      return copy;
+   
+   
+   }
+   
+   public Restaurant[] sortRestaurantsByHighestRating()
+   {
+      Restaurant[] sorted = getCopyOfRestaurants();
+      
+      //Now we use selection sort to sort it based on the highest rating number
+      int maxRating;
+      Restaurant temp; 
+      
+      for(int upperBound = sorted.length-1; upperBound>=1; upperBound--)
+      {
+         maxRating = 0;
+         for(int x = 0; x<=upperBound; x++) //x is an item
+         {
+            if(sorted[x].getAverageRating()>sorted[maxRating].getAverageRating())
+            {
+               maxRating = x;
+            }
+            
+         }
+         
+         temp = sorted[maxRating];
+         sorted[maxRating] = sorted[upperBound];
+         sorted[upperBound] = temp;
+      }
+      
+      return sorted;
+     
+   
+   }
+   
+   public Restaurant[] sortRestaurantsByPrice()
+   {
+   
+      Restaurant[] sorted = getCopyOfRestaurants();
+     
+      int j;
+      int temp;
+      
+      /*for(int i = 0; i<list.length; i++)
+      {
+         temp=list[i];
+         j=i;
+         
+         while(j>0 && temp < list[j-1])
+         {
+            list[j] = list[j-1];
+            j = j-1;
+         }
+         
+         list[j] = temp;
+      }*/
+      
+      return null;
+   
+   }   
 
 }
 
