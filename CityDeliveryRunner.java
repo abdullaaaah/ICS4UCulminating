@@ -633,7 +633,7 @@ public class CityDeliveryRunner
                         }
                         break;
                      case 2:   // manage restaurant
-                        System.out.println("1. Add Restaurant");
+                        System.out.println("\n1. Add Restaurant");
                         System.out.println("2. View / Modify Restaurant");
                         System.out.println("3. Delete Restaurant");
                         System.out.print("Enter your choice (or -1 to go back): ");
@@ -665,7 +665,7 @@ public class CityDeliveryRunner
                         switch (choice)
                         {
                            case 1:   // add restaurant
-                              System.out.print("Enter Restaurant Name: ");
+                              System.out.print("\nEnter Restaurant Name: ");
                               name = sc.nextLine();
                               flush = sc.next();
                               System.out.print("Enter Restaurant Category: ");
@@ -689,7 +689,7 @@ public class CityDeliveryRunner
                               }
                               goodData = false;
                               
-                              System.out.print("Enter Number of Ratings Restaurant Got: ");
+                              System.out.print("\nEnter Number of Ratings the Restaurant Has: ");
                               int numRat = 0;
                               while (!goodData) // check if input is a int
                               {
@@ -700,13 +700,13 @@ public class CityDeliveryRunner
                                  }
                                  catch (InputMismatchException IMX)
                                  {
-                                    System.out.print("\nInvalid input, please enter a number: ");
+                                    System.out.print("\nInvalid input, please enter an integer: ");
                                     flush = sc.next();
                                  }
                               }
                               goodData = false;
                               
-                              System.out.print("Enter Restaurant PositionX: ");
+                              System.out.print("\nEnter Restaurant PositionX: ");
                               int positionX = 0;
                               while (!goodData) // check if input is a int
                               {
@@ -723,7 +723,7 @@ public class CityDeliveryRunner
                               }
                               goodData = false;
                               
-                              System.out.print("Enter Restaurant PositionY: ");
+                              System.out.print("\nEnter Restaurant PositionY: ");
                               int positionY = 0;
                               while (!goodData) //check if input is a int
                               {
@@ -745,7 +745,7 @@ public class CityDeliveryRunner
                               
                            case 2:   // view/modify restaurant
                               System.out.println(cdd.getRestaurantNames());
-                              System.out.print("Enter Restaurant ID: ");
+                              System.out.print("\nEnter Restaurant ID: ");
                               while (!goodData) //check if input is a int
                               {
                                  try
@@ -761,7 +761,7 @@ public class CityDeliveryRunner
                               }
                               goodData = false;
                            
-                              System.out.print("Enter New Name: ");
+                              System.out.print("\nEnter New Name: ");
                               name = sc.next();
                               System.out.print("Enter New Category: ");
                               cate = sc.nextLine();
