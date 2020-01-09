@@ -557,11 +557,15 @@ public class CityDeliveryDatabase
          {
             this.userLoggedIn = users[index];
             
-            for(int i = 0; i<numWallets; i++)
+            //For customer only..
+            if(isUserCustomer())
             {
-               if(wallets[i].getCustomer().equals( this.userLoggedIn.getUsername() ))
+               for(int i = 0; i<numWallets; i++)
                {
-                  ((Customer)this.userLoggedIn).setWallet(wallets[i]);
+                  if(wallets[i].getCustomer().equals( this.userLoggedIn.getUsername() ))
+                  {
+                     ((Customer)this.userLoggedIn).setWallet(wallets[i]);
+                  }
                }
             }
             
@@ -1094,25 +1098,38 @@ public class CityDeliveryDatabase
       Restaurant[] sorted = getCopyOfRestaurants();
      
       int j;
-      int temp;
+      Restaurant temp;
       
-      /*for(int i = 0; i<list.length; i++)
+     for(int i = 0; i<sorted.length; i++)
       {
-         temp=list[i];
+         temp=sorted[i];
          j=i;
          
-         while(j>0 && temp < list[j-1])
+         while(j>0 && temp.getAveragePrice() < sorted[j-1].getAveragePrice()) //printing from least expensive to most
          {
-            list[j] = list[j-1];
+            sorted[j] = sorted[j-1];
             j = j-1;
          }
          
-         list[j] = temp;
-      }*/
+         sorted[j] = temp;
+      }
       
-      return null;
+      return sorted;
    
    }   
+   
+   public String listRestaurant(Restaurant[] list, int num)
+   {
+      String s = "";
+      
+      for(int i = 0; i<num; i++)
+      {
+         s+=(i+1)+". " + list[i].getName()+"\n";
+      }
+      
+      return s;
+         
+   }
 
 }
 
