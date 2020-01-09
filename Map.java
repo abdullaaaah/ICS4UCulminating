@@ -84,6 +84,13 @@ public class Map
       return false;
    }
    
+   public boolean verifyPosition(int x, int y) {
+      if (doesPositionExist(x, y)){
+         return !isOccupied(x, y);
+      }
+      return false;
+   }
+   
    public Driver findDriver(int restaurantX, int restaurantY)
    {
       //When looking for the closest driver, we do not account for the route taken because the customer does not pay for this distance.
@@ -184,7 +191,7 @@ public class Map
    {
       System.out.println(x);
       System.out.println(y);
-      System.out.println(!(x < 0 || y < 0 || x>numRows || y>numCols));
+      System.out.println(!(x < 0 || y < 0 || x>numRows || y>numCols)); // test
    
       return !(x < 0 || y < 0 || x>numRows || y>numCols);
       

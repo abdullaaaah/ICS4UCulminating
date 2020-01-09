@@ -13,9 +13,9 @@ public class CityDeliveryRunner
    {
       CityDeliveryDatabase cdd = new CityDeliveryDatabase();
       Scanner sc = new Scanner(System.in);
-      int choice = 0, resID = 0;
+      int choice = 0, resID = 0, locationY = 0;
       String currentName, currentUsername, currentPassword, newName, newUsername, newPassword, flush;
-      String username = "", password = "";
+      String username = "", password = "", locationX = "";
       boolean login = false, exit = false, register = false, nameMatches, goodData = false, valid;
       
       while (!exit) {
@@ -77,25 +77,28 @@ public class CityDeliveryRunner
                } while (!continueLogin);
                break;
             case 2:
-               System.out.println("Enter -1 to return to home page");
-               System.out.println("\n\n===========================");
-               System.out.println("\t\t\tREGISTER\t\t");
-               System.out.println("===========================");
+               do {
+                  register = false;
+                  System.out.println("\n\n===========================");
+                  System.out.println("\t\t\tREGISTER\t\t");
+                  System.out.println("===========================");
                
-               System.out.print("Enter your name: ");
-               String name = sc.next();
-               if(!name.equals("-1")) {
-                  System.out.print("Enter your desired username: "); //maybe inform user at this point if username is taken later.
-                  username = sc.next();
-                  if(!username.equals("-1")) {
-                     System.out.print("Enter your desired password: ");
-                     password = sc.next();
-                     if(!password.equals("-1")) {
-                        register = cdd.register(name, username, password);
-                        login = cdd.login(username, password);
+                  System.out.println("\nEnter -1 to return to home page");
+                  System.out.print("Enter your name: ");
+                  String name = sc.next();
+                  if(!name.equals("-1")) {
+                     System.out.print("Enter your desired username: "); //maybe inform user at this point if username is taken later.
+                     username = sc.next();
+                     if(!username.equals("-1")) {
+                        System.out.print("Enter your desired password: ");
+                        password = sc.next();
+                        if(!password.equals("-1")) {
+                           register = cdd.register(name, username, password);
+                           login = cdd.login(username, password);
+                        }
                      }
-                  }
-               } 
+                  } 
+               } while (!register );
                break;
             case -1:
                exit = true;
@@ -448,54 +451,93 @@ public class CityDeliveryRunner
                            System.out.println("Note: locations marked with X are unavailable");
                            
                            map.printMap();      // print map for user
-                           
-                           System.out.print("Please take a look at the map of our city and enter your location your row coordinate (e.g A, B, C): ");
-                           String locationX = sc.next();
-                           System.out.print("Now please enter your column coordinate (e.g 0, 1, 2, 3): ");
-                           int locationY = sc.nextInt();
-                           
-                           //while ((location.charAt(0) > 'E' || location.charAt(0) < 'A') && (location.charAt(1) < '0' || location.charAt(1) > '4') && !location.equals("-1")){ // loop while input is not A-E and 0-4 and not -1
-                           while( !cdd.getMap().doesPositionExist(locationX.charAt(0)-64, locationY) && !(locationX.equals("-1")) && !(locationY==-1)) //Loop while the position is invalid and the location isn't -1  
-                           {
-                              System.out.print("Error, invalid location combination. Try again, row: ");
+                           do { // while (!cdd.getMap().verifyPosition(locationX.charAt(0)-65, locationY))
+                              System.out.println("\nPlease take a look at the map of the city and enter your location. Enter -1 anytime to go back");
+                              System.out.print("Enter your row coordinate (e.g A, B, C): ");
                               locationX = sc.next();
-                              System.out.print("Column: ");
-                              locationY = sc.nextInt();
-                           }
+                              
+                              
+                              while ((locationX.length() != 1 || (locationX.charAt(0) < 'A' || locationX.charAt(0) > 'J') ) && !locationX.equals("-1")) { // make sure locationX is between A-J
+                               
+                                 System.out.println("Error, invalid input");
+                                 System.out.print("\nEnter your row coordinate (e.g A, B, C): ");
+                                 locationX = sc.next();
+                              }
                            
-                           if (locationX.equals("-1") || locationY==-1){   // will make program go back to customer panel
+                              if (locationX.equals("-1"))
+                                 continueLocation = false;
+                              else {
+                                 System.out.print("\nEnter your column coordinate (e.g 0, 1, 2, 3): ");
+                                 do { // repeat to find 1-9 as input for locationY
+                                    goodData = false;
+                                    valid = false;
+                                 
+                                    while (!goodData) {  // repeat when input for locationY is not an integer
+                                       try{
+                                          locationY = sc.nextInt();
+                                          goodData = true;
+                                       } catch (InputMismatchException ix) {
+                                          System.out.println("Error, invalid input");
+                                          System.out.println("\nEnter your column coordinate (e.g 0, 1, 2, 3): ");
+                                          flush = sc.next();
+                                       }
+                                    
+                                       valid = (locationY < 0 || locationY > 9) && locationY != -1;
+                                    
+                                       if (goodData && valid) {
+                                          System.out.println("Error, invalid input");
+                                          System.out.print("\nEnter your column coordinate (e.g 0, 1, 2, 3): ");
+                                       }
+                                    } // while(!goodData)
+                                 } while (valid);
+                              }
+                           } while (!cdd.getMap().verifyPosition(locationX.charAt(0)-65, locationY));
+                           
+                           if (locationY == -1){   // will make program go back to customer panel
                               continuePanel = false;
                            }
                            else {                        // if location is valid 
                               curCustomer.addPosition(locationX.charAt(0)-64, locationY);
-                              System.out.println("===============================================");
+                              System.out.println("\n===============================================");
                               System.out.println("                 ORDER MENU");
                               System.out.println("================================================");                              
                               System.out.println("1. Find Restaurant by Name");
                               System.out.println("2. Find Restaurant by Item");
                               System.out.println("3. Find Restaurant by Filtering");
                               
-                              
                               System.out.print("Enter your choice (or -1 to go back): ");
-                              int choiceOrder = sc.nextInt();
+                              choice = sc.nextInt();
                               
-                              while (choiceOrder != -1 && (choiceOrder < 1 || choiceOrder > 3)){ // loop while their choice is not 1-3 and not -1
-                                 System.out.println("\nError, invalid input.");
-                                 System.out.print("Enter your choice (or -1 to go back): ");
-                                 choiceOrder = sc.nextInt();
-                              }
+                              do { // repeat to find 1-3 as input for choice
+                                 goodData = false;
+                                 valid = false;
+                                 
+                                 while (!goodData) {  // repeat when input for choice is not an integer
+                                    try{
+                                       locationY = sc.nextInt();
+                                       goodData = true;
+                                    } catch (InputMismatchException ix) {
+                                       System.out.println("Error, invalid input");
+                                       System.out.println("\nEnter your choice (or -1 to go back): ");
+                                       flush = sc.next();
+                                    }
+                                    
+                                    valid = (choice < 1 || choice > 3) && choice != -1;
+                                    
+                                    if (goodData && valid) {
+                                       System.out.println("Error, invalid input");
+                                       System.out.print("\nEnter your choice (or -1 to go back): ");
+                                    }
+                                 } // while(!goodData)
+                              } while (valid);              
                               
-                              boolean selectRestaurant = false;
-                              int restaurantID = -1;
-                              //there should be a loop or something that lets u select the restaurant, and only once the restaurant is selected
-                              //the program should proceed and at that point, it should print the entire menu.
                               
                               
-                              switch (choiceOrder) {
+                              switch (choice) {
                                                             
                                  case 1:               // find restaurant by name
-                                 
-                                 
+                                    
+                                    
                                     System.out.print("Enter Restaurant Name (or -1 to go back): ");
                                     String resName = sc.next();
                                     while (!cdd.doesRestaurantExist(resName) && !resName.equals("-1")){  // loop while restaurant name doesnt exist and input isnt -1
@@ -508,17 +550,18 @@ public class CityDeliveryRunner
                                        continueLocation = false;
                                     else 
                                     {                        // if restaurant name is valid
-                                    
-                                       restaurantID = cdd.findRestaurantIndexByName(resName);
-                                       
+                                       int restaurantIndex = cdd.findRestaurantIndexByName(resName);
                                     }
                                     break;
                                  case 2:               // find restaurant by item
                                     System.out.print("Enter the name of the Item (or -1 to go back): ");
                                     String itemName = sc.next();
-                                    // Loop through cdd.getAllRestaurants()
-                                    // then do cdd.getAllRestaurants()[i].hasItem( itemName ) which returns a boolean
                                     
+                                    if (itemName.equals("-1")) {
+                                       continueLocation = false;
+                                    }
+                                    else 
+                                    // Loop through cdd.searchRestaurantByyItem00( String) verif the name                                
                                     break;
                                  case 3:               // find restaurant by filtering
                                     break;
@@ -527,6 +570,7 @@ public class CityDeliveryRunner
                                     break;
                               }
                            }
+                           
                         } while (!continueLocation);
                         break;
                      case 4:                                                        // view order history
@@ -982,7 +1026,7 @@ public class CityDeliveryRunner
                               }
                            } // while(!goodData)
                         } while (valid);
-
+                     
                         
                         while (valid)  // check if choice entered is between 1 and 3
                         {
