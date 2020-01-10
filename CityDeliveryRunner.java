@@ -557,11 +557,15 @@ public class CityDeliveryRunner
                                     System.out.print("Enter the name of the Item (or -1 to go back): ");
                                     String itemName = sc.next();
                                     
+                                    
                                     if (itemName.equals("-1")) {
                                        continueLocation = false;
                                     }
                                     else 
-                                    // Loop through cdd.searchRestaurantByyItem00( String) verif the name                                
+                                     {
+                                       Restaurant[] result = findRestaurantByItem(itemName);
+                                       System.out.println(listRestaurant(result, result.length));
+                                     }                                
                                     break;
                                  case 3:               // find restaurant by filtering
                                     break;
