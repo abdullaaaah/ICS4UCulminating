@@ -1005,17 +1005,19 @@ public class CityDeliveryDatabase
    
    /////////////////////////////////   RESTAURANT SEARCH RELATED   /////////////////////////////////
    
-   public Restaurant findRestaurantByName(String name)
+   public Restaurant[] findRestaurantByName(String name)
    {
    
+      Restaurant[] result = new Restaurant[1];
+      
    
       for(int i = 0; i<numRestaurants; i++)
       {
          if(restaurants[i].getName().equals(name))
-         return restaurants[i];
+         result[0] = restaurants[i];
       }
       
-      return null;
+      return result;
    
    }
    
@@ -1039,11 +1041,11 @@ public class CityDeliveryDatabase
       {
          if(restaurants[i].doesItemExist(itemName))
          {
-            restaurants[num] = restaurants[i];
+            result[num] = restaurants[i];
             num++;
          }
       }
-      
+            
       return result;
    
    }
@@ -1120,6 +1122,10 @@ public class CityDeliveryDatabase
    
    public String listRestaurant(Restaurant[] list, int num)
    {
+   
+      if(list[0] == null)
+      return "No result found";
+      
       String s = "";
       
       for(int i = 0; i<num; i++)
@@ -1129,6 +1135,32 @@ public class CityDeliveryDatabase
       
       return s;
          
+   }
+   
+   public Restaurant[] sortRestaurantByDistance()
+   {
+      Restaurant[] sorted = getCopyOfRestaurants();
+      
+      //bubble sort
+     /* boolean finished = false;
+      Restaurant temp;
+      
+      for(int upperBound = sorted.length-1; upperBound>=1 && !finished; upperBound--)
+      {
+         finished = true;
+         for(int i = 0; i<=upperBound-1; i++)
+         {
+            if(sorted[i] > sorted[i+1])//if the restaurant's distance to user is more than the next restaurants distance to user.
+            {
+               finished = false;
+               temp = list[i];
+               list[i] = list[i+1];
+               list[i+1]=temp;
+            }
+         }
+      }*/
+      
+      return sorted;
    }
 
 }
