@@ -6,7 +6,7 @@ public class AbdullahTesting
 
    public static void main(String[] args)
    {
-      System.out.println('A'-64);
+      //System.out.println('A'-64);
    
       CityDeliveryDatabase cityDelivery = new CityDeliveryDatabase();
       
@@ -21,7 +21,7 @@ public class AbdullahTesting
     cityDelivery.login("admin","admin");
     Admin me = ((Admin)cityDelivery.getUserLoggedIn());
     
-    System.out.println( cityDelivery.getRestaurantNames() );
+    //System.out.println( cityDelivery.getRestaurantNames() );
       
       /*for(int i = 0; i<cityDelivery.getNumCards(); i++)
       {
@@ -29,15 +29,18 @@ public class AbdullahTesting
          
       }*/
 
-     Restaurant[] sorted = cityDelivery.sortRestaurantsByHighestRating();
-     sorted = cityDelivery.sortRestaurantsByPrice();
+     Restaurant[] sorted = cityDelivery.findRestaurantByName("chatimse");
+     System.out.println(sorted.length);
+     
+     //sorted = cityDelivery.sortRestaurantsByPrice();
      
      System.out.println( cityDelivery.listRestaurant(sorted, sorted.length));
       /*for(int i = 0; i<sorted.length; i++)
       {
          System.out.println(sorted[i].getName()+ " " + sorted[i].getAverageRating());
       }*/
-   
+      
+      
    }
 
 }
