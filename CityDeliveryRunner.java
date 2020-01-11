@@ -16,7 +16,7 @@ public class CityDeliveryRunner
       int choice = 0, resID = 0, locationY = 0;
       String currentName, currentUsername, currentPassword, newName, newUsername, newPassword, flush;
       String username = "", password = "", locationX = "";
-      boolean login = false, exit = false, register = false, nameMatches, goodData = false, continueOrder = false, valid;
+      boolean login = false, exit = false, register = false, nameMatches, goodData = false, continueOrder = false, continueSelectRes = false, valid;
       Restaurant[] result = null;
       
       
@@ -577,7 +577,7 @@ public class CityDeliveryRunner
                                        System.out.println("3. Delivery Time: ");
                                        System.out.println("4. Dietary Restriction");
                                        System.out.println("5. No Filter");
-                                       System.out.print("Enter your choice (or -1 to go back)");
+                                       System.out.print("Enter your choice (or -1 to go back): ");
                                     
                                        do { // repeat to find 1-3 as input for choice
                                           goodData = false;
@@ -625,40 +625,10 @@ public class CityDeliveryRunner
                                  }
                                  
                                  System.out.println(cdd.listRestaurant(result, result.length)); // print all restaurants based on users choice
-                              
-                                 System.out.print("Enter your choice (or -1 to go back): ");
-                              
-                                 do { // repeat to find 1 to max restaurants as input for choice
-                                    goodData = false;
-                                    valid = false;
-                                       
-                                    while (!goodData) {  // repeat when input for choice is not an integer
-                                       try{
-                                          choice = sc.nextInt();
-                                          goodData = true;
-                                       } catch (InputMismatchException ix) {
-                                          System.out.println("Error, invalid input");
-                                          System.out.println("\nEnter your choice (or -1 to go back): ");
-                                          flush = sc.next();
-                                       }
-                                          
-                                       valid = (choice < 1 || choice > result.length) && choice != -1;
-                                          
-                                       if (goodData && valid) {
-                                          System.out.println("Error, invalid input");
-                                          System.out.print("\nEnter your choice (or -1 to go back): ");
-                                       }
-                                    } // while(!goodData)
-                                 } while (valid);
-                              
-                                 if (choice == -1) {
-                                    continueOrder = false;
-                                 }
-                                 else {
-                                    Restaurant restaurant = cdd.getRestaurants()[choice-1]; // store user restaurant choice
-                                    cdd.setCart(new Cart(restaurant));
-                                    System.out.print("Enter the number for the item you want to add, or 0 if you are finished, or -1 to cancel order and go back: ");
-                                    
+                                 do { 
+                                    continueSelectRes = true;
+                                    System.out.print("Enter your choice (or -1 to go back): ");
+                                 
                                     do { // repeat to find 1 to max restaurants as input for choice
                                        goodData = false;
                                        valid = false;
@@ -681,8 +651,84 @@ public class CityDeliveryRunner
                                           }
                                        } // while(!goodData)
                                     } while (valid);
-                                 }  
-                              
+                                 
+                                    if (choice == -1) {
+                                       continueOrder = false;
+                                    }
+                                    else {
+                                       Restaurant restaurant = cdd.getRestaurants()[choice-1]; // store user restaurant choice
+                                       cdd.setCart(new Cart(restaurant));
+                                       System.out.println(restaurant.listMenu()); // print menu for restaurant
+                                    
+                                       System.out.print("Enter the number for the item you want to add, or 0 if you are finished, or -1 to cancel order and go back: ");
+                                    
+                                       do { // repeat to find 1 to max restaurants as input for choice
+                                          goodData = false;
+                                          valid = false;
+                                       
+                                          while (!goodData) {  // repeat when input for choice is not an integer
+                                             try{
+                                                choice = sc.nextInt();
+                                                goodData = true;
+                                             } catch (InputMismatchException ix) {
+                                                System.out.println("Error, invalid input");
+                                                System.out.println("\nEnter the number for the item you want to add, or 0 if you are finished, or -1 to cancel order and go back: ");
+                                                flush = sc.next();
+                                             }
+                                          
+                                             valid = (choice < 1 || choice > restaurant.getMenu().length) && choice != -1 && choice != 0;
+                                          
+                                             if (goodData && valid) {
+                                                System.out.println("Error, invalid input");
+                                                System.out.print("\nEnter the number for the item you want to add, or 0 if you are finished, or -1 to cancel order and go back: ");
+                                             }
+                                          } // while(!goodData)
+                                       } while (valid);
+                                    
+                                       if (choice == -1) {
+                                          continueSelectRes = false;
+                                       }
+                                       else if (choice != 0) {
+                                          cdd.getCart().addItem(restaurant.getMenu()[choice-1], 1);
+                                       }
+                                       else { // choice == 0
+                                          System.out.println("\n\t\tReview");
+                                          System.out.println("1. Place Order");
+                                          System.out.println("2. Edit Cart");
+                                          System.out.println("3. Apply Coupon");
+                                          
+                                          do { // repeat to find 1 to max restaurants as input for choice
+                                             goodData = false;
+                                             valid = false;
+                                          
+                                             while (!goodData) {  // repeat when input for choice is not an integer
+                                                try{
+                                                   choice = sc.nextInt();
+                                                   goodData = true;
+                                                } catch (InputMismatchException ix) {
+                                                   System.out.println("Error, invalid input");
+                                                   System.out.println("\nEnter your choice (or -1 to go back): ");
+                                                   flush = sc.next();
+                                                }
+                                             
+                                                valid = (choice < 1 || choice > 3) && choice != -1;
+                                             
+                                                if (goodData && valid) {
+                                                   System.out.println("Error, invalid input");
+                                                   System.out.print("\nEnter your choice (or -1 to go back): ");
+                                                }
+                                             } // while(!goodData)
+                                          } while (valid);
+                                          
+                                          if (choice == -1) {
+                                             continueSelectRes = false;
+                                          }
+                                          else {
+                                             // was here last // add switch for choice
+                                          }
+                                       }
+                                    }  
+                                 } while (!continueSelectRes);
                               }  while (!continueOrder);
                            } // else location != -1
                            

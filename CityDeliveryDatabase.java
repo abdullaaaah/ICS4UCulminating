@@ -1163,6 +1163,10 @@ public class CityDeliveryDatabase
    {
       this.cart = cart;
    }
+   
+   public Cart getCart() {
+      return cart;
+   }
 
 }
 
