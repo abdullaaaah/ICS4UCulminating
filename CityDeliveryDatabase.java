@@ -11,6 +11,7 @@ public class CityDeliveryDatabase
    private Wallet[] wallets;
    private Card[] cards;
    private Map map;
+   private Cart cart;
    private final double DELIVERY_FEE = 1;
    private final double TAX_RATE = 0.13;
    private final String USERS_FILE = "users.txt";
@@ -1003,7 +1004,7 @@ public class CityDeliveryDatabase
       }
    }
    
-   /////////////////////////////////   RESTAURANT SEARCH RELATED   /////////////////////////////////
+   /////////////////////////////////   SEARCH AND SORT RELATED  /////////////////////////////////
    
    public Restaurant[] findRestaurantByName(String name)
    {
@@ -1060,8 +1061,6 @@ public class CityDeliveryDatabase
       }
       
       return copy;
-   
-   
    }
    
    public Restaurant[] sortRestaurantsByHighestRating()
@@ -1090,13 +1089,10 @@ public class CityDeliveryDatabase
       }
       
       return sorted;
-     
-   
    }
    
    public Restaurant[] sortRestaurantsByPrice()
    {
-   
       Restaurant[] sorted = getCopyOfRestaurants();
      
       int j;
@@ -1161,6 +1157,11 @@ public class CityDeliveryDatabase
       }*/
       
       return sorted;
+   }
+   
+   public void setCart(Cart cart)
+   {
+      this.cart = cart;
    }
 
 }
