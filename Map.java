@@ -3,8 +3,7 @@
    AUTHOR:     Abdullah Shahid
    DATE:       12/26/2019
    SCHOOL:     AY Jackson Secondary School
-   PURPOSE:    The purpose of this class is to store all the information about the map used in the software
-               It tracks the position of restaurants, drivers and the customer and calculates distance between points
+   PURPOSE:    -
 */
 
 public class Map
@@ -25,63 +24,35 @@ public class Map
    private final char TRIED = '-';
    private final char GOOD_PATH = '+';
    
-   /////////////////////////////////   CONSTRUCTOR(s) /////////////////////////////////
-   
-   
-   /*
-      PARAMETERS:    the number of rows, the number of columns
-      PURPOSE:       Initialize the map object
-   */
    public Map(int numRows, int numCols)
    {
    
       this.numRows = numRows;
       this.numCols = numCols;
-      Position[] positions = new Position[numRows*numCols];   //The max positions we can is the number of rows times the number of columns.
+      Position[] positions = new Position[numRows*numCols];   //The max positions we can have are the startXs times the startYumns.
       numPositions = 0;                            //Initially there are no stored positions so numPosition is 0
       map = new char[numRows][numCols];            //Initializes our map
-      positions2 = new Position[numRows*numCols];  //some bug prevents us from using the name positions
+      positions2 = new Position[numRows*numCols];
       
       
    }
    
-      /////////////////////////////////  ACCESSORS  /////////////////////////////////
-   
-   /*
-      PARAMETERS:    No params
-      RETURN VALUE:  Returns the map 2d array.
-      PURPOSE:       Acessor of the map field
-   */
    public char[][] getMap()
    {
       return this.map;
    }
  
-   /*
-      PARAMETERS:    No params
-      RETURN VALUE:  Returns all of the positions that are stored in the map.
-      PURPOSE:       Acessor of the positions field
-   */
    public Position[] getPositions()
    {
       return positions2;
    }
-    
-   /*
-      PARAMETERS:    No params
-      RETURN VALUE:  Returns the restaurant's name
-      PURPOSE:       Acessor of the name field
-   */
+   
    public int getNumPositions()
    {
       return this.numPositions;
    }
    
-   /*
-      PARAMETERS:    No params
-      RETURN VALUE:  Returns the restaurant's name
-      PURPOSE:       Acessor of the name field
-   */ 
+ 
    public void addPosition(int x, int y, Restaurant r)
    {
       
@@ -110,13 +81,6 @@ public class Map
          }
       }
       
-      return false;
-   }
-   
-   public boolean verifyPosition(int x, int y) {
-      if (doesPositionExist(x, y)){
-         return !isOccupied(x, y);
-      }
       return false;
    }
    
@@ -218,7 +182,12 @@ public class Map
    
    public boolean doesPositionExist(int x, int y)
    {
+      System.out.println(x);
+      System.out.println(y);
+      System.out.println(!(x < 0 || y < 0 || x>numRows || y>numCols));
+   
       return !(x < 0 || y < 0 || x>numRows || y>numCols);
+      
    }
    
    public void addAllPositions(Restaurant[] restaurants, int numRestaurants, Driver[] drivers, int numDrivers)

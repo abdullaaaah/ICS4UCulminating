@@ -85,28 +85,6 @@ public class Restaurant
       return menu;
    }
    
-    /*
-      PARAMETERS:    No params
-      RETURN VALUE:  ReturnsCHANGE ME
-      PURPOSE:       Acessor of the menu field
-   */
-   public String listMenu()
-   {
-      if(numItem==0)
-      return "This restaurant has no items in the menu.";
-      
-      String s = "";
-      
-      for(int i = 0; i<numItem; i++)
-      {
-         s += (i+1)+". " + menu[i];
-      }
-      
-      return s;
-      
-   }   
-
-
    /*
       PARAMETERS:    No params
       RETURN VALUE:  Returns the value of category field
