@@ -219,9 +219,9 @@ public class CityDeliveryDatabase
    public String getRestaurantNames()
    {
       String s = "";
-      for (int i = 0; i < restaurants.length; i++)
+      for (int i = 0; i < numRestaurants; i++)
       {
-         s = (i + 1) + ". " + restaurants[i] + "\n";
+         s = s + (i + 1) + ". " + restaurants[i].getName() + "\n";
       }
       return s;
    }

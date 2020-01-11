@@ -558,30 +558,30 @@ public class CityDeliveryRunner
                   System.out.println("6. View Finances");         //
                   System.out.println("7. Logout");                //
                   System.out.print("Enter your choice: ");
-               
-                  do { // repeat to find 1-7 as input for choice
+                                 
+                  goodData = false;
+                  valid = false;
                   
-                     goodData = false;
-                     valid = false;
-                  
-                     while (!goodData) {  // repeat when input for choice is not an integer
-                        try{
-                           choice = sc.nextInt();
-                           goodData = true;
-                        } catch (InputMismatchException ix) {
-                           System.out.println("Error, invalid input");
-                           System.out.print("\nEnter your choice (or -1 to end program): ");
-                           flush = sc.next();
-                        }
-                     
-                        valid = choice < 1 || choice > 7; // valid input condition 
-                     
-                        if (goodData && valid) {
-                           System.out.println("Error, invalid input");
-                           System.out.print("\nEnter your choice (or -1 to end program): ");
-                        }
-                     } // while(!goodData)
-                  } while (valid);
+                  while (!goodData || !valid)    // repeat when input for choice is not an integer
+                  {
+                     try
+                     {
+                        choice = sc.nextInt();
+                        goodData = true;
+                     } 
+                     catch (InputMismatchException ix) 
+                     {
+                        System.out.println("Error, invalid input");
+                        System.out.print("\nEnter your choice (or -1 to end program): ");
+                        flush = sc.next();
+                     }
+                     valid = (choice >= 1 && choice <= 7) || choice == -1; // valid input condition 
+                     if (goodData && !valid)
+                     {
+                        System.out.println("Error, invalid input");
+                        System.out.print("\nEnter your choice (or -1 to end program): ");
+                     }
+                  } // while(!goodData)
                            
                   switch (choice)
                   {
@@ -591,29 +591,29 @@ public class CityDeliveryRunner
                         System.out.println("3. Change Password");
                         System.out.print("Enter your choice (or -1 to go back): ");
                         
-                        do { // repeat to find 1-3 as input for choice
-                        
-                           goodData = false;
-                           valid = false;
-                        
-                           while (!goodData) {  // repeat when input for choice is not an integer
-                              try{
-                                 choice = sc.nextInt();
-                                 goodData = true;
-                              } catch (InputMismatchException ix) {
-                                 System.out.println("Error, invalid input");
-                                 System.out.print("\nEnter your choice (or -1 to go back): ");
-                                 flush = sc.next();
-                              }
-                           
-                              valid = choice < 1 || choice > 3; // valid input condition 
-                           
-                              if (goodData && valid) {
-                                 System.out.println("Error, invalid input");
-                                 System.out.print("\nEnter your choice (or -1 to go back): ");
-                              }
-                           } // while(!goodData)
-                        } while (valid);
+                        goodData = false;
+                        valid = false;
+                     
+                        while (!goodData || !valid)    // repeat when input for choice is not an integer
+                        {
+                           try
+                           {
+                              choice = sc.nextInt();
+                              goodData = true;
+                           } 
+                           catch (InputMismatchException ix) 
+                           {
+                              System.out.println("Error, invalid input");
+                              System.out.print("\nEnter your choice (or -1 to end program): ");
+                              flush = sc.next();
+                           }
+                           valid = (choice >= 1 && choice <= 3) || choice == -1; // valid input condition 
+                           if (goodData && !valid)
+                           {
+                              System.out.println("Error, invalid input");
+                              System.out.print("\nEnter your choice (or -1 to end program): ");
+                           }
+                        } // while(!goodData)
                      
                         switch (choice)
                         {
@@ -638,29 +638,29 @@ public class CityDeliveryRunner
                         System.out.println("3. Delete Restaurant");
                         System.out.print("Enter your choice (or -1 to go back): ");
                         
-                        do { // repeat to find 1-3 as input for choice
-                        
-                           goodData = false;
-                           valid = false;
-                        
-                           while (!goodData) {  // repeat when input for choice is not an integer
-                              try{
-                                 choice = sc.nextInt();
-                                 goodData = true;
-                              } catch (InputMismatchException ix) {
-                                 System.out.println("Error, invalid input");
-                                 System.out.print("\nEnter your choice (or -1 to go back): ");
-                                 flush = sc.next();
-                              }
-                           
-                              valid = choice < 1 || choice > 3; // valid input condition 
-                           
-                              if (goodData && valid) {
-                                 System.out.println("Error, invalid input");
-                                 System.out.print("\nEnter your choice (or -1 to go back): ");
-                              }
-                           } // while(!goodData)
-                        } while (valid);
+                        goodData = false;
+                        valid = false;
+                     
+                        while (!goodData || !valid)    // repeat when input for choice is not an integer
+                        {
+                           try
+                           {
+                              choice = sc.nextInt();
+                              goodData = true;
+                           } 
+                           catch (InputMismatchException ix) 
+                           {
+                              System.out.println("Error, invalid input");
+                              System.out.print("\nEnter your choice (or -1 to end program): ");
+                              flush = sc.next();
+                           }
+                           valid = (choice >= 1 && choice <= 3) || choice == -1; // valid input condition 
+                           if (goodData && !valid)
+                           {
+                              System.out.println("Error, invalid input");
+                              System.out.print("\nEnter your choice (or -1 to end program): ");
+                           }
+                        } // while(!goodData)
                      
                         switch (choice)
                         {
@@ -674,92 +674,142 @@ public class CityDeliveryRunner
                               System.out.print("Enter Restaurant Rating: ");
                               flush = sc.next();
                               rating = 0;
-                              while (!goodData) // check if input is a double
+                              
+                              goodData = false;
+                              valid = false;
+                           
+                              while (!goodData || !valid)    // repeat when input for choice is not an integer
                               {
                                  try
                                  {
                                     rating = sc.nextDouble();
                                     goodData = true;
-                                 }
-                                 catch (InputMismatchException IMX)
+                                 } 
+                                 catch (InputMismatchException ix) 
                                  {
-                                    System.out.print("\nInvalid input, please enter a number: ");
+                                    System.out.println("Error, invalid input");
+                                    System.out.print("\nEnter your choice (or -1 to end program): ");
                                     flush = sc.next();
                                  }
-                              }
-                              goodData = false;
+                                 valid = (rating >= 0 && rating <= 5); // valid input condition 
+                                 if (goodData && !valid)
+                                 {
+                                    System.out.println("Error, invalid input");
+                                    System.out.print("\nEnter your choice (or -1 to end program): ");
+                                 }
+                              } // while(!goodData)
                               
-                              System.out.print("\nEnter Number of Ratings the Restaurant Has: ");
+                              System.out.print("Enter Number of Ratings the Restaurant Has: ");
                               int numRat = 0;
-                              while (!goodData) // check if input is a int
+                              
+                              goodData = false;
+                              valid = false;
+                           
+                              while (!goodData || !valid)    // repeat when input for choice is not an integer
                               {
                                  try
                                  {
                                     numRat = sc.nextInt();
                                     goodData = true;
-                                 }
-                                 catch (InputMismatchException IMX)
+                                 } 
+                                 catch (InputMismatchException ix) 
                                  {
-                                    System.out.print("\nInvalid input, please enter an integer: ");
+                                    System.out.println("Error, invalid input");
+                                    System.out.print("\nEnter your choice (or -1 to end program): ");
                                     flush = sc.next();
                                  }
-                              }
-                              goodData = false;
-                              
+                                 valid = numRat >= 0; // valid input condition 
+                                 if (goodData && !valid)
+                                 {
+                                    System.out.println("Error, invalid input");
+                                    System.out.print("\nEnter your choice (or -1 to end program): ");
+                                 }
+                              } // while(!goodData)
+                                                            
                               System.out.print("\nEnter Restaurant PositionX: ");
                               int positionX = 0;
-                              while (!goodData) // check if input is a int
+                              
+                              goodData = false;
+                              valid = false;
+                           
+                              while (!goodData || !valid)    // repeat when input for choice is not an integer
                               {
                                  try
                                  {
                                     positionX = sc.nextInt();
                                     goodData = true;
-                                 }
-                                 catch (InputMismatchException IMX)
+                                 } 
+                                 catch (InputMismatchException ix) 
                                  {
-                                    System.out.print("\nInvalid input, please enter a number: ");
+                                    System.out.println("Error, invalid input");
+                                    System.out.print("\nEnter your choice (or -1 to end program): ");
                                     flush = sc.next();
                                  }
-                              }
-                              goodData = false;
+                                 valid = (positionX >= 0 && positionX <= 10); // valid input condition 
+                                 if (goodData && !valid)
+                                 {
+                                    System.out.println("Error, invalid input");
+                                    System.out.print("\nEnter your choice (or -1 to end program): ");
+                                 }
+                              } // while(!goodData)
                               
                               System.out.print("\nEnter Restaurant PositionY: ");
                               int positionY = 0;
-                              while (!goodData) //check if input is a int
+                              
+                              goodData = false;
+                              valid = false;
+                           
+                              while (!goodData || !valid)    // repeat when input for choice is not an integer
                               {
                                  try
                                  {
                                     positionY = sc.nextInt();
                                     goodData = true;
-                                 }
-                                 catch (InputMismatchException IMX)
+                                 } 
+                                 catch (InputMismatchException ix) 
                                  {
-                                    System.out.print("\nInvalid input, please enter a number: ");
+                                    System.out.println("Error, invalid input");
+                                    System.out.print("\nEnter your choice (or -1 to end program): ");
                                     flush = sc.next();
                                  }
-                              }
-                              goodData = false;
+                                 valid = (positionY >= 0 && positionY <= 10); // valid input condition 
+                                 if (goodData && !valid)
+                                 {
+                                    System.out.println("Error, invalid input");
+                                    System.out.print("\nEnter your choice (or -1 to end program): ");
+                                 }
+                              } // while(!goodData)
                            
                               ((Admin)cdd.user()).addRestaurant(cdd, name, cate, rating, numRat, positionX, positionY);
                               break;
                               
                            case 2:   // view/modify restaurant
-                              System.out.println(cdd.getRestaurantNames());
-                              System.out.print("\nEnter Restaurant ID: ");
-                              while (!goodData) //check if input is a int
+                              System.out.println("\n" + cdd.getRestaurantNames());
+                              System.out.print("Enter Restaurant ID: ");
+                              
+                              goodData = false;
+                              valid = false;
+                           
+                              while (!goodData || !valid)    // repeat when input for choice is not an integer
                               {
                                  try
                                  {
                                     resID = sc.nextInt();
                                     goodData = true;
-                                 }
-                                 catch (InputMismatchException IMX)
+                                 } 
+                                 catch (InputMismatchException ix) 
                                  {
-                                    System.out.print("\nInvalid input, please enter a number: ");
+                                    System.out.println("Error, invalid input");
+                                    System.out.print("\nEnter your choice (or -1 to end program): ");
                                     flush = sc.next();
                                  }
-                              }
-                              goodData = false;
+                                 valid = resID >= 1 && resID <= cdd.getNumRestaurants(); // valid input condition 
+                                 if (goodData && !valid)
+                                 {
+                                    System.out.println("Error, invalid input");
+                                    System.out.print("\nEnter your choice (or -1 to end program): ");
+                                 }
+                              } // while(!goodData);
                            
                               System.out.print("\nEnter New Name: ");
                               name = sc.next();
@@ -767,58 +817,70 @@ public class CityDeliveryRunner
                               cate = sc.nextLine();
                               System.out.print("Enter New Rating: ");
                               rating = 0;
-                              while (!goodData) //check if input is a double
+                              
+                              goodData = false;
+                              valid = false;
+                           
+                              while (!goodData || !valid)    // repeat when input for choice is not an integer
                               {
                                  try
                                  {
                                     rating = sc.nextInt();
                                     goodData = true;
-                                 }
-                                 catch (InputMismatchException IMX)
+                                 } 
+                                 catch (InputMismatchException ix) 
                                  {
-                                    System.out.print("\nInvalid input, please enter a number: ");
+                                    System.out.println("Error, invalid input");
+                                    System.out.print("\nEnter your choice (or -1 to end program): ");
                                     flush = sc.next();
                                  }
-                              }
-                              goodData = false;
+                                 valid = rating >= 0 && resID <= 5; // valid input condition 
+                                 if (goodData && !valid)
+                                 {
+                                    System.out.println("Error, invalid input");
+                                    System.out.print("\nEnter your choice (or -1 to end program): ");
+                                 }
+                              } // while(!goodData);
                            
                               cdd.getRestaurants()[resID].editRestaurant(name, cate, rating);
                               break;
+                              
                            case 3:   // delete restaurant
                               System.out.print("Enter Restaurant Name: ");
                               ((Admin)cdd.user()).removeRestaurant(cdd, sc.nextLine());
                               break;
                         }
                         break;
+                        
                      case 3:   // manage drivers
                         System.out.println("\n1. Add Driver");
                         System.out.println("2. View / Modify Driver");
                         System.out.println("3. Delete Driver");
                         System.out.print("Enter your choice (or -1 to go back): ");
                         
-                        do { // repeat to find 1-3 as input for choice
-                        
-                           goodData = false;
-                           valid = false;
-                        
-                           while (!goodData) {  // repeat when input for choice is not an integer
-                              try{
-                                 choice = sc.nextInt();
-                                 goodData = true;
-                              } catch (InputMismatchException ix) {
-                                 System.out.println("Error, invalid input");
-                                 System.out.print("\nEnter your choice (or -1 to go back): ");
-                                 flush = sc.next();
-                              }
-                           
-                              valid = choice < 1 || choice > 3; // valid input condition 
-                           
-                              if (goodData && valid) {
-                                 System.out.println("Error, invalid input");
-                                 System.out.print("\nEnter your choice (or -1 to go back): ");
-                              }
-                           } // while(!goodData)
-                        } while (valid);
+                        goodData = false;
+                        valid = false;
+                     
+                        while (!goodData || !valid)    // repeat when input for choice is not an integer
+                        {
+                           try
+                           {
+                              choice = sc.nextInt();
+                              goodData = true;
+                           } 
+                           catch (InputMismatchException ix) 
+                           {
+                              System.out.println("Error, invalid input");
+                              System.out.print("\nEnter your choice (or -1 to end program): ");
+                              flush = sc.next();
+                           }
+                           valid = (choice >= 1 && choice <= 3) || choice == -1; // valid input condition 
+                           if (goodData && !valid)
+                           {
+                              System.out.println("Error, invalid input");
+                              System.out.print("\nEnter your choice (or -1 to end program): ");
+                           }
+                        } // while(!goodData)
                      
                         
                         String phoneNum;
@@ -956,8 +1018,8 @@ public class CityDeliveryRunner
                         }
                         break;
                      case 5:   // add / delete food
-                        System.out.println(cdd.getRestaurants()); // print a list of restaurants
-                        System.out.print("\nEnter the restaurant ID you want to add/delete food from (or -1 to go back): ");
+                        System.out.println("\n" + cdd.getRestaurantNames()); // print a list of restaurants
+                        System.out.print("Enter the restaurant ID you want to add/delete food from (or -1 to go back): ");
                         
                         do { // repeat to find either 1 or 2 as input for resID
                         
@@ -982,7 +1044,7 @@ public class CityDeliveryRunner
                               }
                            } // while(!goodData)
                         } while (valid);
-
+                     
                         
                         while (valid)  // check if choice entered is between 1 and 3
                         {
