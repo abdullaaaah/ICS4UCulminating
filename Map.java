@@ -189,12 +189,7 @@ public class Map
    
    public boolean doesPositionExist(int x, int y)
    {
-      System.out.println(x);
-      System.out.println(y);
-      System.out.println(!(x < 0 || y < 0 || x>numRows || y>numCols)); // test
-   
       return !(x < 0 || y < 0 || x>numRows || y>numCols);
-      
    }
    
    public void addAllPositions(Restaurant[] restaurants, int numRestaurants, Driver[] drivers, int numDrivers)
