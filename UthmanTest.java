@@ -13,10 +13,9 @@ public class UthmanTest
    {
       CityDeliveryDatabase cdd = new CityDeliveryDatabase();
       Scanner sc = new Scanner(System.in);
-      int choice = 0, resID = 0, locationY = 0;
-      String currentName, currentUsername, currentPassword, newName, newUsername, newPassword, flush;
-      String username = "", password = "", locationX = "";
-      boolean login = false, exit = false, register = false, nameMatches, goodData = false, valid;
+      String choiceHome, currentName, currentUsername, currentPassword, newName, newUsername, newPassword;
+      String username = "", password = "";
+      boolean login = false, exit = false, register = false, nameMatches;
       
       while (!exit) {
          System.out.println("\n\n======================================================");
@@ -25,36 +24,21 @@ public class UthmanTest
          
          System.out.println("1. Log in");
          System.out.println("2. Register");
-         System.out.print("Enter your choice (or -1 to end program): ");
+         System.out.print("Enter your choice: ");
+         choiceHome = sc.next();
+         
+         while ((choiceHome.charAt(0) < '1' || choiceHome.charAt(0) > '2') && !choiceHome.equals("-1")){
+            System.out.println("\nError, enter valid input");
+            System.out.print("Enter your choice: ");
+            choiceHome = sc.next();
+         }
          
          
-            goodData = false;
-            valid = false;
-            
-            do {  // repeat when input for choice is not an integer
-               try{
-                  choice = sc.nextInt();
-                  goodData = true;
-               } catch (InputMismatchException ix) {
-                  System.out.println("Error, invalid input");
-                  System.out.print("\nEnter your choice (or -1 to end program): ");
-                  flush = sc.next();
-               }
-               
-               valid = (choice < 1 || choice > 2) && choice != -1;
-               
-               if (goodData && valid) {
-                  System.out.println("Error, invalid input");
-                  System.out.print("\nEnter your choice (or -1 to end program): ");
-               }
-            } while(!goodData && valid);
-         
-         switch (choice){
-            case 1:
+         switch (choiceHome){
+            case "1":
                boolean continueLogin;
                do {
                   continueLogin = true;
-                  
                   System.out.println("\n\n===========================");
                   System.out.println("\t\t\tLOG IN\t\t");
                   System.out.println("===========================");
@@ -65,8 +49,9 @@ public class UthmanTest
                   if(!username.equals("-1")) {
                      System.out.print("Enter your password: ");
                      password = sc.next();
-                     
-                     if(!password.equals("-1")) {
+                  
+                     if(!password.equals("-1"))
+                     {
                         login = cdd.login(username, password);
                         if (!login)
                            continueLogin = false;
@@ -74,7 +59,7 @@ public class UthmanTest
                   }
                } while (!continueLogin);
                break;
-            case 2:
+            case "2":
                System.out.println("Enter -1 to return to home page");
                System.out.println("\n\n===========================");
                System.out.println("\t\t\tREGISTER\t\t");
@@ -95,9 +80,8 @@ public class UthmanTest
                   }
                } 
                break;
-            case -1:
+            case "-1":
                exit = true;
-               login = false;
          }
          //The stuff that happens after user is inside the software ;)
                   
@@ -107,107 +91,56 @@ public class UthmanTest
             {              
                Customer curCustomer = (Customer)cdd.getUserLoggedIn();   
                boolean continuePanel = true;
-               valid = false;
-               
                do { // while (!continuePanel)
                   continuePanel = true;
-                  System.out.println("\n\n================================");
-                  System.out.println("\t\tMain Menu");
-                  System.out.println("================================");
-                  
-                  System.out.println("\n1. Profile Settings");
+                  System.out.println("\n\t\tCustomer");
+                  System.out.println("1. Profile Settings");
                   System.out.println("2. Wallet");
                   System.out.println("3. Place Order");
                   System.out.println("4. View Order History");
                   System.out.println("5. Active Delivery");
                   System.out.println("6. Log Out");
-                  System.out.print("Enter your choice: ");
+                  System.out.print("Enter your choice (or anything else to go back): ");
+                  int choicePanel = sc.nextInt();
                
-                  do { // repeat to find either 1 or 2 as input for choice
-                     goodData = false;
-                     valid = false;
-                     
-                     while (!goodData) {  // repeat when input for choice is not an integer
-                        try{
-                           choice = sc.nextInt();
-                           goodData = true;
-                        } catch (InputMismatchException ix) {
-                           System.out.println("Error, invalid input");
-                           System.out.print("\nEnter your choice: ");
-                           flush = sc.next();
-                        }
-                        
-                        valid = choice < 1 || choice > 6;
-                        
-                        if (goodData && valid) {
-                           System.out.println("Error, invalid input");
-                           System.out.print("\nEnter your choice: ");
-                        }
-                     } // while(!goodData) end
-                  } while (valid); // do while end
-                  
-                  
-                  switch (choice) {
+                  switch (choicePanel) {
                      case 1:                                                                       // profile setting
                         boolean continueProfileSetting = true;
                         do { // while (!continueProfileSetting)
                            continueProfileSetting = true;
-                           System.out.println("\n\n     Profile Settings");
+                           System.out.println("\n     Profile Settings");
                            System.out.println("1. Change name");
                            System.out.println("2. Change username");
                            System.out.println("3. Change password");
-                           System.out.print("Enter your choice (or -1 to go back): ");
+                           System.out.print("Enter your choice (or anything else to go back): ");
+                           int choiceProfile = sc.nextInt();
                            
-                           do { // repeat to find either 1 or 2 as input for choice
-                              goodData = false;
-                              valid = false;
-                              
-                              while (!goodData) {  // repeat when input for choice is not an integer
-                                 try{
-                                    choice = sc.nextInt();
-                                    goodData = true;
-                                 } catch (InputMismatchException ix) {
-                                    System.out.println("Error, invalid input");
-                                    System.out.println("\nEnter your choice (or -1 to go back): ");
-                                    flush = sc.next();
-                                 }
-                                 
-                                 valid = (choice < 1 || choice > 6) && choice != -1;
-                                 
-                                 if (goodData && valid) {
-                                    System.out.println("Error, invalid input");
-                                    System.out.print("\nEnter your choice (or -1 to go back): ");
-                                 }
-                              } // while(!goodData)
-                           } while (valid);
-                        
-                           switch (choice) {
-                              case 1:                                                                             // change name
+                           switch (choiceProfile) {
+                              case 1:                                   // change name
                                  System.out.println("\nEnter -1 to go back");
                                  System.out.println("Enter current name:");
                                  currentName = sc.next();
                                  
                                  nameMatches = currentName.equals(cdd.getUserLoggedIn().getName());
                                  
-                                 while (!nameMatches && !currentName.equals("-1")) { // keep getting name until it matches database
+                                 while (!nameMatches && !currentName.equals("-1")) {
                                     System.out.println("\nError, name doesn't match");
                                     System.out.print("Enter current name: ");
                                     currentName = sc.next();
                                     nameMatches = currentName.equals(cdd.getUserLoggedIn().getName());
                                  }
-                                 
                                  if (currentName.equals("-1"))
                                     continueProfileSetting = false;
                                  else {
                                     System.out.print("Enter new name: ");
                                     newName = sc.next();
-                                    cdd.getUserLoggedIn().setName(newName); // set new name
+                                    cdd.getUserLoggedIn().setName(newName);
                                     System.out.println("Name changed! Enter anything to return to profile settings.");
-                                    if (sc.next()!= null){} // any input entered will take user back to profile settings
+                                    if (sc.next()!= null){}
                                     continueProfileSetting = false;
                                  }
                                  break;
-                              case 2:                                                                       // change username
+                              case 2:                                      // change username
                                  System.out.println("\nEnter -1 to go back");
                                  System.out.println("Enter current username:");
                                  currentUsername = sc.next();
@@ -263,49 +196,22 @@ public class UthmanTest
                      case 2:                                                        // wallet
                         
                         boolean hasCard = curCustomer.getWallet().hasCard();
-                     
-                        if (hasCard) {       // if customer has card they have different options than a customer that doesnt have card
-                        
+                        if (hasCard) {
                            boolean continueWallet = true; // to go back
                            do {  // while (!continueWallet)
-                              valid = false;
                               continueWallet = true;
-                              
-                              System.out.println("\n\n================================");
-                              System.out.println("          Wallet");
-                              System.out.println("================================");
-                              
                               System.out.println("\n\nCard Status: Added");
                               System.out.print("Account balance: $");
+                           // boolean continueWallet = true;
+                           // do {
+                              System.out.print("Card Status: Added");
+                              System.out.print("Account balance: ");
                               System.out.println(curCustomer.getWallet().getBalance());
                            
                               System.out.println("1. Edit Card");
                               System.out.println("2. Add Money");
-                              System.out.print("Enter your choice (or -1 to go back): ");
+                              System.out.println("Enter your choice (or anything else to go back): ");
                               int walletChoice = sc.nextInt();
-                              
-                              do { // repeat to find either 1 or 2 as input for choice
-                                 goodData = false;
-                                 valid = false;
-                              
-                                 while (!goodData) {  // repeat when input for choice is not an integer
-                                    try{
-                                       walletChoice = sc.nextInt();
-                                       goodData = true;
-                                    } catch (InputMismatchException ix) {
-                                       System.out.println("Error, invalid input");
-                                       System.out.println("\nEnter your choice (or -1 to go back): ");
-                                       flush = sc.next();
-                                    }
-                                 
-                                    valid = (walletChoice < 1 || walletChoice > 2) && walletChoice != -1;
-                                 
-                                    if (goodData && valid) {
-                                       System.out.println("Error, invalid input");
-                                       System.out.print("\nEnter your choice (or -1 to go back): ");
-                                    }
-                                 } // while(!goodData)
-                              } while (valid);
                               
                               switch (walletChoice) {
                                  case 1:                                   // edit card
@@ -344,14 +250,13 @@ public class UthmanTest
                                           }
                                        }
                                     }
-                                    break;
                                  case 2:                                   // add money
                                     System.out.println("Enter amount (or -1 to go back): ");
                                     double money = sc.nextDouble();
                                     if (money != -1)
                                        curCustomer.getWallet().addBalance(money);
-                                    System.out.println("Money added. Enter anything to return to main menu");
-                                    if(sc.next() != null){}
+                                    System.out.println("Money added. Press enter to return to main menu");
+                                    if(sc.next()!=null){}
                                     else
                                        continueWallet = false;
                                     break;
@@ -361,62 +266,28 @@ public class UthmanTest
                            } while (!continueWallet);
                         }
                         else { // doesnt have card
-                           System.out.println("\n\n================================");
-                           System.out.println("\t\tWallet");
-                           System.out.println("================================");
-                           
-                           System.out.println("\nAdd Card");
+                           System.out.println("Add Card");
                            System.out.println("\nEnter -1 anytime to go back");
-                           System.out.print("\nEnter Credit Card Number (16-digits): ");
+                           System.out.print("Enter Credit Card Number:" );
                            String cardNum = sc.next();
-                           
-                           Card customerCard = curCustomer.getWallet().getCreditCard();
-                           
-                           while (!cardNum.equals("-1") && !customerCard.validateNum(cardNum)){ // validate card number
-                              System.out.println("\nError, not 16-integer card number.");
-                              System.out.print("Enter Credit Card Number (16-digits): ");
-                              cardNum = sc.next();
-                           }
-                           
                            if (cardNum.equals("-1")){
                               continuePanel = false;
                            }
                            else {
                               System.out.print("Enter CVV (ex 123): ");
                               String CVV = sc.next();
-                              
-                              while (!CVV.equals("-1") && !customerCard.validateCVV(CVV)){ // validate CVV
-                                 System.out.println("\nError, not 3-integer CVV number.");
-                                 System.out.print("Enter CVV (ex 123): ");
-                                 CVV = sc.next();
-                              }
-                           
                               if (CVV.equals("-1")){
                                  continuePanel = false;
                               }
                               else {
                                  System.out.print("Enter Expiry Month (ex 09): ");
                                  String expiryMonth = sc.next();
-                                 
-                                 while (!expiryMonth.equals("-1") && !customerCard.validateExpMonth(expiryMonth)){ // validate expiry month
-                                    System.out.println("\nError, not valid expiry month.");
-                                    System.out.print("Enter Expiry Month (ex 09): ");
-                                    expiryMonth = sc.next();
-                                 }
-                              
                                  if (expiryMonth.equals("-1")){
                                     continuePanel = false;
                                  }
                                  else {
                                     System.out.print("Enter Expiry Year (ex 2025): ");
                                     String expiryYear = sc.next();
-                                    
-                                    while (!expiryYear.equals("-1") && !customerCard.validateExpYear(expiryYear)){ // validate expiry year
-                                       System.out.println("\nError, not valid expiry year.");
-                                       System.out.print("Enter Expiry Year (ex 2025): ");
-                                       expiryYear = sc.next();
-                                    }
-                                 
                                     if (expiryYear.equals("-1")){
                                        continuePanel = false;
                                     }
@@ -433,120 +304,41 @@ public class UthmanTest
                         }
                         break;
                      case 3:                                                        // place order
-                        
                         Map map = cdd.getMap();
                         System.out.println("\n");
+                        map.printMap();      // print map for user
                         
                         boolean continueLocation = true;
                         do {
                            continueLocation = true;
-                           System.out.println("===============================================");
-                           System.out.println("                 MAP");
-                           System.out.println("================================================");
-                           System.out.println("Note: locations marked with X are unavailable");
+                           System.out.print("Enter your area code (ex A2), or -1 to go back: ");
+                           String location = sc.next();
+                           while ((location.charAt(0) > 'E' || location.charAt(0) < 'A') && (location.charAt(1) < '0' || location.charAt(1) > '4') && !location.equals("-1")){ // loop while input is not A-E and 0-4 and not -1
+                              System.out.println("Error, invalid area code.");
+                              System.out.print("Enter your area code (ex A2), or -1 to go back: ");
+                              location = sc.next();
+                           }
                            
-                           map.printMap();      // print map for user
-                           do { // while (!cdd.getMap().verifyPosition(locationX.charAt(0)-65, locationY))
-                              System.out.println("\nPlease take a look at the map of the city and enter your location. Enter -1 anytime to go back");
-                              System.out.print("Enter your row coordinate (e.g A, B, C): ");
-                              locationX = sc.next();
-                              
-                              
-                              while ((locationX.length() != 1 || (locationX.charAt(0) < 'A' || locationX.charAt(0) > 'J') ) && !locationX.equals("-1")) { // make sure locationX is between A-J
-                               
-                                 System.out.println("Error, invalid input");
-                                 System.out.print("\nEnter your row coordinate (e.g A, B, C): ");
-                                 locationX = sc.next();
-                              }
-                           
-                              if (locationX.equals("-1"))
-                                 continueLocation = false;
-                              else {
-                                 System.out.print("\nEnter your column coordinate (e.g 0, 1, 2, 3): ");
-                                 do { // repeat to find 1-9 as input for locationY
-                                    goodData = false;
-                                    valid = false;
-                                 
-                                    while (!goodData) {  // repeat when input for locationY is not an integer
-                                       try{
-                                          locationY = sc.nextInt();
-                                          goodData = true;
-                                       } catch (InputMismatchException ix) {
-                                          System.out.println("Error, invalid input");
-                                          System.out.println("\nEnter your column coordinate (e.g 0, 1, 2, 3): ");
-                                          flush = sc.next();
-                                       }
-                                    
-                                       valid = (locationY < 0 || locationY > 9) && locationY != -1;
-                                    
-                                       if (goodData && valid) {
-                                          System.out.println("Error, invalid input");
-                                          System.out.print("\nEnter your column coordinate (e.g 0, 1, 2, 3): ");
-                                       }
-                                    } // while(!goodData)
-                                 } while (valid);
-                              }
-                           } while (!cdd.getMap().verifyPosition(locationX.charAt(0)-65, locationY));
-                           
-                              // while( !cdd.getMap().doesPositionExist(locationX.charAt(0)-64, locationY) && !(locationX.equals("-1")) && !(locationY==-1)) //Loop while the position is invalid and the location isn't -1  
-                           //                               {
-                           //                                  System.out.print("Error, invalid location combination. Try again, row: ");
-                           //                                  locationX = sc.next();
-                           //                                  System.out.print("Column: ");
-                           //                                  locationY = sc.nextInt();
-                           //                               }
-                           
-                           if (locationY == -1){   // will make program go back to customer panel
+                           if (location.equals("-1")){   // will make program go back to customer panel
                               continuePanel = false;
                            }
                            else {                        // if location is valid 
-                              curCustomer.addPosition(locationX.charAt(0)-64, locationY);
-                              System.out.println("\n===============================================");
-                              System.out.println("                 ORDER MENU");
-                              System.out.println("================================================");                              
+                              curCustomer.addPosition(location.charAt(0), location.charAt(1));
+                              System.out.println("\n\n\t\tOrder");
                               System.out.println("1. Find Restaurant by Name");
                               System.out.println("2. Find Restaurant by Item");
                               System.out.println("3. Find Restaurant by Filtering");
-                              
                               System.out.print("Enter your choice (or -1 to go back): ");
-                              choice = sc.nextInt();
+                              String choiceOrder = sc.next();
                               
-                              do { // repeat to find 1-3 as input for choice
-                                 goodData = false;
-                                 valid = false;
-                                 
-                                 while (!goodData) {  // repeat when input for choice is not an integer
-                                    try{
-                                       locationY = sc.nextInt();
-                                       goodData = true;
-                                    } catch (InputMismatchException ix) {
-                                       System.out.println("Error, invalid input");
-                                       System.out.println("\nEnter your choice (or -1 to go back): ");
-                                       flush = sc.next();
-                                    }
-                                    
-                                    valid = (choice < 1 || choice > 3) && choice != -1;
-                                    
-                                    if (goodData && valid) {
-                                       System.out.println("Error, invalid input");
-                                       System.out.print("\nEnter your choice (or -1 to go back): ");
-                                    }
-                                 } // while(!goodData)
-                              } while (valid);              
+                              while (!choiceOrder.equals("-1") && (choiceOrder.charAt(0) < '1' || choiceOrder.charAt(0) > '3')){ // loop while their choice is not 1-3 and not -1
+                                 System.out.println("\nError, invalid input.");
+                                 System.out.print("Enter your choice (or -1 to go back): ");
+                                 choiceOrder = sc.next();
+                              }
                               
-                                              
-                              boolean selectRestaurant = false;
-                              int restaurantID = -1;
-                              
-                              //there should be a loop or something that lets u select the restaurant, and only once the restaurant is selected
-                              //the program should proceed and at that point, it should print the entire menu.
-                              
-                              
-                              switch (choice) {
-                                                            
-                                 case 1:               // find restaurant by name
-                                    
-                                    
+                              switch (choiceOrder) {
+                                 case "1":               // find restaurant by name
                                     System.out.print("Enter Restaurant Name (or -1 to go back): ");
                                     String resName = sc.next();
                                     while (!cdd.doesRestaurantExist(resName) && !resName.equals("-1")){  // loop while restaurant name doesnt exist and input isnt -1
@@ -557,28 +349,29 @@ public class UthmanTest
                                     
                                     if (resName.equals("-1"))     // if input is -1 program goes back to location input
                                        continueLocation = false;
-                                    else 
-                                    {                        // if restaurant name is valid
+                                    else {                        // if restaurant name is valid
+                                       System.out.println(cdd.getRestaurants()[cdd.findRestaurantIndexByName(resName)].getMenu()); // gets restaurant menu
+                                       System.out.println("\nEnter the number for the item you would like to add,");
+                                       System.out.print("or 0 if you are finished, or -1 to cancel order and go back: ");
+                                       int choiceItem = sc.nextInt();   // item # that customer chooses
                                        
-                                       restaurantID = cdd.findRestaurantIndexByName(resName);
+                                       
+                                       
+                                       
+                                       
                                        
                                     }
-                                    break;
-                                 case 2:               // find restaurant by item
+                                 case "2":               // find restaurant by item
                                     System.out.print("Enter the name of the Item (or -1 to go back): ");
                                     String itemName = sc.next();
-                                    // Loop through cdd.getAllRestaurants()
-                                    // then do cdd.getAllRestaurants()[i].hasItem( itemName ) which returns a boolean
                                     
                                     break;
-                                 case 3:               // find restaurant by filtering
+                                 case "3":               // find restaurant by filtering
                                     break;
-                                 case -1:
-                                    continueLocation = false;                                    
-                                    break;
+                                 case "-1":
+                                    continueLocation = false;                                    break;
                               }
                            }
-                           
                         } while (!continueLocation);
                         break;
                      case 4:                                                        // view order history
@@ -593,523 +386,260 @@ public class UthmanTest
                   }
                } while (!continuePanel);
             }
-            else 
-            { // user is admin
-               while (login)
-               {
-                  String name, cate;
-                  double rating;
-                  goodData = false;
-               
-                  System.out.println("\n\t\tAdmin");              //
-                  System.out.println("1. Profile Settings");      //
-                  System.out.println("2. Manage Restaurants");    //
-                  System.out.println("3. Manage Drivers");        //
-                  System.out.println("4. Manage Coupons");        //  Admin Homepage 
-                  System.out.println("5. Add / Delete Food");     //
-                  System.out.println("6. View Finances");         //
-                  System.out.println("7. Logout");                //
-                  System.out.print("Enter your choice: ");
-               
-                  do { // repeat to find 1-7 as input for choice
-                  
-                     goodData = false;
-                     valid = false;
-                  
-                     while (!goodData) {  // repeat when input for choice is not an integer
-                        try{
-                           choice = sc.nextInt();
-                           goodData = true;
-                        } catch (InputMismatchException ix) {
-                           System.out.println("Error, invalid input");
-                           System.out.print("\nEnter your choice (or -1 to end program): ");
-                           flush = sc.next();
-                        }
-                     
-                        valid = choice < 1 || choice > 7; // valid input condition 
-                     
-                        if (goodData && valid) {
-                           System.out.println("Error, invalid input");
-                           System.out.print("\nEnter your choice (or -1 to end program): ");
-                        }
-                     } // while(!goodData)
-                  } while (valid);
-                           
-                  switch (choice)
-                  {
-                     case 1:   // profile settings
-                        System.out.println("\n\n1. Change Name");
-                        System.out.println("2. Change Username");
-                        System.out.println("3. Change Password");
-                        System.out.print("Enter your choice (or -1 to go back): ");
-                        
-                        do { // repeat to find 1-3 as input for choice
-                        
-                           goodData = false;
-                           valid = false;
-                        
-                           while (!goodData) {  // repeat when input for choice is not an integer
-                              try{
-                                 choice = sc.nextInt();
-                                 goodData = true;
-                              } catch (InputMismatchException ix) {
-                                 System.out.println("Error, invalid input");
-                                 System.out.print("\nEnter your choice (or -1 to go back): ");
-                                 flush = sc.next();
-                              }
-                           
-                              valid = choice < 1 || choice > 3; // valid input condition 
-                           
-                              if (goodData && valid) {
-                                 System.out.println("Error, invalid input");
-                                 System.out.print("\nEnter your choice (or -1 to go back): ");
-                              }
-                           } // while(!goodData)
-                        } while (valid);
-                     
-                        switch (choice)
-                        {
-                           case 1:   // change name
-                              System.out.print("Enter New Name: ");
-                              cdd.user().setName(sc.next());
-                              break;
-                           case 2:   // change username
-                              System.out.print("Enter New Username: ");
-                              cdd.user().changeUsername(sc.next());
-                              break;
-                           case 3:   // change password
-                              System.out.print("Enter New Password: ");
-                              cdd.user().changePassword(sc.next());
-                              break;
-                           default:    // go back
-                        }
-                        break;
-                     case 2:   // manage restaurant
-                        System.out.println("\n1. Add Restaurant");
-                        System.out.println("2. View / Modify Restaurant");
-                        System.out.println("3. Delete Restaurant");
-                        System.out.print("Enter your choice (or -1 to go back): ");
-                        
-                        do { // repeat to find 1-3 as input for choice
-                        
-                           goodData = false;
-                           valid = false;
-                        
-                           while (!goodData) {  // repeat when input for choice is not an integer
-                              try{
-                                 choice = sc.nextInt();
-                                 goodData = true;
-                              } catch (InputMismatchException ix) {
-                                 System.out.println("Error, invalid input");
-                                 System.out.print("\nEnter your choice (or -1 to go back): ");
-                                 flush = sc.next();
-                              }
-                           
-                              valid = choice < 1 || choice > 3; // valid input condition 
-                           
-                              if (goodData && valid) {
-                                 System.out.println("Error, invalid input");
-                                 System.out.print("\nEnter your choice (or -1 to go back): ");
-                              }
-                           } // while(!goodData)
-                        } while (valid);
-                     
-                        switch (choice)
-                        {
-                           case 1:   // add restaurant
-                              System.out.print("\nEnter Restaurant Name: ");
-                              name = sc.nextLine();
-                              flush = sc.next();
-                              System.out.print("Enter Restaurant Category: ");
-                              cate = sc.nextLine();
-                              flush = sc.next();
-                              System.out.print("Enter Restaurant Rating: ");
-                              flush = sc.next();
-                              rating = 0;
-                              while (!goodData) // check if input is a double
-                              {
-                                 try
-                                 {
-                                    rating = sc.nextDouble();
-                                    goodData = true;
-                                 }
-                                 catch (InputMismatchException IMX)
-                                 {
-                                    System.out.print("\nInvalid input, please enter a number: ");
-                                    flush = sc.next();
-                                 }
-                              }
-                              goodData = false;
-                              
-                              System.out.print("\nEnter Number of Ratings the Restaurant Has: ");
-                              int numRat = 0;
-                              while (!goodData) // check if input is a int
-                              {
-                                 try
-                                 {
-                                    numRat = sc.nextInt();
-                                    goodData = true;
-                                 }
-                                 catch (InputMismatchException IMX)
-                                 {
-                                    System.out.print("\nInvalid input, please enter an integer: ");
-                                    flush = sc.next();
-                                 }
-                              }
-                              goodData = false;
-                              
-                              System.out.print("\nEnter Restaurant PositionX: ");
-                              int positionX = 0;
-                              while (!goodData) // check if input is a int
-                              {
-                                 try
-                                 {
-                                    positionX = sc.nextInt();
-                                    goodData = true;
-                                 }
-                                 catch (InputMismatchException IMX)
-                                 {
-                                    System.out.print("\nInvalid input, please enter a number: ");
-                                    flush = sc.next();
-                                 }
-                              }
-                              goodData = false;
-                              
-                              System.out.print("\nEnter Restaurant PositionY: ");
-                              int positionY = 0;
-                              while (!goodData) //check if input is a int
-                              {
-                                 try
-                                 {
-                                    positionY = sc.nextInt();
-                                    goodData = true;
-                                 }
-                                 catch (InputMismatchException IMX)
-                                 {
-                                    System.out.print("\nInvalid input, please enter a number: ");
-                                    flush = sc.next();
-                                 }
-                              }
-                              goodData = false;
-                           
-                              ((Admin)cdd.user()).addRestaurant(cdd, name, cate, rating, numRat, positionX, positionY);
-                              break;
-                              
-                           case 2:   // view/modify restaurant
-                              System.out.println(cdd.getRestaurantNames());
-                              System.out.print("\nEnter Restaurant ID: ");
-                              while (!goodData) //check if input is a int
-                              {
-                                 try
-                                 {
-                                    resID = sc.nextInt();
-                                    goodData = true;
-                                 }
-                                 catch (InputMismatchException IMX)
-                                 {
-                                    System.out.print("\nInvalid input, please enter a number: ");
-                                    flush = sc.next();
-                                 }
-                              }
-                              goodData = false;
-                           
-                              System.out.print("\nEnter New Name: ");
-                              name = sc.next();
-                              System.out.print("Enter New Category: ");
-                              cate = sc.nextLine();
-                              System.out.print("Enter New Rating: ");
-                              rating = 0;
-                              while (!goodData) //check if input is a double
-                              {
-                                 try
-                                 {
-                                    rating = sc.nextInt();
-                                    goodData = true;
-                                 }
-                                 catch (InputMismatchException IMX)
-                                 {
-                                    System.out.print("\nInvalid input, please enter a number: ");
-                                    flush = sc.next();
-                                 }
-                              }
-                              goodData = false;
-                           
-                              cdd.getRestaurants()[resID].editRestaurant(name, cate, rating);
-                              break;
-                           case 3:   // delete restaurant
-                              System.out.print("Enter Restaurant Name: ");
-                              ((Admin)cdd.user()).removeRestaurant(cdd, sc.nextLine());
-                              break;
-                        }
-                        break;
-                     case 3:   // manage drivers
-                        System.out.println("\n1. Add Driver");
-                        System.out.println("2. View / Modify Driver");
-                        System.out.println("3. Delete Driver");
-                        System.out.print("Enter your choice (or -1 to go back): ");
-                        
-                        do { // repeat to find 1-3 as input for choice
-                        
-                           goodData = false;
-                           valid = false;
-                        
-                           while (!goodData) {  // repeat when input for choice is not an integer
-                              try{
-                                 choice = sc.nextInt();
-                                 goodData = true;
-                              } catch (InputMismatchException ix) {
-                                 System.out.println("Error, invalid input");
-                                 System.out.print("\nEnter your choice (or -1 to go back): ");
-                                 flush = sc.next();
-                              }
-                           
-                              valid = choice < 1 || choice > 3; // valid input condition 
-                           
-                              if (goodData && valid) {
-                                 System.out.println("Error, invalid input");
-                                 System.out.print("\nEnter your choice (or -1 to go back): ");
-                              }
-                           } // while(!goodData)
-                        } while (valid);
-                     
-                        
-                        String phoneNum;
-                        switch (choice)
-                        {
-                           case 1:   // add driver
-                              System.out.print("Enter Driver ID: ");
-                              int id = 0;
-                              while (!goodData) //check if input is a double
-                              {
-                                 try
-                                 {
-                                    id = sc.nextInt();
-                                    goodData = true;
-                                 }
-                                 catch (InputMismatchException IMX)
-                                 {
-                                    System.out.print("\nInvalid input, please enter a number: ");
-                                    flush = sc.next();
-                                 }
-                              }
-                              goodData = false;
-                           
-                              System.out.print("Enter Driver Name: ");
-                              name = sc.nextLine();
-                              System.out.print("Enter Driver Phone Number: ");
-                              phoneNum = sc.nextLine();
-                              System.out.print("Enter Driver Description: ");
-                              String des = sc.nextLine();
-                              System.out.print("Enter Driver PositionX: ");
-                              int positionX = 0;
-                              while (!goodData) //check if input is a double
-                              {
-                                 try
-                                 {
-                                    positionX = sc.nextInt();
-                                    goodData = true;
-                                 }
-                                 catch (InputMismatchException IMX)
-                                 {
-                                    System.out.print("\nInvalid input, please enter a number: ");
-                                    flush = sc.next();
-                                 }
-                              }
-                              goodData = false;
-                           
-                              System.out.print("Enter Driver PositionY: ");
-                              int positionY = sc.nextInt();
-                              while (!goodData) //check if input is a double
-                              {
-                                 try
-                                 {
-                                    positionY = sc.nextInt();
-                                    goodData = true;
-                                 }
-                                 catch (InputMismatchException IMX)
-                                 {
-                                    System.out.print("\nInvalid input, please enter a number: ");
-                                    flush = sc.next();
-                                 }
-                              }
-                              goodData = false;
-                           
-                              ((Admin)cdd.user()).addDriver(cdd, id, name, phoneNum, des, positionX, positionY);
-                              break;
-                           case 2:    // view driver
-                              System.out.println(cdd.getDrivers());
-                              System.out.print("Enter Driver ID: ");
-                              String drivID = sc.next();
-                              System.out.print("Enter New Name: ");
-                              name = sc.next();
-                              System.out.print("Enter New Phone Number: ");
-                              phoneNum = sc.nextLine();
-                              System.out.print("Enter New Car Description: ");
-                              String description = sc.nextLine();
-                              cdd.getDrivers()[Integer.parseInt(drivID)].editDriver(name, phoneNum, description);
-                              break;
-                           case 3:   // delete driver
-                              System.out.print("Enter Driver ID: ");
-                              ((Admin)cdd.user()).removeDriver(cdd, sc.nextInt());
-                              break;
-                           default:    // go back
-                        }
-                        break;
-                     case 4:    // manage coupons
-                        System.out.println("\n1. Add Coupon");
-                        System.out.println("2. View Coupon");
-                        System.out.println("3. Delete Coupon");
-                        System.out.print("Enter your choice (or -1 to go back): ");
-                        
-                        do { // repeat to find either 1 or 2 as input for choice
-                        
-                           goodData = false;
-                           valid = false;
-                        
-                           while (!goodData) {  // repeat when input for choice is not an integer
-                              try{
-                                 choice = sc.nextInt();
-                                 goodData = true;
-                              } catch (InputMismatchException ix) {
-                                 System.out.println("Error, invalid input");
-                                 System.out.print("\nEnter your choice (or -1 to go back): ");
-                                 flush = sc.next();
-                              }
-                           
-                              valid = choice < 1 || choice > 3; // valid input condition 
-                           
-                              if (goodData && valid) {
-                                 System.out.println("Error, invalid input");
-                                 System.out.print("\nEnter your choice (or -1 to go back): ");
-                              }
-                           } // while(!goodData)
-                        } while (valid);
-                     
-                        
-                        switch (choice)
-                        {
-                           case 1:   // add coupon
-                              System.out.print("Enter Coupon Code: ");
-                              String code = sc.nextLine();
-                              System.out.print("Enter Coupon Discount: ");
-                              double dis = sc.nextDouble();
-                              ((Admin)cdd.user()).addCoupon(cdd, code, dis);
-                              break;
-                           case 2:   // view coupon
-                              System.out.println(cdd.getCoupons());
-                              System.out.print("Press anything to continue");
-                              sc.next();
-                              break;
-                           case 3:   // delete coupon
-                              System.out.print("Enter Coupon Code: ");
-                              ((Admin)cdd.user()).removeCoupon(cdd, sc.next());
-                              break;
-                           default:    // go back
-                        }
-                        break;
-                     case 5:   // add / delete food
-                        System.out.println(cdd.getRestaurants()); // print a list of restaurants
-                        System.out.print("\nEnter the restaurant ID you want to add/delete food from (or -1 to go back): ");
-                        
-                        do { // repeat to find either 1 or 2 as input for resID
-                        
-                           goodData = false;
-                           valid = false;
-                        
-                           while (!goodData) {  // repeat when input for resID is not an integer
-                              try{
-                                 resID = sc.nextInt();
-                                 goodData = true;
-                              } catch (InputMismatchException ix) {
-                                 System.out.println("Error, invalid input");
-                                 System.out.print("\nEnter the restaurant ID you want to add/delete food from (or -1 to go back): ");
-                                 flush = sc.next();
-                              }
-                           
-                              valid = (resID < 1 || resID > cdd.getNumRestaurants()-1) && resID != -1; // valid input condition used for organization
-                           
-                              if (goodData && valid) {
-                                 System.out.println("Error, invalid input");
-                                 System.out.print("\nEnter the restaurant ID you want to add/delete food from (or -1 to go back): ");
-                              }
-                           } // while(!goodData)
-                        } while (valid);
-                     
-                        
-                        while (valid)  // check if choice entered is between 1 and 3
-                        {
-                           System.out.println("\n1. Add New Food");
-                           System.out.println("2. View");
-                           System.out.println("3. Delete");
-                           System.out.print("Enter your choice (or -1 to go back): ");
-                           
-                           do { // repeat to find either 1 or 2 as input for choice
-                           
-                              goodData = false;
-                              valid = false;
-                           
-                              while (!goodData) {  // repeat when input for choice is not an integer
-                                 try{
-                                    choice = sc.nextInt();
-                                    goodData = true;
-                                 } catch (InputMismatchException ix) {
-                                    System.out.println("Error, invalid input");
-                                    System.out.print("\nEnter your choice (or -1 to go back): ");
-                                    flush = sc.next();
-                                 }
-                              
-                                 valid = choice < 1 || choice > 3; // valid input condition 
-                              
-                                 if (goodData && valid) {
-                                    System.out.println("Error, invalid input");
-                                    System.out.print("\nEnter your choice (or -1 to go back): ");
-                                 }
-                              } // while(!goodData)
-                           } while (valid);
-                        
-                        }
-                        
-                        switch (choice)
-                        {
-                           case 1:   // add new food
-                              System.out.print("Enter Item Name: ");
-                              name = sc.next();
-                              System.out.print("Enter Item Price: ");
-                              double price = sc.nextDouble();
-                              cdd.getRestaurants()[resID].addItem(name, price);
-                              break;
-                           case 2:   // view menu
-                              System.out.println(cdd.getRestaurants()[resID].getMenu());
-                              System.out.print("Enter Item ID: ");
-                              String itemID = sc.next();
-                              System.out.print("Enter New Name: ");
-                              name = sc.next();
-                              System.out.print("Enter New Price: ");
-                              price = sc.nextDouble();
-                              cdd.getRestaurants()[resID].editItem(cdd.getRestaurants()[resID].menu[Integer.parseInt(itemID)], name, price);
-                              break;
-                           case 3:   // delete food
-                              System.out.println(cdd.getRestaurants()[resID].getMenu());
-                              System.out.print("Enter Item Name: ");
-                              name = sc.next();
-                              cdd.getRestaurants()[resID].removeItem(name);
-                              break;
-                           default:
-                        }
-                        break;
-                     case 6:   // view finances
-                        System.out.println("Total Revenue: " + ((Admin)cdd.user()).getTotalRevenue());
-                        System.out.println("Driver Salary: " + ((Admin)cdd.user()).getDriverCost());
-                        System.out.println("Total Profit:  " + ((Admin)cdd.user()).getProfit());
-                        break;
-                     case 7:   // logout
-                        cdd.logout();
-                        login = false;
-                        break;
-                     default:
-                  }
-               }
-            }
+         //             else { // user is admin
+         //                while (login)
+         //                {
+         //                   //Admin panel code here
+         //                   System.out.println("Admin");
+         //                   System.out.println("1. Profile Settings");
+         //                   System.out.println("2. Manage Restaurants");
+         //                   System.out.println("3. Manage Drivers");
+         //                   System.out.println("4. Manage Coupons");
+         //                   System.out.println("5. Add / Delete Item");
+         //                   System.out.println("6. View Finances");
+         //                   System.out.println("7. Logout");
+         //                   
+         //                   String choice = sc.next();
+         //                   while (choice.charAt(0) < '1' || choice.charAt(0) > '9')
+         //                   {
+         //                      System.out.println("\nIvalid Input, Please Choose a Number: ");
+         //                      choice = sc.next();
+         //                   }
+         //                   
+         //                   switch (choice)
+         //                   {
+         //                      case "1":
+         //                         // profile setting
+         //                         System.out.println("1. Change Name");
+         //                         System.out.println("2. Change Username");
+         //                         System.out.println("3. Change Password");
+         //                         System.out.println("Press anything else to go back");
+         //                      
+         //                         choice = sc.next();
+         //                         if (choice.equals("1"))
+         //                         {
+         //                            System.out.print("Enter New Name: ");
+         //                            cdd.user().setName(sc.next());
+         //                         }
+         //                         else if (choice.equals("2"))
+         //                         {
+         //                            System.out.print("Enter New Username: ");
+         //                            cdd.user().changeUsername(sc.next());
+         //                         }
+         //                         else if (choice.equals("3"))
+         //                         {
+         //                            System.out.print("Enter New Password: ");
+         //                            cdd.user().changePassword(sc.next());
+         //                         }
+         //                         break;
+         //                      case "2":
+         //                      // manage restaurant
+         //                         System.out.println("1. Add Restaurant");
+         //                         System.out.println("2. View / Modify Restaurant");
+         //                         System.out.println("3. Delete Restaurant");
+         //                         System.out.println("Press anything else to go back");
+         //                      
+         //                         choice = sc.next();
+         //                         if (choice.equals("1"))
+         //                         {
+         //                            System.out.print("Enter Restaurant Name: ");
+         //                            String name = sc.next();
+         //                            System.out.print("Enter Restaurant Category: ");
+         //                            String cate = sc.next();
+         //                            System.out.print("Enter Restaurant Rating: ");
+         //                            double rate = sc.nextDouble();
+         //                            System.out.print("Please Enter a Number: ");
+         //                            System.out.print("Enter Number of Ratings Restaurant Got: ");
+         //                            int numRate = Integer.parseInt(sc.next());
+         //                            System.out.print("Enter Restaurant PositionX: ");
+         //                            int positionX = Integer.parseInt(sc.next());
+         //                            System.out.print("Enter Restaurant PositionY: ");
+         //                            int positionY = Integer.parseInt(sc.next());
+         //                            ((Admin)cdd.user()).addRestaurant(cdd, name, cate, rate, numRate, positionX, positionY);
+         //                         }
+         //                         else if (choice.equals("2"))
+         //                         {
+         //                         // view / modify restaurant
+         //                            System.out.println(cdd.getRestaurants());
+         //                            System.out.print("Enter Restaurant ID: ");
+         //                            String resID = sc.next();
+         //                            System.out.print("Enter New Name: ");
+         //                            String name = sc.next();
+         //                            System.out.print("Enter New Category: ");
+         //                            String cate = sc.nextLine();
+         //                            System.out.print("Enter New Rating: ");
+         //                            double rating = sc.nextDouble();
+         //                            cdd.getRestaurants()[Integer.parseInt(resID)].editRestaurant(name, cate, rating);
+         //                         }
+         //                         else if (choice.equals("3"))
+         //                         {
+         //                            System.out.print("Enter Restaurant Name: ");
+         //                            ((Admin)cdd.user()).removeRestaurant(cdd, sc.nextLine());
+         //                         }
+         //                         break;
+         //                      case "3":
+         //                      // manage drivers
+         //                         System.out.println("1. Add Driver");
+         //                         System.out.println("2. View / Modify Driver");
+         //                         System.out.println("3. Delete Driver");
+         //                         System.out.println("Press anything else to go back");
+         //                      
+         //                      choice = sc.next();
+         //                      if (choice.equals("1"))
+         //                      {
+         //                         System.out.print("Enter Item Name: ");
+         //                         String name = sc.next();
+         //                         System.out.print("Enter Item Price: ");
+         //                         double price = sc.nextDouble();
+         //                         cdd.getRestaurants()[Integer.parseInt(resID)].addItem(name, price);
+         //                      }
+         //                      else if (choice.equals("2"))
+         //                      {
+         //                         System.out.println(cdd.getRestaurants()[Integer.parseInt(resID)].getMenu());
+         //                         System.out.print("Enter Item ID: ");
+         //                         String itemID = sc.next();
+         //                         System.out.print("Enter New Name: ");
+         //                         String name = sc.next();
+         //                         System.out.print("Enter New Price: ");
+         //                         double price = sc.nextDouble();
+         //                         cdd.getRestaurants()[Integer.parseInt(resID)].editItem(cdd.getRestaurants()[Integer.parseInt(resID)].menu[Integer.parseInt(itemID)], name, price);
+         //                      }
+         //                      else if (choice.equals("3"))
+         //                      {
+         //                         System.out.println(cdd.getRestaurants()[Integer.parseInt(resID)].getMenu());
+         //                         System.out.print("Enter Item Name: ");
+         //                         String name = sc.next();
+         //                         cdd.getRestaurants()[Integer.parseInt(resID)].removeItem(name);
+         //                      }
+         //                   }
+         //                   else if (choice.equals("6"))
+         //                   {
+         //                   // view finances
+         //                      System.out.println("Total Revenue: " + ((Admin)cdd.user()).getTotalRevenue());
+         //                      System.out.println("Driver Salary: " + ((Admin)cdd.user()).getDriverCost());
+         //                      System.out.println("Total Profit:  " + ((Admin)cdd.user()).getProfit());
+         //                   }
+         //                   else if (choice.equals("7"))
+         //                   {
+         //                      exit = false;
+         //                         choice = sc.next();
+         //                         if (choice.equals("1"))
+         //                         {
+         //                            System.out.print("Enter Driver ID: ");
+         //                            int id = sc.nextInt();
+         //                            System.out.print("Enter Driver Name: ");
+         //                            String name = sc.nextLine();
+         //                            System.out.print("Enter Driver Phone Number: ");
+         //                            String phoneNum = sc.nextLine();
+         //                            System.out.print("Enter Driver Description: ");
+         //                            String des = sc.nextLine();
+         //                            System.out.print("Enter Driver PositionX: ");
+         //                            int positionX = sc.nextInt();
+         //                            System.out.print("Enter Driver PositionY: ");
+         //                            int positionY = sc.nextInt();
+         //                            ((Admin)cdd.user()).addDriver(cdd, id, name, phoneNum, des, positionX, positionY);
+         //                         }
+         //                         else if (choice.equals("2"))
+         //                         {
+         //                         // view driver
+         //                            System.out.println(cdd.getDrivers());
+         //                            System.out.print("Enter Driver ID: ");
+         //                            String drivID = sc.next();
+         //                            System.out.print("Enter New Name: ");
+         //                            String name = sc.next();
+         //                            System.out.print("Enter New Phone Number: ");
+         //                            String phoneNum = sc.nextLine();
+         //                            System.out.print("Enter New Car Description: ");
+         //                            String description = sc.nextLine();
+         //                            cdd.getDrivers()[Integer.parseInt(drivID)].editDriver(name, phoneNum, description);
+         //                         
+         //                         
+         //                         }
+         //                         else if (choice.equals("3"))
+         //                         {
+         //                            System.out.print("Enter Driver ID: ");
+         //                            ((Admin)cdd.user()).removeDriver(cdd, sc.nextInt());
+         //                         }
+         //                         break;
+         //                      case "4":
+         //                      // manage coupons
+         //                         System.out.println("1. Add Coupon");
+         //                         System.out.println("2. View Coupon");
+         //                         System.out.println("3. Delete Coupon");
+         //                         System.out.println("Press anything else to go back");
+         //                      
+         //                         choice = sc.next();
+         //                         if (choice.equals("1"))
+         //                         {
+         //                            System.out.print("Enter Coupon Code: ");
+         //                            String code = sc.nextLine();
+         //                            System.out.print("Enter Coupon Discount: ");
+         //                            double dis = sc.nextDouble();
+         //                            ((Admin)cdd.user()).addCoupon(cdd, code, dis);
+         //                         }
+         //                         else if (choice.equals("2"))
+         //                         {
+         //                            System.out.println(cdd.getCoupons());
+         //                            System.out.print("Press anything to continue");
+         //                            sc.next();
+         //                         }
+         //                         else if (choice.equals("3"))
+         //                         {
+         //                            System.out.print("Enter Coupon Code: ");
+         //                            ((Admin)cdd.user()).removeCoupon(cdd, sc.next());
+         //                         }
+         //                         break;
+         //                      case "5":
+         //                      // add / delete item
+         //                         System.out.println(cdd.getRestaurants());
+         //                         System.out.print("Press anything to go back");
+         //                         String resID = sc.next();
+         //                         System.out.println("1. Add New Item");
+         //                         System.out.println("2. View");
+         //                         System.out.println("3. Delete");
+         //                      
+         //                         choice = sc.next();
+         //                         if (choice.equals("1"))
+         //                         {
+         //                            System.out.print("Enter Item Name: ");
+         //                            String name = sc.next();
+         //                            System.out.print("Enter Item Price: ");
+         //                            double price = sc.nextDouble();
+         //                            cdd.getRestaurants()[Integer.parseInt(resID)].addItem(name, price);
+         //                         }
+         //                         else if (choice.equals("2"))
+         //                         {
+         //                            System.out.println(cdd.getRestaurants()[Integer.parseInt(resID)].getMenu());
+         //                            System.out.print("Enter Item ID: ");
+         //                            String itemID = sc.next();
+         //                            System.out.print("Enter New Name: ");
+         //                            String name = sc.next();
+         //                            System.out.print("Enter New Price: ");
+         //                            double price = sc.nextDouble();
+         //                            cdd.getRestaurants()[Integer.parseInt(resID)].editItem(cdd.getRestaurants()[Integer.parseInt(resID)].menu[Integer.parseInt(itemID)], name, price);
+         //                         }
+         //                         else if (choice.equals("3"))
+         //                         {
+         //                            System.out.println(cdd.getRestaurants()[Integer.parseInt(resID)].getMenu());
+         //                            System.out.print("Enter Item Name: ");
+         //                            String name = sc.next();
+         //                            cdd.getRestaurants()[Integer.parseInt(resID)].removeItem(name);
+         //                         }
+         //                         break;
+         //                      case "6":
+         //                      // view finances
+         //                         System.out.println("Total Revenue: " + ((Admin)cdd.user()).getTotalRevenue());
+         //                         System.out.println("Driver Salary: " + ((Admin)cdd.user()).getDriverCost());
+         //                         System.out.println("Total Profit:  " + ((Admin)cdd.user()).getProfit());
+         //                         break;
+         //                      case "7":
+         //                         cdd.logout();
+         //                         login = false;
+         //                         break;
+         //                      default:
+         //                   }
+         //                }
+         //             }
          }  // if (login)
       } // end main while
    } // main method
