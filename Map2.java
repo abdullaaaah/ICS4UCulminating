@@ -7,7 +7,7 @@
                It tracks the position of restaurants, drivers and the customer and calculates distance between points
 */
 
-public class Map
+public class Map2
 {
    private int numRows;
    private int numCols;
@@ -298,8 +298,8 @@ public class Map
       }
       else 
       {      
-         //if(this.destinationX == startX && this.destinationY > startY) //if the destination is in the same row and to the right of
-         //{
+         if(this.destinationX == startX && this.destinationY > startY) //if the destination is in the same row and to the right of
+         {
             System.out.println(startX+""+startY);
             map[startX][startY] = TRIED;
             //We have to prioririze moving right in this situation
@@ -314,13 +314,13 @@ public class Map
                   successful = getDistance(startX+1, startY);
                }
             }
-            /*if(!successful)
+            if(!successful)
             {
                //Move up
                if ( startX-1 >=0 && (map[startX-1][startY] == OPEN || map[startX-1][startY] == DESTINATION)) {
                   successful = getDistance(startX-1, startY);
                }
-            }*/
+            }
             if (!successful){
                	//move left is last because we don't want to get further away.
                if ( startY-1 >=0 && (map[startX][startY-1] == OPEN || map[startX][startY-1] == DESTINATION)) {
@@ -334,8 +334,47 @@ public class Map
                this.numBlocks++;
             }
             
-         //}
-
+         }
+         else if(this.destinationX == startX && this.destinationY < startY)
+         {
+            System.out.println("Moving left");
+            System.out.println(startX+""+startY);
+            map[startX][startY] = TRIED;
+            //We have to prioririze moving left in this situation
+               if ( startY-1 >=0 && (map[startX][startY-1] == OPEN || map[startX][startY-1] == DESTINATION)) {
+                  successful = getDistance(startX, startY-1);
+               }
+            if(!successful)
+            {
+               //Move down
+               if ( startX + 1 < this.numRows-1 && (map[startX+1][startY] == OPEN || map[startX+1][startY] == DESTINATION) ) {
+                  successful = getDistance(startX+1, startY);
+               }
+            }
+            if(!successful)
+            {
+               //Move up
+               if ( startX-1 >=0 && (map[startX-1][startY] == OPEN || map[startX-1][startY] == DESTINATION)) {
+                  successful = getDistance(startX-1, startY);
+               }
+            }
+            if (!successful){
+               	//move right
+               if(startY+1<this.numCols-1 && map[startX][startY+1] == OPEN || map[startX][startY+1]==DESTINATION)
+               {
+                  successful = getDistance(startX, startY+1);
+               }
+            }
+            if (successful)
+            {
+               // mark this as part of a good path
+               map[startX][startY] = GOOD_PATH;
+               this.numBlocks++;
+            }
+            
+         
+         
+         }
       } //end else
       return successful;
    } // end class
