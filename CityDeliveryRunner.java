@@ -553,7 +553,7 @@ public class CityDeliveryRunner
                                     
                                        System.out.print("\nEnter Restaurant Name (or -1 to go back): ");
                                        String resName = sc.next();
-                                       while (!cdd.doesRestaurantExist(resName) && !resName.equals("-1")){  // loop while restaurant name doesnt exist and input isnt -1
+                                       /*while (!cdd.doesRestaurantExist(resName) && !resName.equals("-1")){  // loop while restaurant name doesnt exist and input isnt -1
                                           System.out.println("Error, restaurant does not exist");
                                           System.out.print("\nEnter Restaurant Name (or -1 to go back): ");
                                           resName = sc.next();
@@ -564,7 +564,17 @@ public class CityDeliveryRunner
                                        else 
                                        {                        // if restaurant name is valid
                                           int restaurantIndex = cdd.findRestaurantIndexByName(resName);
+                                       }*/
+                                       
+                                      if (resName.equals("-1")) {
+                                          continueLocation = false;
                                        }
+                                       else 
+                                       {
+                                          result = cdd.findRestaurantByName(resName);
+                                       }     
+                                       
+                                       
                                        break;
                                     case 2:               // find restaurant by item
                                        System.out.print("Enter the name of the Item (or -1 to go back): ");
@@ -637,7 +647,7 @@ public class CityDeliveryRunner
                                  
                                  try { 
                                     System.out.println(cdd.listRestaurant(result, result.length)); // print all restaurants based on users choice     
-                                 } catch (ArrayIndexOutOfBoundsException aex) {  // is aex ok?
+                                 } catch (ArrayIndexOutOfBoundsException aex) {  // is aex ok? yes very good,
                                     System.out.println("Error, restaurant doesnt exist");
                                  }
                                  
@@ -674,9 +684,9 @@ public class CityDeliveryRunner
                                        continueOrder = false;
                                     }
                                     else {
-                                       Restaurant restaurant = cdd.getRestaurants()[choice-1]; // store user restaurant choice
+                                       Restaurant restaurant = result[choice-1]; // store user restaurant choice
                                        cdd.setCart(new Cart(restaurant));                                                      
-                                       System.out.println(restaurant.listMenu()); // print menu for restaurant                 
+                                       System.out.println(restaurant.listMenu()); // print menu for restaurant        //use a better variable name u faggot          
                                     
                                        System.out.print("\nEnter the number for the item you want to add, or 0 if you are finished, or -1 to cancel order and go back: ");
                                     
@@ -1785,7 +1795,7 @@ public class CityDeliveryRunner
                                        }
                                        break;
                                     case 2:   // view menu  /////////////////////not complete///////////////////////////
-                                       System.out.println(cdd.getRestaurants()[resID - 1].printMenu());
+                                       System.out.println(cdd.getRestaurants()[resID - 1].listMenu());
                                        System.out.print("Enter Item ID: ");
                                        int itemID = 0;
                                        while (!goodData || !valid)    // repeat when input for choice is not an integer
@@ -1853,7 +1863,7 @@ public class CityDeliveryRunner
                                        }
                                        break;
                                     case 3:   // delete food
-                                       System.out.println(cdd.getRestaurants()[resID - 1].printMenu());
+                                       System.out.println(cdd.getRestaurants()[resID - 1].listMenu());
                                        System.out.print("Enter Item Name: ");
                                        name = sc.nextLine();
                                        if (!name.equals("-1"))

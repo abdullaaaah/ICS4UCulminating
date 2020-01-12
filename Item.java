@@ -85,6 +85,6 @@ public class Item
    */  
    public String toString()
    {
-      return "Name: " + this.name + " Price: $" + price;
+      return "" + this.name + "\t\tPrice $" + price + " CAD";
    }
 }
