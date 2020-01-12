@@ -553,18 +553,7 @@ public class CityDeliveryRunner
                                     
                                        System.out.print("\nEnter Restaurant Name (or -1 to go back): ");
                                        String resName = sc.next();
-                                       /*while (!cdd.doesRestaurantExist(resName) && !resName.equals("-1")){  // loop while restaurant name doesnt exist and input isnt -1
-                                          System.out.println("Error, restaurant does not exist");
-                                          System.out.print("\nEnter Restaurant Name (or -1 to go back): ");
-                                          resName = sc.next();
-                                       }
-                                    
-                                       if (resName.equals("-1"))     // if input is -1 program goes back to location input
-                                          continueLocation = false;
-                                       else 
-                                       {                        // if restaurant name is valid
-                                          int restaurantIndex = cdd.findRestaurantIndexByName(resName);
-                                       }*/
+
                                        
                                       if (resName.equals("-1")) {
                                           continueLocation = false;
@@ -645,15 +634,26 @@ public class CityDeliveryRunner
                                        break;
                                  }
                                  
+                                
+                                 boolean noRestaurant = false;
+                                 
                                  try { 
                                     System.out.println(cdd.listRestaurant(result, result.length)); // print all restaurants based on users choice     
                                  } catch (ArrayIndexOutOfBoundsException aex) {  // is aex ok? yes very good,
-                                    System.out.println("Error, restaurant doesnt exist");
+                                    System.out.println("Error, restaurant doesnt exist n testtest");
+                                    noRestaurant=true;
                                  }
+                                 
+
+                                 if(!noRestaurant)
+                                 {
+                                  continueOrder = false; 
+                                 }
+                                 
                                  
                                  do { 
                                     continueSelectRes = true;
-                                    System.out.print("Enter your choice (or -1 to go back): "); 
+                                    System.out.print("Enter your choice of food (or -1 to go back): "); 
                                  
                                     goodData = false;
                                     valid = false;
@@ -685,9 +685,9 @@ public class CityDeliveryRunner
                                     }
                                     else {
                                        Restaurant restaurant = result[choice-1]; // store user restaurant choice
-                                       cdd.setCart(new Cart(restaurant));                                                      
+                                       cdd.setCart(new Cart(restaurant, ((Customer)cdd.getUserLoggedIn()) ));                                                      
                                        System.out.println(restaurant.listMenu()); // print menu for restaurant        //use a better variable name u faggot          
-                                    
+
                                        System.out.print("\nEnter the number for the item you want to add, or 0 if you are finished, or -1 to cancel order and go back: ");
                                     
                                        goodData = false;
