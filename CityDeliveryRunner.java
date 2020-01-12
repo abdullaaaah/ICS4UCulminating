@@ -1365,7 +1365,7 @@ public class CityDeliveryRunner
                                           System.out.print("\nEnter your choice (or -1 to go back): ");
                                           flush = sc.nextLine();
                                        }
-                                       valid = id >= 1 || id == -1; // valid input condition 
+                                       valid = (id >= 1 && cdd.compareDriverID(id)) || id == -1; // valid input condition 
                                        if (goodData && !valid)
                                        {
                                           System.out.println("Error, invalid input");     // gives error message if choice is good data but not valid
