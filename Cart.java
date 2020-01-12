@@ -11,12 +11,12 @@ public class Cart
    protected final double DELIVERY_RATE = 1.2;
    protected final double DELIVERY_FEE = 5;
    
-   public Cart(Restaurant restaurant)
+   public Cart(Restaurant restaurant, Customer customer)
    {
       items = new Item[LIMIT];
       numItems = 0;
       this.restaurant = restaurant;
-      
+      this.customer = customer;
    }
    
    public Item[] getItems () {

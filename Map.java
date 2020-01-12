@@ -229,11 +229,13 @@ public class Map
    
       for(int i = 0; i<numRestaurants; i++)
       {  
+         System.out.println("One restaurant at " + restaurants[i].getPositionX()+restaurants[i].getPositionY());
          addPosition(restaurants[i].getPositionX(), restaurants[i].getPositionY(), restaurants[i]);
       }
    
       for(int i = 0; i<numDrivers; i++)
       {
+         System.out.println("One Driver at " + drivers[i].getPositionX()+drivers[i].getPositionY());
          addPosition(drivers[i].getPositionX(), drivers[i].getPositionY(), drivers[i]);
       }
    
@@ -241,18 +243,22 @@ public class Map
    
    public double getDistance(int startX, int startY, int destinationX, int destinationY)
    {
+   
+      //Set the destination to get to
       this.destinationX = destinationX;
       this.destinationY = destinationY;
       
-      System.out.println("WHAAT");
+      //Printing destination for debug
       System.out.println(this.destinationX);
       System.out.println(this.destinationY);
       
-      
+      //um..
       this.numBlocks = 0;
       
+      //Create the map..
       createMap();
       
+      //Go to the recursive method to find the disatance
       getDistance(startX, startY);
       
       return this.numBlocks * BLOCK_DISTANCE;
