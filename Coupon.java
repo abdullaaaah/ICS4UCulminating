@@ -19,4 +19,13 @@ public class Coupon
       return this.discountRate;
    }
    
+   public void setCode (String s)
+   {
+      code = s;
+   }
+   
+   public void setDiscountRate(double rate)
+   {
+      discountRate = rate;
+   }
 }
