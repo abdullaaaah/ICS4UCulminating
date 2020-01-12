@@ -3,7 +3,7 @@
    AUTHOR:     Abdullah Shahid
    DATE:       12/26/2019
    SCHOOL:     AY Jackson Secondary School
-   PURPOSE:    A class that stores each individual restaurant’s information which can then be used by the customer to order from.
+   PURPOSE:    A class that stores each individual restaurants information which can then be used by the customer to order from.
 */
 
 import java.io.*;
@@ -83,6 +83,16 @@ public class Restaurant
    public Item[] getMenu()
    {
       return menu;
+   }
+   
+   public String printMenu()
+   {
+      String s = "";
+      for (int i = 0; i < numItem; i++)
+      {
+         s = s + (i + 1) + ". " + menu[i].getName() + "\n";
+      }
+      return s;
    }
    
    /*
