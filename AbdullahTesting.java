@@ -17,10 +17,10 @@ public class AbdullahTesting
       
       Restaurant chatime = cityDelivery.findRestaurantByName("chatime")[0];
       
-      System.out.println(chatime.listMenu());
+      //System.out.println(chatime.listMenu());
       
-      cityDelivery.setCart( new Cart(chatime, customer) );
-      cityDelivery.getCart().findDriver(cityDelivery.getMap());
+      //cityDelivery.setCart( new Cart(chatime, customer) );
+      //cityDelivery.getCart().findDriver(cityDelivery.getMap());
       
       
       //System.out.println(cityDelivery.getCart().getDriver());
@@ -28,7 +28,9 @@ public class AbdullahTesting
       
       Map map = cityDelivery.getMap();
       
+      System.out.println(map.getDistance(0,1, 1,5));
       
+      //we need to somehow direct the driver closer to the user .. because right now it just always goes down firest.
       
 
       //System.out.println( ((Customer)cityDelivery.getUserLoggedIn()).getWallet().hasCard());
