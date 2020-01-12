@@ -85,7 +85,6 @@ public class Restaurant
       return menu;
    }
    
-<<<<<<< HEAD
     /*
       PARAMETERS:    No params
       RETURN VALUE:  ReturnsCHANGE ME
@@ -100,15 +99,14 @@ public class Restaurant
       
       for(int i = 0; i<numItem; i++)
       {
-         s += (i+1)+". " + menu[i];
+         s += (i+1)+". " + menu[i] +"\n";
       }
       
       return s;
       
    }   
 
-
-=======
+/*
    public String printMenu()
    {
       String s = "";
@@ -117,9 +115,8 @@ public class Restaurant
          s = s + (i + 1) + ". " + menu[i].getName() + "\n";
       }
       return s;
-   }
+   }*
    
->>>>>>> cc22bcd3bb883c06a662538c3b37e4303e01d0f2
    /*
       PARAMETERS:    No params
       RETURN VALUE:  Returns the value of category field
