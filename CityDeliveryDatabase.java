@@ -11,6 +11,7 @@ public class CityDeliveryDatabase
    private Wallet[] wallets;
    private Card[] cards;
    private Map map;
+   private Cart cart;
    private final double DELIVERY_FEE = 1;
    private final double TAX_RATE = 0.13;
    private final String USERS_FILE = "users.txt";
@@ -132,7 +133,7 @@ public class CityDeliveryDatabase
       //wallets
       this.wallets = new Wallet[MAX_USERS];
       this.numWallets = 0;
-
+   
       //Creating a wallets file if not exist
       File walletsFile = new File(DIRECTORY+WALLETS_FILE);
       if(!walletsFile.exists())
@@ -151,12 +152,12 @@ public class CityDeliveryDatabase
       {
          loadWallets();
       }
-
+   
       
       //cards
       this.cards = new Card[MAX_USERS];
       this.numCards = 0;
-
+   
       //Creating a cards file if not exist
       File cardsFile = new File(DIRECTORY+CARDS_FILE);
       if(!cardsFile.exists())
@@ -219,9 +220,9 @@ public class CityDeliveryDatabase
    public String getRestaurantNames()
    {
       String s = "";
-      for (int i = 0; i < numRestaurants; i++)
+      for (int i = 0; i < restaurants.length; i++)
       {
-         s = s + (i + 1) + ". " + restaurants[i].getName() + "\n";
+         s = (i + 1) + ". " + restaurants[i] + "\n";
       }
       return s;
    }
@@ -567,11 +568,15 @@ public class CityDeliveryDatabase
          {
             this.userLoggedIn = users[index];
             
-            for(int i = 0; i<numWallets; i++)
+            //For customer only..
+            if(isUserCustomer())
             {
-               if(wallets[i].getCustomer().equals( this.userLoggedIn.getUsername() ))
+               for(int i = 0; i<numWallets; i++)
                {
-                  ((Customer)this.userLoggedIn).setWallet(wallets[i]);
+                  if(wallets[i].getCustomer().equals( this.userLoggedIn.getUsername() ))
+                  {
+                     ((Customer)this.userLoggedIn).setWallet(wallets[i]);
+                  }
                }
             }
             
@@ -956,7 +961,7 @@ public class CityDeliveryDatabase
             expMonth = in.readLine();
             expYear = in.readLine();
             cvv = in.readLine();
-
+         
             
             cards[this.numCards] = new Card(customer, number, expMonth, expYear, cvv);   
             this.numCards++;
@@ -1019,19 +1024,21 @@ public class CityDeliveryDatabase
       }
    }
    
-   /////////////////////////////////   RESTAURANT SEARCH RELATED   /////////////////////////////////
+   /////////////////////////////////   SEARCH AND SORT RELATED  /////////////////////////////////
    
-   public Restaurant findRestaurantByName(String name)
+   public Restaurant[] findRestaurantByName(String name)
    {
    
+      Restaurant[] result = new Restaurant[1];
+      
    
       for(int i = 0; i<numRestaurants; i++)
       {
          if(restaurants[i].getName().equals(name))
-         return restaurants[i];
+            result[0] = restaurants[i];
       }
       
-      return null;
+      return result;
    
    }
    
@@ -1055,15 +1062,14 @@ public class CityDeliveryDatabase
       {
          if(restaurants[i].doesItemExist(itemName))
          {
-            restaurants[num] = restaurants[i];
+            result[num] = restaurants[i];
             num++;
          }
       }
-      
+            
       return result;
    
-   }
-   
+   }   
    private Restaurant[] getCopyOfRestaurants()
    {
    
@@ -1074,8 +1080,6 @@ public class CityDeliveryDatabase
       }
       
       return copy;
-   
-   
    }
    
    public Restaurant[] sortRestaurantsByHighestRating()
@@ -1104,35 +1108,82 @@ public class CityDeliveryDatabase
       }
       
       return sorted;
-     
-   
    }
    
    public Restaurant[] sortRestaurantsByPrice()
    {
-   
       Restaurant[] sorted = getCopyOfRestaurants();
      
       int j;
-      int temp;
+      Restaurant temp;
       
-      /*for(int i = 0; i<list.length; i++)
+      for(int i = 0; i<sorted.length; i++)
       {
-         temp=list[i];
+         temp=sorted[i];
          j=i;
          
-         while(j>0 && temp < list[j-1])
+         while(j>0 && temp.getAveragePrice() < sorted[j-1].getAveragePrice()) //printing from least expensive to most
          {
-            list[j] = list[j-1];
+            sorted[j] = sorted[j-1];
             j = j-1;
          }
          
-         list[j] = temp;
-      }*/
+         sorted[j] = temp;
+      }
       
-      return null;
+      return sorted;
    
    }   
+   
+   public String listRestaurant(Restaurant[] list, int num)
+   {
+   
+      if(list[0] == null)
+         return "No result found";
+      
+      String s = "";
+      
+      for(int i = 0; i<num; i++)
+      {
+         s+=(i+1)+". " + list[i].getName()+"\n";
+      }
+      
+      return s;
+         
+   }     
+   public Restaurant[] sortRestaurantByDistance()
+   {
+      Restaurant[] sorted = getCopyOfRestaurants();
+      
+      //bubble sort
+     /* boolean finished = false;
+      Restaurant temp;
+      
+      for(int upperBound = sorted.length-1; upperBound>=1 && !finished; upperBound--)
+      {
+         finished = true;
+         for(int i = 0; i<=upperBound-1; i++)
+         {
+            if(sorted[i] > sorted[i+1])//if the restaurant's distance to user is more than the next restaurants distance to user.
+            {
+               finished = false;
+               temp = list[i];
+               list[i] = list[i+1];
+               list[i+1]=temp;
+            }
+         }
+      }*/
+      
+      return sorted;
+   }
+   
+   public void setCart(Cart cart)
+   {
+      this.cart = cart;
+   }
+   
+   public Cart getCart() {
+      return cart;
+   }
 
 }
-

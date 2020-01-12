@@ -3,7 +3,8 @@
    AUTHOR:     Abdullah Shahid
    DATE:       12/26/2019
    SCHOOL:     AY Jackson Secondary School
-   PURPOSE:    -
+   PURPOSE:    The purpose of this class is to store all the information about the map used in the software
+               It tracks the position of restaurants, drivers and the customer and calculates distance between points
 */
 
 public class Map
@@ -24,40 +25,68 @@ public class Map
    private final char TRIED = '-';
    private final char GOOD_PATH = '+';
    
+   /////////////////////////////////   CONSTRUCTOR(s) /////////////////////////////////
+   
+   
+   /*
+      PARAMETERS:    the number of rows, the number of columns
+      PURPOSE:       Initialize the map object
+   */
    public Map(int numRows, int numCols)
    {
    
       this.numRows = numRows;
       this.numCols = numCols;
-      Position[] positions = new Position[numRows*numCols];   //The max positions we can have are the startXs times the startYumns.
+      Position[] positions = new Position[numRows*numCols];   //The max positions we can is the number of rows times the number of columns.
       numPositions = 0;                            //Initially there are no stored positions so numPosition is 0
       map = new char[numRows][numCols];            //Initializes our map
-      positions2 = new Position[numRows*numCols];
+      positions2 = new Position[numRows*numCols];  //some bug prevents us from using the name positions
       
       
    }
    
+      /////////////////////////////////  ACCESSORS  /////////////////////////////////
+   
+   /*
+      PARAMETERS:    No params
+      RETURN VALUE:  Returns the map 2d array.
+      PURPOSE:       Acessor of the map field
+   */
    public char[][] getMap()
    {
       return this.map;
    }
  
+   /*
+      PARAMETERS:    No params
+      RETURN VALUE:  Returns all of the positions that are stored in the map.
+      PURPOSE:       Acessor of the positions field
+   */
    public Position[] getPositions()
    {
       return positions2;
    }
-   
+    
+   /*
+      PARAMETERS:    No params
+      RETURN VALUE:  Returns the restaurant's name
+      PURPOSE:       Acessor of the name field
+   */
    public int getNumPositions()
    {
       return this.numPositions;
    }
    
- 
+   /*
+      PARAMETERS:    No params
+      RETURN VALUE:  Returns the restaurant's name
+      PURPOSE:       Acessor of the name field
+   */ 
    public void addPosition(int x, int y, Restaurant r)
    {
       
       //This fkn positions array is not storing the item for some reason
-
+   
       this.positions2[numPositions] = new Position(x,y, r); 
             
       numPositions++;
@@ -84,19 +113,29 @@ public class Map
       return false;
    }
    
+   public boolean verifyPosition(int x, int y) 
+   {
+      if (doesPositionExist(x, y))
+      {
+         return !isOccupied(x, y);
+      }
+      return false;
+   }
+
+
    public Driver findDriver(int restaurantX, int restaurantY)
    {
       //When looking for the closest driver, we do not account for the route taken because the customer does not pay for this distance.
      // Just the absolute proximity is considered when searching for the best driver
      
-     Driver closest = null;
-     double distance = 0;
-     boolean firstFound = false;
-     int firstIndex = 0;
-     double temp;
+      Driver closest = null;
+      double distance = 0;
+      boolean firstFound = false;
+      int firstIndex = 0;
+      double temp;
      
-     for(int i = 0; i<numPositions && !firstFound; i++)
-     {     
+      for(int i = 0; i<numPositions && !firstFound; i++)
+      {     
          if(positions2[i].getType().equals("driver"))
          {
             firstIndex = i;
@@ -104,10 +143,10 @@ public class Map
             closest = positions2[i].getDriver();
             firstFound = true;
          } 
-     }
+      }
      
-     for(int i = firstIndex+1; i<numPositions; i++)
-     {
+      for(int i = firstIndex+1; i<numPositions; i++)
+      {
          if(positions2[i].getType().equals("driver"))
          {
             temp = getDistance(positions2[i].getX(), positions2[i].getY(), restaurantX, restaurantY);
@@ -117,9 +156,9 @@ public class Map
                closest = positions2[i].getDriver();
             }
          }
-     }
+      }
      
-     return closest;
+      return closest;
      
    }
    
@@ -168,8 +207,8 @@ public class Map
          }
          
       }
-         System.out.println("DEBUG: printing map before finding path");
-       for(int i = 0; i<this.map.length; i++)
+      System.out.println("DEBUG: printing map before finding path");
+      for(int i = 0; i<this.map.length; i++)
       {
          for(int x = 0; x<this.map[i].length; x++)
          {
@@ -182,12 +221,7 @@ public class Map
    
    public boolean doesPositionExist(int x, int y)
    {
-      System.out.println(x);
-      System.out.println(y);
-      System.out.println(!(x < 0 || y < 0 || x>numRows || y>numCols));
-   
-      return !(x < 0 || y < 0 || x>numRows || y>numCols);
-      
+      return !(x < 0 || y < 0 || x>numRows || y>numCols);  
    }
    
    public void addAllPositions(Restaurant[] restaurants, int numRestaurants, Driver[] drivers, int numDrivers)
@@ -237,39 +271,39 @@ public class Map
       {
          map[startX][startY] = TRIED;
          // try moving south
-            if ( startX + 1 < this.numRows && (map[startX+1][startY] == OPEN || map[startX+1][startY] == DESTINATION) ) {
-               successful = getDistance(startX+1, startY);
-               System.out.println("Moved down");
-            }
-            if (!successful){
+         if ( startX + 1 < this.numRows && (map[startX+1][startY] == OPEN || map[startX+1][startY] == DESTINATION) ) {
+            successful = getDistance(startX+1, startY);
+            System.out.println("Moved down");
+         }
+         if (!successful){
             	// try moving east
-               if ( startY + 1 < this.numCols && (map[startX][startY+1] == OPEN || map[startX][startY+1] == DESTINATION)) {
-                  successful = getDistance(startX, startY+1);
-                  System.out.println("Moved right");
-               }
+            if ( startY + 1 < this.numCols && (map[startX][startY+1] == OPEN || map[startX][startY+1] == DESTINATION)) {
+               successful = getDistance(startX, startY+1);
+               System.out.println("Moved right");
             }
-            if (!successful){
+         }
+         if (!successful){
             	// try moving west
-               if ( startX-1 >= 0 && (map[startX-1][startY] == OPEN || map[startX-1][startY] == DESTINATION)) {
-                  successful = getDistance(startX-1, startY);
-                  System.out.println("Moved left");
-               }
+            if ( startX-1 >= 0 && (map[startX-1][startY] == OPEN || map[startX-1][startY] == DESTINATION)) {
+               successful = getDistance(startX-1, startY);
+               System.out.println("Moved left");
             }
-            if (!successful){
+         }
+         if (!successful){
             	// try moving north
-               if ( startY-1 >=0 && (map[startX][startY-1] == OPEN || map[startX][startY-1] == DESTINATION)) {
-                  successful = getDistance(startX, startY-1);
-                  System.out.println("Moved up");
-               }
+            if ( startY-1 >=0 && (map[startX][startY-1] == OPEN || map[startX][startY-1] == DESTINATION)) {
+               successful = getDistance(startX, startY-1);
+               System.out.println("Moved up");
             }
-            if (successful)
-            {
+         }
+         if (successful)
+         {
              	// mark this as part of a good path
-               map[startX][startY] = GOOD_PATH;
-               this.numBlocks++;
-            }
-         } //end else
-         return successful;
-      } // end class
+            map[startX][startY] = GOOD_PATH;
+            this.numBlocks++;
+         }
+      } //end else
+      return successful;
+   } // end class
          
 } // end class

@@ -19,6 +19,14 @@ public class Cart
       
    }
    
+   public Item[] getItems () {
+      return items;
+   }
+   
+   public Driver getDriver (){
+      return driver;
+   }
+   
    public void addItem(Item item, int quantity)
    {
       // add some validation later 
