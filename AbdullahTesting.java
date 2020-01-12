@@ -12,24 +12,9 @@ public class AbdullahTesting
       
       cityDelivery.login("nxabdullah", "123");
       
-      Customer customer = ((Customer)cityDelivery.getUserLoggedIn());
-      customer.addPosition(0,0);
-      
       Restaurant chatime = cityDelivery.findRestaurantByName("chatime")[0];
       
       System.out.println(chatime.listMenu());
-      
-      cityDelivery.setCart( new Cart(chatime, customer) );
-      cityDelivery.getCart().findDriver(cityDelivery.getMap());
-      
-      
-      //System.out.println(cityDelivery.getCart().getDriver());
-      
-      
-      Map map = cityDelivery.getMap();
-      
-      
-      
 
       //System.out.println( ((Customer)cityDelivery.getUserLoggedIn()).getWallet().hasCard());
       //System.out.println("============"); 
