@@ -400,6 +400,18 @@ public class CityDeliveryDatabase
       return this.MAX_DRIVERS;
    }
    
+   public boolean compareDriverID(int id)
+   {
+      for (int i = 0; i < numDrivers; i++)
+      {
+         if (id == drivers[i].getId())
+         {
+            return false;
+         }
+      } 
+      return true;
+   }
+   
    /*
       PARAMETERS:    -
       RETURN VALUE:  true or false depending on the result
