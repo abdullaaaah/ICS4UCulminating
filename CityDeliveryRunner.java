@@ -553,6 +553,11 @@ public class CityDeliveryRunner
                                     
                                     
                                        System.out.print("\nEnter Restaurant Name (or -1 to go back): ");
+<<<<<<< HEAD
+                                       sc.nextLine();
+                                       String resName = sc.nextLine();
+=======
+<<<<<<< HEAD
                                        sc.nextLine();
                                        String resName = sc.nextLine();
                                     
@@ -566,6 +571,25 @@ public class CityDeliveryRunner
                                        
                                        if (resName.equals("-1"))                                               // goes back to Map screen if input is -1
                                        {
+=======
+                                       String resName = sc.next();
+>>>>>>> 37b87b66f86832cd73b9acac65125a6bb4ac87fb
+                                    
+                                       while (!cdd.doesRestaurantExist(resName) && !resName.equals("-1")) {    // makes sure restaurant name entered exists
+                                                                                                               // loops through if restaurant name does not exist
+                                          System.out.println("Error, restaurant does not exist. Please try again.");
+                                          System.out.print("\nEnter Restaurant Name (or -1 to go back): ");
+                                          sc.nextLine();
+                                          resName = sc.nextLine();
+                                       } 
+                                       
+<<<<<<< HEAD
+                                       if (resName.equals("-1"))                                               // goes back to Map screen if input is -1
+                                       {
+=======
+                                       if (resName.equals("-1")) {
+>>>>>>> 161f8cc795636c0d94b9a4daf19fcd87c9a5259e
+>>>>>>> 37b87b66f86832cd73b9acac65125a6bb4ac87fb
                                           continueLocation = false;
                                        }
                                        else                                                                    // if input is not -1 and restaurant name exists, 
@@ -653,13 +677,30 @@ public class CityDeliveryRunner
                                        break;
                                  }
                               
+<<<<<<< HEAD
                                  
+                                 try {       // might need to remove try catch later 
+=======
+                                 
+<<<<<<< HEAD
                                  try {       // might need to remove try catch later 
                                     System.out.println(cdd.listRestaurant(result, result.length)); // print all restaurants based on users choice     
                                  } catch (ArrayIndexOutOfBoundsException aex) {  // is aex ok? yes very good,
                                     System.out.println("Error, restaurant doesnt exist n testtest");
                                  }
                                  
+=======
+                                
+                                 boolean noRestaurant = false;
+                                 
+                                 try { 
+>>>>>>> 37b87b66f86832cd73b9acac65125a6bb4ac87fb
+                                    System.out.println(cdd.listRestaurant(result, result.length)); // print all restaurants based on users choice     
+                                 } catch (ArrayIndexOutOfBoundsException aex) {  // is aex ok? yes very good,
+                                    System.out.println("Error, restaurant doesnt exist n testtest");
+                                 }
+                                 
+>>>>>>> 161f8cc795636c0d94b9a4daf19fcd87c9a5259e
                                  
                                  do { 
                                     continueSelectRes = true;
@@ -696,7 +737,15 @@ public class CityDeliveryRunner
                                     else {
                                        Restaurant restaurant = result[choice-1]; // store user restaurant choice
                                        cdd.setCart(new Cart(restaurant, ((Customer)cdd.getUserLoggedIn()) ));                                                      
+<<<<<<< HEAD
                                        System.out.println(restaurant.listMenu()); // print menu for restaurant       
+=======
+<<<<<<< HEAD
+                                       System.out.println(restaurant.listMenu()); // print menu for restaurant       
+=======
+                                       System.out.println(restaurant.listMenu()); // print menu for restaurant        //use a better variable name u faggot          
+>>>>>>> 161f8cc795636c0d94b9a4daf19fcd87c9a5259e
+>>>>>>> 37b87b66f86832cd73b9acac65125a6bb4ac87fb
                                     
                                        System.out.print("\nEnter the number for the item you want to add, or 0 if you are finished, or -1 to cancel order and go back: ");
                                     
@@ -1947,7 +1996,6 @@ public class CityDeliveryRunner
                                        } // end while for valid input and good data
                                           
                                        flush = sc.nextLine();
-                                       System.out.println (itemID);
                                        if (itemID != -1)
                                        {
                                           System.out.print("Enter New Name: ");

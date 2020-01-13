@@ -253,12 +253,25 @@ public class Map
       this.destinationX = destinationX;
       this.destinationY = destinationY;
       
+<<<<<<< HEAD
+      //Printing destination for debug
+      System.out.println(this.destinationX);
+      System.out.println(this.destinationY);
+      
+      //um..
+      this.numBlocks = 0;
+      
+      //Create the map..
+      createMap();
+      
+=======
       //variable to track the number of blocks traveled.
       this.numBlocks = 0; 
       
       //Create the map..
       createMap();
 
+>>>>>>> 161f8cc795636c0d94b9a4daf19fcd87c9a5259e
       //Go to the recursive method to find the disatance
       getDistance(startX, startY);
       

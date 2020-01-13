@@ -47,6 +47,11 @@ public class Order
    {
       return numOrders;
    }
+   /////////////////////////////////////
+   public boolean getIsComplete()
+   {
+      return isCompelete;
+   }
    
    /////////////////////////////////////
    public boolean getIsComplete()
