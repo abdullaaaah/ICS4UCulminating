@@ -28,7 +28,7 @@ public class AbdullahTesting
       
       Map map = cityDelivery.getMap();
       
-      System.out.println(map.getDistance(0,1, 1,5));
+      System.out.println(map.getDistance(0,0, 5,1 ));
       
       //we need to somehow direct the driver closer to the user .. because right now it just always goes down firest.
       
