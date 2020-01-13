@@ -134,6 +134,7 @@ public class Map
       int firstIndex = 0;
       double temp;
      
+     //So first, we need to find the first driver's index in the positions array. 
       for(int i = 0; i<numPositions && !firstFound; i++)
       {     
          if(positions2[i].getType().equals("driver"))
@@ -145,6 +146,7 @@ public class Map
          } 
       }
      
+      //Then we loop through the whole array and find other drivers and compare their positions with the restaurants.
       for(int i = firstIndex+1; i<numPositions; i++)
       {
          if(positions2[i].getType().equals("driver"))
@@ -165,10 +167,10 @@ public class Map
    
    public void printMap()
    {
+      System.out.println("Row\t\tColumn");
       for(int i = 0; i<numRows; i++)
       {
-      
-         System.out.print((char) ('A'+i));
+         System.out.print((char) ('A'+i) + "\t\t");
       
          for(int x = 0; x<numCols; x++)
          {
@@ -182,6 +184,7 @@ public class Map
       
          System.out.println();
       }
+      
    }
    
    public void createMap()
@@ -193,13 +196,13 @@ public class Map
          for(int y = 0; y<numCols; y++)
          {
          
-            if(isOccupied(x,y))
-            {
-               this.map[x][y] = OBSTACLE;
-            }
-            else if(this.destinationX == x && this.destinationY == y)
+            if(this.destinationX == x && this.destinationY == y)
             {
                this.map[x][y] = DESTINATION;
+            }
+            else if(isOccupied(x,y))
+            {
+               this.map[x][y] = OBSTACLE;
             }
             else
             {
@@ -219,15 +222,8 @@ public class Map
       }
    
    }
-   
-   //make driver forcibly go to the right row, then the column.
-   
-   public int estimateDistance(int startX, int startY, int destinationX, int destinationY)
-   {
-      return 0;
-   }  
-   
-   
+
+     
    public boolean doesPositionExist(int x, int y)
    {
       return !(x < 0 || y < 0 || x>numRows || y>numCols);  
@@ -257,23 +253,17 @@ public class Map
       this.destinationX = destinationX;
       this.destinationY = destinationY;
       
-      //Printing destination for debug
-      System.out.println(this.destinationX);
-      System.out.println(this.destinationY);
-      
       //variable to track the number of blocks traveled.
       this.numBlocks = 0; 
       
       //Create the map..
       createMap();
-      
-      
-      
+
       //Go to the recursive method to find the disatance
       getDistance(startX, startY);
       
-      
-      System.out.println("DEBUG: printing map after path");
+      //
+      System.out.println("DEBUG: printing map after finding path");
       for(int i = 0; i<this.map.length; i++)
       {
          for(int x = 0; x<this.map[i].length; x++)
@@ -281,12 +271,12 @@ public class Map
             System.out.print(this.map[i][x]);
          }
          System.out.println();
-      }
+      } 
       
-       
       return this.numBlocks * BLOCK_DISTANCE;
    }
    
+   //Recursive method
    public boolean getDistance(int startX, int startY)
    {
       boolean successful = false;
@@ -471,9 +461,7 @@ public class Map
                   successful = getDistance(startX, startY-1);
                }
             }
-       
-            
-            
+   
              
             if (successful)
             {
@@ -481,20 +469,13 @@ public class Map
                map[startX][startY] = GOOD_PATH;
                this.numBlocks++;
             }
-         
-         
-         
+
          
          }
-         else //In this case we are on the right column, just need to move up and down.
-         {
+         else
+         {  //If none of those above conditions are met, just go anywhere   
          
-         
-         
-            System.out.println("Moving left");
-            System.out.println(startX+""+startY);
             map[startX][startY] = TRIED;
-            //We have to prioririze moving left in this situation
             if ( startY-1 >=0 && (map[startX][startY-1] == OPEN || map[startX][startY-1] == DESTINATION)) {
                successful = getDistance(startX, startY-1);
             }
@@ -525,12 +506,11 @@ public class Map
                map[startX][startY] = GOOD_PATH;
                this.numBlocks++;
             }
-            
-         
+
          }
       
       } //end else
       return successful;
    } // end class
          
-} // end class
+} // end map
