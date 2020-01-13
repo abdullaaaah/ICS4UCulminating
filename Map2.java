@@ -261,8 +261,8 @@ public class Map2
       System.out.println(this.destinationX);
       System.out.println(this.destinationY);
       
-      //um..
-      this.numBlocks = 1;
+      //variable to track the number of blocks traveled.
+      this.numBlocks = 0; 
       
       //Create the map..
       createMap();
@@ -290,6 +290,8 @@ public class Map2
    public boolean getDistance(int startX, int startY)
    {
       boolean successful = false;
+      
+      
       if(this.map[startX][startY] == DESTINATION)
       {
          System.out.println("Destination REACHED");
@@ -298,35 +300,67 @@ public class Map2
       }
       else 
       {      
-         if(this.destinationX == startX && this.destinationY > startY) //if the destination is in the same row and to the right of
+         if(this.destinationY > startY ) //if the destination is to the right of us.
          {
-            System.out.println(startX+""+startY);
             map[startX][startY] = TRIED;
             //We have to prioririze moving right in this situation
-            if(startY+1<this.numCols-1 && map[startX][startY+1] == OPEN || map[startX][startY+1]==DESTINATION)
+            if(startY+1<this.numCols && (map[startX][startY+1] == OPEN || map[startX][startY+1]==DESTINATION))
             {
                successful = getDistance(startX, startY+1);
             }
+         
+            //*************************UP/ABOVE*************///
+            
+            if(destinationX>=startX) // If obstacle on the left, and destination below us, go down. 
+            {
+               if(!successful)
+               {
+                  //Move down
+                  if ( startX + 1 < this.numRows && (map[startX+1][startY] == OPEN || map[startX+1][startY] == DESTINATION) ) {
+                     successful = getDistance(startX+1, startY);
+                  }
+               }            
+            }
+            else //if obstacle on the left, and destination is above us. Go up.
+            {
+               if(!successful)
+               {
+                  //Move up
+                  if ( startX-1 >=0 && (map[startX-1][startY] == OPEN || map[startX-1][startY] == DESTINATION)) {
+                     successful = getDistance(startX-1, startY);
+                  }
+               }           
+            
+            }
+             
+            //*************************END UP/ABOVE*************///
+         
+            //If special conditions fails, go anywhere. 
             if(!successful)
             {
-               //Move down
-               if ( startX + 1 < this.numRows-1 && (map[startX+1][startY] == OPEN || map[startX+1][startY] == DESTINATION) ) {
+               //move left
+               if ( startY-1 >=0 && (map[startX][startY-1] == OPEN || map[startX][startY-1] == DESTINATION)) {
+                  successful = getDistance(startX, startY-1);
+               }
+            
+            }
+            
+            if(!successful)
+            {
+                  //Move down
+               if ( startX + 1 < this.numRows && (map[startX+1][startY] == OPEN || map[startX+1][startY] == DESTINATION) ) {
                   successful = getDistance(startX+1, startY);
                }
             }
             if(!successful)
             {
-               //Move up
+                  //Move up
                if ( startX-1 >=0 && (map[startX-1][startY] == OPEN || map[startX-1][startY] == DESTINATION)) {
                   successful = getDistance(startX-1, startY);
                }
             }
-            if (!successful){
-               	//move left is last because we don't want to get further away.
-               if ( startY-1 >=0 && (map[startX][startY-1] == OPEN || map[startX][startY-1] == DESTINATION)) {
-                  successful = getDistance(startX, startY-1);
-               }
-            }
+            
+             
             if (successful)
             {
                // mark this as part of a good path
@@ -335,19 +369,162 @@ public class Map2
             }
             
          }
-         else if(this.destinationX == startX && this.destinationY < startY)
+         else if( this.destinationY < startY ) //CASE 2: if destination is to the left
          {
+            map[startX][startY] = TRIED;
+            //We have to prioririze moving left in this situation
+            if ( startY-1 >=0 && (map[startX][startY-1] == OPEN || map[startX][startY-1] == DESTINATION)) {
+               successful = getDistance(startX, startY-1);
+            }
+         
+            //*************************UP/ABOVE*************///
+            if(destinationX>startX) // if destination below us
+            {
+            
+               if(!successful)
+               {
+                  //Move down
+                  if ( startX + 1 < this.numRows && (map[startX+1][startY] == OPEN || map[startX+1][startY] == DESTINATION) ) {
+                     successful = getDistance(startX+1, startY);
+                  }
+               }            
+               if(!successful)
+               {
+                  //Move up
+                  if ( startX-1 >=0 && (map[startX-1][startY] == OPEN || map[startX-1][startY] == DESTINATION)) {
+                     successful = getDistance(startX-1, startY);
+                  }
+               }
+            
+            }
+            else //if its above us
+            {
+               
+               if(!successful)
+               {
+                  //Move up
+                  if ( startX-1 >=0 && (map[startX-1][startY] == OPEN || map[startX-1][startY] == DESTINATION)) {
+                     successful = getDistance(startX-1, startY);
+                  }
+               }
+               if(!successful)
+               {
+                  //Move down
+                  if ( startX + 1 < this.numRows && (map[startX+1][startY] == OPEN || map[startX+1][startY] == DESTINATION) ) {
+                     successful = getDistance(startX+1, startY);
+                  }
+               }
+            
+            }
+            //************************* END UP/ABOVE*************///
+            
+            //MOVE RIGHT HERE
+            if (!successful){
+               	//move right
+               if(startY+1<this.numCols && (map[startX][startY+1] == OPEN || map[startX][startY+1]==DESTINATION))
+               {
+                  successful = getDistance(startX, startY+1);
+               }
+            }
+            
+         
+             
+            if (successful)
+            {
+               // mark this as part of a good path
+               map[startX][startY] = GOOD_PATH;
+               this.numBlocks++;
+            }
+         
+         }
+         else if(startY==destinationY) //On the right column, need to move up or down.
+         {
+         
+            //*************************UP/ABOVE*************///
+            if(destinationX>startX) // if destination below us
+            {
+            
+            
+                  //Move down
+               if ( startX + 1 < this.numRows && (map[startX+1][startY] == OPEN || map[startX+1][startY] == DESTINATION) ) {
+                  successful = getDistance(startX+1, startY);
+               }
+               
+               /*if(!successful)
+               {
+                  //Move up
+                  if ( startX-1 >=0 && (map[startX-1][startY] == OPEN || map[startX-1][startY] == DESTINATION)) {
+                     successful = getDistance(startX-1, startY);
+                  }
+               }*/
+               
+            
+            }
+            else //if its above us
+            {
+               
+            
+                  //Move up
+               if ( startX-1 >=0 && (map[startX-1][startY] == OPEN || map[startX-1][startY] == DESTINATION)) {
+                  successful = getDistance(startX-1, startY);
+               }
+               /*if(!successful)
+               {
+                  //Move down
+                  if ( startX + 1 < this.numRows-1 && (map[startX+1][startY] == OPEN || map[startX+1][startY] == DESTINATION) ) {
+                     successful = getDistance(startX+1, startY);
+                  }
+               }*/
+            
+            }
+            //************************* END UP/ABOVE*************///
+         
+            if (!successful){
+               	//move right
+               if(startY+1<this.numCols && (map[startX][startY+1] == OPEN || map[startX][startY+1]==DESTINATION) )
+               {
+                  successful = getDistance(startX, startY+1);
+               }
+            }
+            
+            
+            if(!successful)
+            {
+               //move left
+               if ( startY-1 >=0 && (map[startX][startY-1] == OPEN || map[startX][startY-1] == DESTINATION)) {
+                  successful = getDistance(startX, startY-1);
+               }
+            }
+            
+            
+             
+            if (successful)
+            {
+               // mark this as part of a good path
+               map[startX][startY] = GOOD_PATH;
+               this.numBlocks++;
+            }
+         
+         
+         
+         
+         }
+         else //In this case we are on the right column, just need to move up and down.
+         {
+         
+         
+         
             System.out.println("Moving left");
             System.out.println(startX+""+startY);
             map[startX][startY] = TRIED;
             //We have to prioririze moving left in this situation
-               if ( startY-1 >=0 && (map[startX][startY-1] == OPEN || map[startX][startY-1] == DESTINATION)) {
-                  successful = getDistance(startX, startY-1);
-               }
+            if ( startY-1 >=0 && (map[startX][startY-1] == OPEN || map[startX][startY-1] == DESTINATION)) {
+               successful = getDistance(startX, startY-1);
+            }
             if(!successful)
             {
                //Move down
-               if ( startX + 1 < this.numRows-1 && (map[startX+1][startY] == OPEN || map[startX+1][startY] == DESTINATION) ) {
+               if ( startX + 1 < this.numRows && (map[startX+1][startY] == OPEN || map[startX+1][startY] == DESTINATION) ) {
                   successful = getDistance(startX+1, startY);
                }
             }
@@ -360,7 +537,7 @@ public class Map2
             }
             if (!successful){
                	//move right
-               if(startY+1<this.numCols-1 && map[startX][startY+1] == OPEN || map[startX][startY+1]==DESTINATION)
+               if(startY+1<this.numCols && (map[startX][startY+1] == OPEN || map[startX][startY+1]==DESTINATION))
                {
                   successful = getDistance(startX, startY+1);
                }
@@ -373,8 +550,8 @@ public class Map2
             }
             
          
-         
          }
+      
       } //end else
       return successful;
    } // end class

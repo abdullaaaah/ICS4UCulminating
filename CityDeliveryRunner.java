@@ -1855,7 +1855,6 @@ public class CityDeliveryRunner
                                        } // end while for valid input and good data
                                           
                                        flush = sc.nextLine();
-                                       System.out.println (itemID);
                                        if (itemID != -1)
                                        {
                                           System.out.print("Enter New Name: ");
