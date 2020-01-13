@@ -96,32 +96,36 @@ public class Cart
       return map.findDriver(restaurant.getPositionX(), restaurant.getPositionY());
    }
    
-   public double getTotalDistance(Map map, Customer customer) //distance driver has to travel from restaurant to customer
+   public double getTotalDistance2(Map map) //distance driver has to travel from restaurant to customer
    {
-      return map.getDistance(restaurant.getPositionX(), restaurant.getPositionY(), customer.getPositionX(), customer.getPositionY());
+      //return map.getDistance(restaurant.getPositionX(), restaurant.getPositionY(), customer.getPositionX(), customer.getPositionY());
+      return 5;
    }
    
-   public double getSubPrice(Map map, Customer customer)
+   public double getSubPrice(Map map)
    {
-      return getTotalDistance(map, customer)/SPEED_LIMIT;
+      return getTotalDistance2(map)/SPEED_LIMIT;
    }
    
-   public double getDeliveryPrice(Map map, Customer customer)
+   public double getDeliveryPrice(Map map)
    {
-      return (getTotalDistance(map, customer)*DELIVERY_RATE)+DELIVERY_FEE;
+      return (getTotalDistance2(map)*DELIVERY_RATE)+DELIVERY_FEE;
    }
    
-   public double getTaxes(Map map, Customer customer)
+   public double getTaxes(Map map)
    {
-      return (getSubPrice(map, customer)+getDeliveryPrice(map, customer)) * 0.13;
+      return (getSubPrice(map)+getDeliveryPrice(map)) * 0.13;
    }
    
-   public double getTotalPrice(Map map, Customer customer)
+   public double getTotalPrice(Map map)
    {
+      double price;
       if(coupon==null)
-      return getSubPrice(map, customer)+getTaxes(map, customer)+getDeliveryPrice(map, customer);
+      price = getSubPrice(map)+getTaxes(map)+getDeliveryPrice(map);
       else
-      return (getSubPrice(map, customer)+getTaxes(map, customer)+getDeliveryPrice(map, customer) ) * coupon.getDiscountRate();
+      price = ((getSubPrice(map)+getTaxes(map)+getDeliveryPrice(map)) * coupon.getDiscountRate());
+      
+      return Math.round(price*100.0)/100.0;
 
       
    }

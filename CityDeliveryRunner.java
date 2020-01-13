@@ -13,10 +13,11 @@ public class CityDeliveryRunner
    {
       CityDeliveryDatabase cdd = new CityDeliveryDatabase();
       Scanner sc = new Scanner(System.in);
-      int choice = 0, resID = 0, locationY = 0, quantity = 0;
+      int choice = 0, resID = 0, locationY = 0, quantity = 0, order = 0;
+      double tip = 0;
       String currentName, currentUsername, currentPassword, newName, newUsername, newPassword, flush;
       String username = "", password = "", locationX = "";
-      boolean login = false, exit = false, register = false, nameMatches, goodData = false, continueOrder = false, continueSelectRes = false, continueReview = false, valid;
+      boolean login = false, exit = false, register = false, nameMatches, goodData = false, continueOrder, continueSelectRes, continueReview, continueActiveOrders, valid;
       Restaurant[] result = null;
       
       
@@ -552,24 +553,41 @@ public class CityDeliveryRunner
                                     
                                     
                                        System.out.print("\nEnter Restaurant Name (or -1 to go back): ");
-                                       String resName = sc.next();
+                                       sc.nextLine();
+                                       String resName = sc.nextLine();
                                     
+                                       while (!cdd.doesRestaurantExist(resName) && !resName.equals("-1")) {    // makes sure restaurant name entered exists
+                                                                                                               // loops through if restaurant name does not exist
+                                          System.out.println("Error, restaurant does not exist. Please try again.");
+                                          System.out.print("\nEnter Restaurant Name (or -1 to go back): ");
+                                          sc.nextLine();
+                                          resName = sc.nextLine();
+                                       } 
                                        
-                                       if (resName.equals("-1")) {
+                                       if (resName.equals("-1"))                                               // goes back to Map screen if input is -1
+                                       {
                                           continueLocation = false;
                                        }
-                                       else 
+                                       else                                                                    // if input is not -1 and restaurant name exists, 
+                                                                                                               // array of restaurant input is created
                                        {
                                           result = cdd.findRestaurantByName(resName);
                                        }     
                                        
                                        
                                        break;
-                                    case 2:               // find restaurant by item
+                                    case 2:               // find restaurant by item  // DOES NOT WORK RIGHT NOW
                                        System.out.print("Enter the name of the Item (or -1 to go back): ");
                                        sc.nextLine();
                                        String itemName = sc.nextLine();
                                     
+                                       while (!cdd.doesRestaurantExist(itemName) && !itemName.equals("-1")) { // >>> need to change it to a way to check if ITEM exists<<<<
+                                          System.out.println("Error, item does not exist. Please try again.");
+                                          System.out.print("\nEnter the name of the Item (or -1 to go back): ");
+                                          sc.nextLine();
+                                          itemName = sc.nextLine();
+                                       } 
+                                       
                                        if (itemName.equals("-1")) {
                                           continueLocation = false;
                                        }
@@ -577,6 +595,7 @@ public class CityDeliveryRunner
                                        {
                                           result = cdd.findRestaurantByItem(itemName);
                                        }                                
+                                       
                                        break;
                                     case 3:               // find restaurant by filtering
                                        System.out.println("\n\tFilters");
@@ -633,21 +652,12 @@ public class CityDeliveryRunner
                                        continueLocation = false;                                    
                                        break;
                                  }
+                              
                                  
-                                
-                                 boolean noRestaurant = false;
-                                 
-                                 try { 
+                                 try {       // might need to remove try catch later 
                                     System.out.println(cdd.listRestaurant(result, result.length)); // print all restaurants based on users choice     
                                  } catch (ArrayIndexOutOfBoundsException aex) {  // is aex ok? yes very good,
                                     System.out.println("Error, restaurant doesnt exist n testtest");
-                                    noRestaurant=true;
-                                 }
-                                 
-                              
-                                 if(!noRestaurant)
-                                 {
-                                    continueOrder = false; 
                                  }
                                  
                                  
@@ -686,7 +696,7 @@ public class CityDeliveryRunner
                                     else {
                                        Restaurant restaurant = result[choice-1]; // store user restaurant choice
                                        cdd.setCart(new Cart(restaurant, ((Customer)cdd.getUserLoggedIn()) ));                                                      
-                                       System.out.println(restaurant.listMenu()); // print menu for restaurant        //use a better variable name u faggot          
+                                       System.out.println(restaurant.listMenu()); // print menu for restaurant       
                                     
                                        System.out.print("\nEnter the number for the item you want to add, or 0 if you are finished, or -1 to cancel order and go back: ");
                                     
@@ -723,12 +733,12 @@ public class CityDeliveryRunner
                                              
                                              // PRINT ORDER HERE
                                              System.out.println("\nReceipt");
-                                             System.out.println("\nDelivery Price: " + cdd.getCart().getDeliveryPrice(cdd.getMap(), curCustomer));
-                                             System.out.println("Taxes Price: " + cdd.getCart().getTaxes(cdd.getMap(), curCustomer));
-                                             System.out.println("Sub Price: " + cdd.getCart().getSubPrice(cdd.getMap(), curCustomer));
-                                             System.out.println("Total Price: " + cdd.getCart().getTotalPrice(cdd.getMap(), curCustomer));
+                                             System.out.println("\nDelivery Price: " + cdd.getCart().getDeliveryPrice(cdd.getMap()));
+                                             System.out.println("Taxes Price: " + cdd.getCart().getTaxes(cdd.getMap()));
+                                             System.out.println("Sub Price: " + cdd.getCart().getSubPrice(cdd.getMap()));
+                                             System.out.println("Total Price: " + cdd.getCart().getTotalPrice(cdd.getMap()));
                                              
-                                             cdd.getCart().createOrder(curCustomer.getUsername(), cdd.getCart().getTotalPrice(cdd.getMap(), curCustomer), cdd.getCart().getDriver().getId());
+                                             cdd.getCart().createOrder(curCustomer.getUsername(), cdd.getCart().getTotalPrice(cdd.getMap()), cdd.getCart().getDriver().getId());
                                              
                                              
                                              System.out.println("====================================");
@@ -865,14 +875,96 @@ public class CityDeliveryRunner
                         } while (!continueLocation);
                         break;
                      case 4:                                                        // view order history
+                        System.out.println("\nYour orders: ");
+                        Order[] orderHistory = curCustomer.getAllOrders(curCustomer.getOrderHistory());
+                        for (int i = 0; i < orderHistory.length; i++) {
+                           System.out.println("- Order #" + orderHistory[i].getOrderNumber());
+                           System.out.println("- Driver ID: " + orderHistory[i].getDriverID());
+                           System.out.println("- Amount paid: " + orderHistory[i].getTipPaid());
+                           System.out.println("Enter anything to go back to main menu.");
+                           if (sc.next() != null) {}
+                           continuePanel = false;
+                        }
                         break;
                      case 5:                                                        // view active deliveries
+                        do {
+                           continueActiveOrders = true;
+                           Order[] activeOrders = curCustomer.getActiveOrders();
+                           System.out.println("\nYou have " + activeOrders.length + " active deliveries in progress.");
+                           for (int i = 0; i < activeOrders.length; i++) {
+                              System.out.println(i + ". Order #" + activeOrders[i].getOrderNumber());
+                           }
+                           System.out.println("\nSelect the order you would like to access (or -1 to go back): ");
+                        
+                           while (!goodData || !valid)    // repeat when input for choice is not an integer
+                           {
+                              try
+                              {
+                                 order = sc.nextInt();
+                                 goodData = true; 
+                              } 
+                              catch (InputMismatchException ix) 
+                              {
+                                 goodData = false;
+                                 System.out.println("Error, invalid input");
+                                 System.out.print("\nSelect the order you would like to access (or -1 to go back): ");
+                                 flush = sc.nextLine();
+                              }
+                              valid = (order >= 1 && order <= activeOrders.length) || order == -1; // valid input condition 
+                           
+                              if (goodData && !valid)
+                              {
+                                 System.out.println("Error, invalid input");
+                                 System.out.print("\nSelect the order you would like to access (or -1 to go back): ");
+                              }
+                           } // while(!goodData)
+                           Driver driver = cdd.getDrivers()[cdd.findDriverIndex(activeOrders[order].getDriverID())]; // driver for each order
+                              
+                           if (order == -1) {  // if choice is -1 go back to active orders page
+                              continueActiveOrders = false;
+                           }
+                           else if (activeOrders[order].getIsComplete()) {               // if order is complete
+                              System.out.println("\n" + driver.getName() + " has arrived with your order.");
+                              System.out.println("You can contact your driver with the phone number " + driver.getPhoneNumber());
+                              System.out.print("\nEnter tip for driver: ");
+                                 
+                              goodData = false;
+                              valid = false;
+                              while (!goodData || !valid) { // error trap
+                                 try {
+                                    tip = sc.nextDouble();
+                                    goodData = true;
+                                 } catch (InputMismatchException idx) {
+                                    System.out.println("Error, invalid input. Please try again.");
+                                    System.out.println("\nEnter tip for driver: ");
+                                    goodData = false;
+                                 }
+                                 valid = (tip == -1);
+                              } // end error trap
+                              if (choice == -1) {
+                                 continueActiveOrders = false;
+                              }
+                              else {
+                                 activeOrders[order].addTip(tip);
+                                 activeOrders[order].completeOrder();
+                              }
+                           }
+                           else {                                                      // if order is incomplete
+                              System.out.print("Total time: ");
+                                    // PRINT TOTAL TIME HERE
+                              System.out.print("Enter 0 to cancel order or anything else to go back: ");
+                              if (sc.next().equals("0")) {
+                                    // CANCEL ORDER HERE
+                              }
+                              else {
+                                 continueActiveOrders = false;
+                              }
+                           }
+                        } while (!continueActiveOrders);
                         break;
                      case 6:
                         exit = false;
                         break;
-                     default:
-                        exit = false;
                   }
                } while (!continuePanel);
             }

@@ -28,8 +28,20 @@ public class AbdullahTesting
       
       Map map = cityDelivery.getMap();
       
+      customer.addPosition(0,0);
+      Cart cart = new Cart(chatime, customer);
+      System.out.println(chatime.listMenu());
+      cart.addItem(chatime.getMenu()[0], 2);
+      System.out.println(cart.findDriver(map));
+      System.out.println(cart.getTotalPrice(map));
+      
+      
+      //Restaurant[] s = cityDelivery.sortRestaurantByDistance(0,1);
+      
+      //System.out.println(cityDelivery.listRestaurant(s, s.length));
+            
       //System.out.println(map.getDistance(3,2, 5,0));
-      System.out.println(map.findDriver(5,0));
+      //System.out.println(map.findDriver(5,0));
       
       //we need to somehow direct the driver closer to the user .. because right now it just always goes down firest.
       

@@ -1163,12 +1163,12 @@ public class CityDeliveryDatabase
       return s;
          
    }     
-   public Restaurant[] sortRestaurantByDistance()
+   public Restaurant[] sortRestaurantByDistance(int x, int y)
    {
       Restaurant[] sorted = getCopyOfRestaurants();
       
       //bubble sort
-     /* boolean finished = false;
+      boolean finished = false;
       Restaurant temp;
       
       for(int upperBound = sorted.length-1; upperBound>=1 && !finished; upperBound--)
@@ -1176,15 +1176,15 @@ public class CityDeliveryDatabase
          finished = true;
          for(int i = 0; i<=upperBound-1; i++)
          {
-            if(sorted[i] > sorted[i+1])//if the restaurant's distance to user is more than the next restaurants distance to user.
+            if(map.getDistance(x,y, sorted[i].getPositionX(), sorted[i].getPositionY()) > map.getDistance(x,y,sorted[i+1].getPositionX(), sorted[i+1].getPositionY()) )//if the restaurant's distance to user is more than the next restaurants distance to user.
             {
                finished = false;
-               temp = list[i];
-               list[i] = list[i+1];
-               list[i+1]=temp;
+               temp = sorted[i];
+               sorted[i] = sorted[i+1];
+               sorted[i+1]=temp;
             }
          }
-      }*/
+      }
       
       return sorted;
    }
