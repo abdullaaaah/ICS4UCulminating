@@ -46,6 +46,11 @@ public class Order
    {
       return numOrders;
    }
+   /////////////////////////////////////
+   public boolean getIsComplete()
+   {
+      return isCompelete;
+   }
    
    // Constructor /////////////////////////////////////////////////////////
    /*
@@ -68,7 +73,7 @@ public class Order
       RETURN VALUE:  N/A
       PURPOSE:       mark order as compeleted
    */
-   public void compeleteOrder ()
+   public void completeOrder ()
    {
       isCompelete = true;
    }
